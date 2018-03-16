@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11  -g   CMakeFiles/src.dir/main.cpp.o CMakeFiles/src.dir/src/Game.cpp.o CMakeFiles/src.dir/src/State.cpp.o  -o src -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer 
