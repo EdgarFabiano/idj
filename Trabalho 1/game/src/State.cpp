@@ -4,20 +4,22 @@
 
 #include <SDL_quit.h>
 #include <SDL_events.h>
-#include "../include/State.h"
+#include "Sprite.h"
+#include "Music.h"
+#include "State.h"
 
-State::State() {
+State::State() : bg("img/ocean.jpg") {
+    LoadAssets();
     quitRequested = false;
-    bg = new Sprite();
-
+    music.Play();
 }
 
 bool State::QuitRequested() {
-    return false;
+    return quitRequested;
 }
 
 void State::LoadAssets() {
-
+    music.Open("audio/stageState.ogg");
 }
 
 void State::Update(float dt) {
@@ -26,5 +28,5 @@ void State::Update(float dt) {
 }
 
 void State::Render() {
-    bg.Render(0,0);
+    bg.Render(0, 0);
 }

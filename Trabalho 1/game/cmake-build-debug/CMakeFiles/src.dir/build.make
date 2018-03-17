@@ -57,28 +57,28 @@ include CMakeFiles/src.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/src.dir/flags.make
 
-CMakeFiles/src.dir/main.cpp.o: CMakeFiles/src.dir/flags.make
-CMakeFiles/src.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/src.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/src.dir/main.cpp.o -c "/home/edgar/Documentos/idj/Trabalho 1/game/main.cpp"
+CMakeFiles/src.dir/src/Main.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/src/Main.cpp.o: ../src/Main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/src.dir/src/Main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/src.dir/src/Main.cpp.o -c "/home/edgar/Documentos/idj/Trabalho 1/game/src/Main.cpp"
 
-CMakeFiles/src.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/src.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/edgar/Documentos/idj/Trabalho 1/game/main.cpp" > CMakeFiles/src.dir/main.cpp.i
+CMakeFiles/src.dir/src/Main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/src.dir/src/Main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/edgar/Documentos/idj/Trabalho 1/game/src/Main.cpp" > CMakeFiles/src.dir/src/Main.cpp.i
 
-CMakeFiles/src.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/src.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/edgar/Documentos/idj/Trabalho 1/game/main.cpp" -o CMakeFiles/src.dir/main.cpp.s
+CMakeFiles/src.dir/src/Main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/src.dir/src/Main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/edgar/Documentos/idj/Trabalho 1/game/src/Main.cpp" -o CMakeFiles/src.dir/src/Main.cpp.s
 
-CMakeFiles/src.dir/main.cpp.o.requires:
+CMakeFiles/src.dir/src/Main.cpp.o.requires:
 
-.PHONY : CMakeFiles/src.dir/main.cpp.o.requires
+.PHONY : CMakeFiles/src.dir/src/Main.cpp.o.requires
 
-CMakeFiles/src.dir/main.cpp.o.provides: CMakeFiles/src.dir/main.cpp.o.requires
-	$(MAKE) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/main.cpp.o.provides.build
-.PHONY : CMakeFiles/src.dir/main.cpp.o.provides
+CMakeFiles/src.dir/src/Main.cpp.o.provides: CMakeFiles/src.dir/src/Main.cpp.o.requires
+	$(MAKE) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/src/Main.cpp.o.provides.build
+.PHONY : CMakeFiles/src.dir/src/Main.cpp.o.provides
 
-CMakeFiles/src.dir/main.cpp.o.provides.build: CMakeFiles/src.dir/main.cpp.o
+CMakeFiles/src.dir/src/Main.cpp.o.provides.build: CMakeFiles/src.dir/src/Main.cpp.o
 
 
 CMakeFiles/src.dir/src/Game.cpp.o: CMakeFiles/src.dir/flags.make
@@ -129,21 +129,73 @@ CMakeFiles/src.dir/src/State.cpp.o.provides: CMakeFiles/src.dir/src/State.cpp.o.
 CMakeFiles/src.dir/src/State.cpp.o.provides.build: CMakeFiles/src.dir/src/State.cpp.o
 
 
+CMakeFiles/src.dir/src/Sprite.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/src/Sprite.cpp.o: ../src/Sprite.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/src.dir/src/Sprite.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/src.dir/src/Sprite.cpp.o -c "/home/edgar/Documentos/idj/Trabalho 1/game/src/Sprite.cpp"
+
+CMakeFiles/src.dir/src/Sprite.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/src.dir/src/Sprite.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/edgar/Documentos/idj/Trabalho 1/game/src/Sprite.cpp" > CMakeFiles/src.dir/src/Sprite.cpp.i
+
+CMakeFiles/src.dir/src/Sprite.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/src.dir/src/Sprite.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/edgar/Documentos/idj/Trabalho 1/game/src/Sprite.cpp" -o CMakeFiles/src.dir/src/Sprite.cpp.s
+
+CMakeFiles/src.dir/src/Sprite.cpp.o.requires:
+
+.PHONY : CMakeFiles/src.dir/src/Sprite.cpp.o.requires
+
+CMakeFiles/src.dir/src/Sprite.cpp.o.provides: CMakeFiles/src.dir/src/Sprite.cpp.o.requires
+	$(MAKE) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/src/Sprite.cpp.o.provides.build
+.PHONY : CMakeFiles/src.dir/src/Sprite.cpp.o.provides
+
+CMakeFiles/src.dir/src/Sprite.cpp.o.provides.build: CMakeFiles/src.dir/src/Sprite.cpp.o
+
+
+CMakeFiles/src.dir/src/Music.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/src/Music.cpp.o: ../src/Music.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/src.dir/src/Music.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/src.dir/src/Music.cpp.o -c "/home/edgar/Documentos/idj/Trabalho 1/game/src/Music.cpp"
+
+CMakeFiles/src.dir/src/Music.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/src.dir/src/Music.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/edgar/Documentos/idj/Trabalho 1/game/src/Music.cpp" > CMakeFiles/src.dir/src/Music.cpp.i
+
+CMakeFiles/src.dir/src/Music.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/src.dir/src/Music.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/edgar/Documentos/idj/Trabalho 1/game/src/Music.cpp" -o CMakeFiles/src.dir/src/Music.cpp.s
+
+CMakeFiles/src.dir/src/Music.cpp.o.requires:
+
+.PHONY : CMakeFiles/src.dir/src/Music.cpp.o.requires
+
+CMakeFiles/src.dir/src/Music.cpp.o.provides: CMakeFiles/src.dir/src/Music.cpp.o.requires
+	$(MAKE) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/src/Music.cpp.o.provides.build
+.PHONY : CMakeFiles/src.dir/src/Music.cpp.o.provides
+
+CMakeFiles/src.dir/src/Music.cpp.o.provides.build: CMakeFiles/src.dir/src/Music.cpp.o
+
+
 # Object files for target src
 src_OBJECTS = \
-"CMakeFiles/src.dir/main.cpp.o" \
+"CMakeFiles/src.dir/src/Main.cpp.o" \
 "CMakeFiles/src.dir/src/Game.cpp.o" \
-"CMakeFiles/src.dir/src/State.cpp.o"
+"CMakeFiles/src.dir/src/State.cpp.o" \
+"CMakeFiles/src.dir/src/Sprite.cpp.o" \
+"CMakeFiles/src.dir/src/Music.cpp.o"
 
 # External object files for target src
 src_EXTERNAL_OBJECTS =
 
-src: CMakeFiles/src.dir/main.cpp.o
+src: CMakeFiles/src.dir/src/Main.cpp.o
 src: CMakeFiles/src.dir/src/Game.cpp.o
 src: CMakeFiles/src.dir/src/State.cpp.o
+src: CMakeFiles/src.dir/src/Sprite.cpp.o
+src: CMakeFiles/src.dir/src/Music.cpp.o
 src: CMakeFiles/src.dir/build.make
 src: CMakeFiles/src.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable src"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable src"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/src.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -151,9 +203,11 @@ CMakeFiles/src.dir/build: src
 
 .PHONY : CMakeFiles/src.dir/build
 
-CMakeFiles/src.dir/requires: CMakeFiles/src.dir/main.cpp.o.requires
+CMakeFiles/src.dir/requires: CMakeFiles/src.dir/src/Main.cpp.o.requires
 CMakeFiles/src.dir/requires: CMakeFiles/src.dir/src/Game.cpp.o.requires
 CMakeFiles/src.dir/requires: CMakeFiles/src.dir/src/State.cpp.o.requires
+CMakeFiles/src.dir/requires: CMakeFiles/src.dir/src/Sprite.cpp.o.requires
+CMakeFiles/src.dir/requires: CMakeFiles/src.dir/src/Music.cpp.o.requires
 
 .PHONY : CMakeFiles/src.dir/requires
 

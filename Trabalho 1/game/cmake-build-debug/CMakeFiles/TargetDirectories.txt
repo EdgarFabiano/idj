@@ -1,3 +1,3 @@
-/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 /home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/CMakeFiles/src.dir
+/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/CMakeFiles/140019201_EdgarFabiano.dir

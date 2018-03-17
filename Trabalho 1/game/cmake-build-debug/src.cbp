@@ -17,16 +17,6 @@
 					<DistClean command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="rebuild_cache">
-				<Option working_dir="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
 			<Target title="edit_cache">
 				<Option working_dir="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug"/>
 				<Option type="4"/>
@@ -37,37 +27,25 @@
 					<DistClean command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="src">
-				<Option output="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/src" prefix_auto="0" extension_auto="0"/>
+			<Target title="rebuild_cache">
 				<Option working_dir="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/include/SDL2"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
+				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 src"/>
+					<Build command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
 					<CompileFile command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="src/fast">
-				<Option output="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/src" prefix_auto="0" extension_auto="0"/>
+			<Target title="140019201_EdgarFabiano">
+				<Option output="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/140019201_EdgarFabiano" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/edgar/Documentos/idj/Trabalho 1/game/dep"/>
+					<Add directory="/home/edgar/Documentos/idj/Trabalho 1/game/include"/>
 					<Add directory="/usr/include/SDL2"/>
 					<Add directory="/usr/include/c++/7"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
@@ -79,27 +57,53 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 src/fast"/>
+					<Build command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 140019201_EdgarFabiano"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="140019201_EdgarFabiano/fast">
+				<Option output="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug/140019201_EdgarFabiano" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/edgar/Documentos/idj/Trabalho 1/game/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/edgar/Documentos/idj/Trabalho 1/game/dep"/>
+					<Add directory="/home/edgar/Documentos/idj/Trabalho 1/game/include"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 140019201_EdgarFabiano/fast"/>
 					<CompileFile command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -f &quot;/home/edgar/Documentos/idj/Trabalho\ 1/game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/edgar/Documentos/idj/Trabalho 1/game/include/Game.h">
-			<Option target="src"/>
-		</Unit>
-		<Unit filename="/home/edgar/Documentos/idj/Trabalho 1/game/include/State.h">
-			<Option target="src"/>
-		</Unit>
-		<Unit filename="/home/edgar/Documentos/idj/Trabalho 1/game/main.cpp">
-			<Option target="src"/>
-		</Unit>
 		<Unit filename="/home/edgar/Documentos/idj/Trabalho 1/game/src/Game.cpp">
-			<Option target="src"/>
+			<Option target="140019201_EdgarFabiano"/>
+		</Unit>
+		<Unit filename="/home/edgar/Documentos/idj/Trabalho 1/game/src/Main.cpp">
+			<Option target="140019201_EdgarFabiano"/>
+		</Unit>
+		<Unit filename="/home/edgar/Documentos/idj/Trabalho 1/game/src/Music.cpp">
+			<Option target="140019201_EdgarFabiano"/>
+		</Unit>
+		<Unit filename="/home/edgar/Documentos/idj/Trabalho 1/game/src/Sprite.cpp">
+			<Option target="140019201_EdgarFabiano"/>
 		</Unit>
 		<Unit filename="/home/edgar/Documentos/idj/Trabalho 1/game/src/State.cpp">
-			<Option target="src"/>
+			<Option target="140019201_EdgarFabiano"/>
 		</Unit>
 		<Unit filename="/home/edgar/Documentos/idj/Trabalho 1/game/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

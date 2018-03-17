@@ -2,9 +2,11 @@
 // Created by edgar on 16/03/18.
 //
 
-#ifndef SRC_STATE_H
-#define SRC_STATE_H
+#ifndef STATE_CLASS
+#define STATE_CLASS
 
+#include "Sprite.h"
+#include "Music.h"
 
 class State {
 public:
