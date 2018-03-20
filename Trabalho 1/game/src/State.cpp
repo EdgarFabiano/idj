@@ -8,7 +8,7 @@
 #include "Music.h"
 #include "State.h"
 
-State::State() : bg("img/ocean.jpg") {
+State::State() : bg("../img/ocean.jpg") {
     LoadAssets();
     quitRequested = false;
     music.Play();
@@ -19,7 +19,7 @@ bool State::QuitRequested() {
 }
 
 void State::LoadAssets() {
-    music.Open("audio/stageState.ogg");
+    music.Open("../audio/stageState.ogg");
 }
 
 void State::Update(float dt) {

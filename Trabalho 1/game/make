@@ -1,0 +1,11 @@
+# O compilador
+COMPILER = g++
+# Comando para remover pastas
+RMDIR = rm -rdf
+# Comando para remover arquivos
+RM = rm -f
+
+# "Flags" para geração automática de dependências
+DEP_FLAGS = -M -MT $@ -MT $(BIN_PATH)/$(*F).o -MP -MF $@
+# Bibliotecas a serem linkadas
+LIBS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm
