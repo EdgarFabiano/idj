@@ -1,58 +1,89 @@
-CC = g++
-RMDIR = rm -rf
+# Assume-se uma distribuição Linux como SO padrão
+
+# O compilador
+COMPILER = g++
+# Comando para remover pastas
+RMDIR = rm -rdf
+# Comando para remover arquivos
 RM = rm -f
 
-DEP_FLAGS = -MT $@ -MMD -MP -MF $(DEP_PATH)/$*.d
-DIRECTIVES = -std=c++11 -Wall -Wextra -c -I $(HEADER_PATH)
+# "Flags" para geração automática de dependências
+DEP_FLAGS = -M -MT $@ -MT $(BIN_PATH)/$(*F).o -MP -MF $@
+# Bibliotecas a serem linkadas
 LIBS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm
+# Caminho dos includes
+INC_PATH = -I$(INC_PATH) $(addprefix -I,$(SDL_INC_PATH))
 
-HEADER_PATH = include
+# Diretivas de compilação
+FLAGS = -std=c++11 -Wall -pedantic -Wextra -Wno-unused-parameter -Werror=init-self
+# Diretivas extras para debug
+DFLAGS = -ggdb -O0 -DDEBUG
+# Diretivas extras para release
+RFLAGS = -03 -mtune=native
+
+INC_PATH = include
 SRC_PATH = src
 BIN_PATH = bin
 DEP_PATH = dep
 
+# Uma lista de arquivos por extensão:
 CPP_FILES = $(wildcard $(SRC_PATH)/*.cpp)
-OBJ_FILES = $(addprefix $(BIN_PATH)/, $(notdir $(CPP_FILES:.cpp=.o)))
-DEP_FILES = $(wildcard $(DEP_PATH)/*.d)
+INC_FILES = $(wildcard $(INC_PATH)/*.h)
+FILE_NAMES = $(sort $(notdir $CPP_FILES:.cpp=)) $(notdir $(INC_FILES:.h=))
+DEP_FILES = $(addprefix $(DEP_PATH)/,$(addsuffix .d,$(FILE_NAMES)))
+OBJ_FILES = $(addprefix $(BIN_PATH)/,$(notdir $(CPP_FILES:.cpp=.o)))
 
+# Nome do executável
 EXEC = JOGO
 
 # Windows ----------------------------------------------------------------
-ifeq ($(OS), Windows_NT)
+ifeq ($(OS),Windows_NT)
 RMDIR = rd /s /q
-RM = del
+RM = del /q
 
-SDL_PATH = C:\SDL2-2.0.5\x86_64-w64-mingw32
-DIRECTIVES += -I $(SDL_PATH)\include
-LIBS = -L $(SDL_PATH)\lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image\
- -lSDL2_mixer -lSDL2_ttf -lm
+SDL_PATH = C:/SDL2/x86_64-w64-mingw32 C:/Tools/mysys64/mingw64 C:\SDL2-2.0.5\x86_64-w64-mingw32
 
+SDL_INC_PATH = $(addsuffix /include,$(SDL_PATHS))
+LINK_PATH = $(addprefix -L,$(addsuffix /lib,$(SDL_PATHS)))
+FLAGS += -mwindows
+DFLAGS += -mconsole
+LIBS := -lmingw32 -lSDL2main $(LIBS)
+
+# Nome do executável
 EXEC = $(EXEC).exe
-# -------------------------------------------------------------------------
+
 else
+
 	UNAME_S := $(shell uname -s)
+
+# Mac ----------------------------------------------------------------
 ifeq ($(UNAME_S), Darwin)
-LIBS = -lm -framework SDL2 -framework SDL2_image -framework SDL2_mixer\
-					-framework SDL2_ttf
+
+LIBS = -lm -framework SDL2 -framework SDL2_image -framework SDL2_mixer -framework SDL2_ttf
+
 endif
 endif
 
+# Regra geral
 all: $(EXEC)
 
+# Gera o executável
 $(EXEC): $(OBJ_FILES)
-	$(CC) -o $@ $^ $(LIBS)
+	$(COMPILER) -o $@ S^ S(LINK_PATH) $(LIBS) $(FLAGS)
 
-$(BIN_PATH)/%.o: $(SRC_PATH)/%.cpp
-ifeq ($(OS), Windows_NT)
-	@if not exist $(DEP_PATH) @mkdir $(DEP_PATH)
-	@if not exist $(BIN_PATH) @mkdir $(BIN_PATH)
-else
-	@mkdir -p $(DEP_PATH) $(BIN_PATH)
-endif
-	$(CC) $(DEP_FLAGS) -c -o $@ $< $(DIRECTIVES)
+#Gera os arquivos objetos
+$(BIN_PATH)/%.o: $(DEP_PATH)/%.d | folders
+	$(COMPILER) $(INC_PATHS) $(addprefix $(SRC_PATH)/,$(notdir $(<:.d=.cpp))) -c $(FLAGS) -o $@
 
--include $(DEP_FILES)
+# Gera os arquivos de dependência
+$(DEP_PATH)/%.d: $(SRC_PATH)/%.cpp | folders
+	$(COMPILER) $(INC_PATHS) $< $(DEP_FLAGS) $(FLAGS)
+
+.SECONDEXPANSION:
+	-include $$(DEP_FILES)
 
 clean:
-	$(RMDIR) $(BIN_PATH) $(DEP_PATH)
-#$(RM) $(EXEC)
+	-$(RMDIR) $(DEP_PATH)
+	-$(RMDIR) $(BIN_PATH)
+	$(RM) $(EXEC)
+
