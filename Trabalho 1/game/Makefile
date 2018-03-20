@@ -79,11 +79,46 @@ $(BIN_PATH)/%.o: $(DEP_PATH)/%.d | folders
 $(DEP_PATH)/%.d: $(SRC_PATH)/%.cpp | folders
 	$(COMPILER) $(INC_PATHS) $< $(DEP_FLAGS) $(FLAGS)
 
-.SECONDEXPANSION:
-	-include $$(DEP_FILES)
-
 clean:
 	-$(RMDIR) $(DEP_PATH)
 	-$(RMDIR) $(BIN_PATH)
 	$(RM) $(EXEC)
 
+.SECONDEXPANSION:
+	-include $$(DEP_FILES)
+
+.PRECIOUS: $(DEP_FILES)
+.PHONY: release debug clean folders help
+
+release: FLAGS += $(RFLAGS)
+release: $(EXEC)
+
+debug: FLAGS += $(DFLAGS)
+debug: $(EXEC)
+
+folders:
+ifeq ($(OS), Windows_NT)
+	@if NOT exists$(DEP_PATH) ( mkdir $(DEP_PATH) )
+	@if NOT exists$(BIN_PATH) ( mkdir $(BIN_PATH) )
+	@if NOT exists$(INC_PATH) ( mkdir $(INC_PATH) )
+	@if NOT exists$(SRC_PATH) ( mkdir $(SRC_PATH) )
+else
+	@mkdir -p $(DEP_PATH) $(BIN_PATH) $(INC_PATH) $(SRC_PATH)
+endif
+
+# Regra para debug
+print-% : @echo $* = $($*) 
+
+help:
+ifeq ($(OS), Windows_NT)
+	@echo.
+endif
+	@echo Available targets:
+	@echo - release: Builds the release version
+	@echo - debug: Builds the debug version
+	@echo - clean: Cleans generated FILE_NAMES
+	@echo - folders: Generate project directories
+	@echo - help: Shows this help
+ifeq ($(OS), Windows_NT)
+	@echo.
+endif
