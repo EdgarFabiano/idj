@@ -19,7 +19,7 @@ FLAGS = -std=c++11 -Wall -pedantic -Wextra -Wno-unused-parameter -Werror=init-se
 # Diretivas extras para debug
 DFLAGS = -ggdb -O0 -DDEBUG
 # Diretivas extras para release
-RFLAGS = -03 -mtune=native
+RFLAGS = -O3 -mtune=native
 
 INC_PATH = include
 SRC_PATH = src
@@ -87,7 +87,7 @@ clean:
 .SECONDEXPANSION:
 	-include $$(DEP_FILES)
 
-.PRECIOUS: $(DEP_FILES)
+#.PRECIOUS: $(DEP_FILES)
 .PHONY: release debug clean folders help
 
 release: FLAGS += $(RFLAGS)
