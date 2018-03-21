@@ -3,9 +3,11 @@
 //
 
 #include <iostream>
-#include <SDL_ttf.h>
-#include <SDL_image.h>
-#include <SDL_mixer.h>
+
+#define INCLUDE_SDL_TTF
+#define INCLUDE_SDL_IMAGE
+#define INCLUDE_SDL_MIXER
+#include "SDL_include.h"
 #include <Game.h>
 
 using namespace std;
