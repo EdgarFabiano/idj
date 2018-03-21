@@ -12,4 +12,4 @@ include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
 include_directories(BEFORE include)
 include_directories(BEFORE dep)
 
-add_executable(140019201_EdgarFabiano src/Main.cpp src/Game.cpp src/State.cpp src/Sprite.cpp src/Music.cpp )
+add_executable(JOGO src/Main.cpp src/Game.cpp src/State.cpp src/Sprite.cpp src/Music.cpp )
