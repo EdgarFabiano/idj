@@ -12,7 +12,7 @@ DEP_FLAGS = -M -MT $@ -MT $(BIN_PATH)/$(*F).o -MP -MF $@
 # Bibliotecas a serem linkadas
 LIBS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm
 # Caminho dos includes
-INC_PATH = -I$(INC_PATH) $(addprefix -I,$(SDL_INC_PATH))
+INC_PATHS = -I$(INC_PATH) $(addprefix -I,$(SDL_INC_PATH))
 
 # Diretivas de compilação
 FLAGS = -std=c++11 -Wall -pedantic -Wextra -Wno-unused-parameter -Werror=init-self
@@ -41,7 +41,7 @@ ifeq ($(OS),Windows_NT)
 RMDIR = rd /s /q
 RM = del /q
 
-SDL_PATH = C:/SDL2/x86_64-w64-mingw32 C:/Tools/mysys64/mingw64 C:\SDL2-2.0.5\x86_64-w64-mingw32
+SDL_PATHS = C:/SDL2/x86_64-w64-mingw32 C:/Tools/mysys64/mingw64 C:\SDL2-2.0.5\x86_64-w64-mingw32
 
 SDL_INC_PATH = $(addsuffix /include,$(SDL_PATHS))
 LINK_PATH = $(addprefix -L,$(addsuffix /lib,$(SDL_PATHS)))
@@ -87,7 +87,7 @@ clean:
 .SECONDEXPANSION:
 	-include $$(DEP_FILES)
 
-#.PRECIOUS: $(DEP_FILES)
+.PRECIOUS: $(DEP_FILES)
 .PHONY: release debug clean folders help
 
 release: FLAGS += $(RFLAGS)

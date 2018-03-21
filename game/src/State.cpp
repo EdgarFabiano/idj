@@ -2,11 +2,11 @@
 // Created by edgar on 16/03/18.
 //
 
-#include "../include/Sprite.h"
-#include "../include/Music.h"
-#include "../include/State.h"
+#include "Sprite.h"
+#include "Music.h"
+#include "State.h"
 
-State::State() : bg("img/ocean.jpg") {
+State::State() : bg("assets/img/ocean.jpg") {
     LoadAssets();
     quitRequested = false;
     music.Play();
@@ -17,7 +17,7 @@ bool State::QuitRequested() {
 }
 
 void State::LoadAssets() {
-    music.Open("audio/stageState.ogg");
+    music.Open("assets/audio/stageState.ogg");
 }
 
 void State::Update(float dt) {

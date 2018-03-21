@@ -5,9 +5,9 @@
 #include <iostream>
 
 #define INCLUDE_SDL_MIXER
-#include "../include/SDL_include.h"
+#include "SDL_include.h"
 
-#include "../include/Music.h"
+#include "Music.h"
 
 Music::Music() {
     music = nullptr;

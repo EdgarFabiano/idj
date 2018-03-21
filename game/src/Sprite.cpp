@@ -4,7 +4,7 @@
 
 #define INCLUDE_SDL_IMAGE
 
-#include "../include/Game.h"
+#include "Game.h"
 
 Sprite::Sprite() {
     texture = nullptr;
