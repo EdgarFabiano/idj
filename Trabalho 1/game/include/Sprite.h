@@ -5,9 +5,9 @@
 #ifndef SPRITE_CLASS
 #define SPRITE_CLASS
 
-
 #include <iostream>
-#include <SDL_image.h>
+
+#define INCLUDE_SDL_IMAGE
 #include "SDL_include.h"
 
 using namespace std;

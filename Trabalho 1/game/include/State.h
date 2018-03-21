@@ -11,6 +11,7 @@
 class State {
 public:
     State ();
+    ~State();
     bool QuitRequested ();
     void LoadAssets ();
     void Update (float dt);

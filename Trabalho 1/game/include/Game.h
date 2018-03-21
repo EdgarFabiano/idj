@@ -6,6 +6,8 @@
 #define GAME_CLASS
 
 #include <iostream>
+
+#define INCLUDE_SDL
 #include "SDL_include.h"
 #include "State.h"
 

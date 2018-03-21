@@ -2,8 +2,6 @@
 // Created by edgar on 16/03/18.
 //
 
-#include <SDL_quit.h>
-#include <SDL_events.h>
 #include "Sprite.h"
 #include "Music.h"
 #include "State.h"
@@ -29,4 +27,8 @@ void State::Update(float dt) {
 
 void State::Render() {
     bg.Render(0, 0);
+}
+
+State::~State() {
+	
 }

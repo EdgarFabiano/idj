@@ -2,8 +2,9 @@
 // Created by edgar on 16/03/18.
 //
 
-#include <SDL_image.h>
-#include <Game.h>
+#define INCLUDE_SDL_IMAGE
+
+#include "Game.h"
 
 Sprite::Sprite() {
     texture = nullptr;
