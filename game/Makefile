@@ -29,7 +29,7 @@ DEP_PATH = dep
 # Uma lista de arquivos por extensão:
 CPP_FILES = $(wildcard $(SRC_PATH)/*.cpp)
 INC_FILES = $(wildcard $(INC_PATH)/*.h)
-FILE_NAMES = $(sort $(notdir $CPP_FILES:.cpp=)) $(notdir $(INC_FILES:.h=)))
+FILE_NAMES = $(sort $(notdir $(CPP_FILES:.cpp=)) $(notdir $(INC_FILES:.h=)))
 DEP_FILES = $(addprefix $(DEP_PATH)/,$(addsuffix .d,$(FILE_NAMES)))
 OBJ_FILES = $(addprefix $(BIN_PATH)/,$(notdir $(CPP_FILES:.cpp=.o)))
 
@@ -69,7 +69,7 @@ all: $(EXEC)
 
 # Gera o executável
 $(EXEC): $(OBJ_FILES)
-	$(COMPILER) -o $@ S^ S(LINK_PATH) $(LIBS) $(FLAGS)
+	$(COMPILER) -o $@ $^ $(LINK_PATH) $(LIBS) $(FLAGS)
 
 #Gera os arquivos objetos
 $(BIN_PATH)/%.o: $(DEP_PATH)/%.d | folders
