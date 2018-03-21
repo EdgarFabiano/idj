@@ -21,7 +21,7 @@
 		#include "TargetConditionals.h"
 		#include <SDL2/SDL.h>
 	#elif __linux__
-		#include <SDL2/SDL.h>
+		#include </usr/include/SDL2/SDL.h>
 	#else
 		#error "Unknown compiler"
 	#endif
@@ -39,7 +39,7 @@
 		#include "TargetConditionals.h"
 		#include <SDL2/SDL_image.h>
 	#elif __linux__
-		#include <SDL2/SDL_image.h>
+		#include </usr/include/SDL2/SDL_image.h>
 	#else
 		#error "Unknown compiler"
 	#endif
@@ -57,7 +57,7 @@
 		#include "TargetConditionals.h"
 		#include <SDL2/SDL_mixer.h>
 	#elif __linux__
-		#include <SDL2/SDL_mixer.h>
+		#include </usr/include/SDL2/SDL_mixer.h>
 	#else
 		#error "Unknown compiler"
 	#endif
@@ -75,7 +75,7 @@
 		#include "TargetConditionals.h"
 		#include <SDL2/SDL_ttf.h>
 	#elif __linux__
-		#include <SDL2/SDL_ttf.h>
+		#include </usr/include/SDL2/SDL_ttf.h>
 	#else
 		#error "Unknown compiler"
 	#endif
@@ -93,7 +93,7 @@
 		#include "TargetConditionals.h"
 		#include <SDL2/SDL_net.h>
 	#elif __linux__
-		#include <SDL2/SDL_net.h>
+		#include </usr/include/SDL2/SDL_net.h>
 	#else
 		#error "Unknown compiler"
 	#endif

@@ -87,7 +87,7 @@ clean:
 .SECONDEXPANSION:
 	-include $$(DEP_FILES)
 
-.PRECIOUS: $(DEP_FILES)
+#.PRECIOUS: $(DEP_FILES)
 .PHONY: release debug clean folders help
 
 release: FLAGS += $(RFLAGS)

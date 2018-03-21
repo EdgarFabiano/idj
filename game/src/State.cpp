@@ -2,9 +2,9 @@
 // Created by edgar on 16/03/18.
 //
 
-#include "Sprite.h"
-#include "Music.h"
-#include "State.h"
+#include "../include/Sprite.h"
+#include "../include/Music.h"
+#include "../include/State.h"
 
 State::State() : bg("../img/ocean.jpg") {
     LoadAssets();

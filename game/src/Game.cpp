@@ -6,9 +6,10 @@
 
 #define INCLUDE_SDL_IMAGE
 #define INCLUDE_SDL_MIXER
-#include "SDL_include.h"
+#define INCLUDE_SDL_TTF
+#include "../include/SDL_include.h"
 
-#include "Game.h"
+#include "../include/Game.h"
 
 using namespace std;
 
