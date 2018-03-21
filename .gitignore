@@ -1,5 +1,5 @@
 cmake-build-debug
 .idea
-log.txt
+CMakeLists.txt
 bin/
 dep/
