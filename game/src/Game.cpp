@@ -94,10 +94,9 @@ Game::~Game() {
 }
 
 void Game::Run(){
-    State state = GetState();
     while(!GetState().QuitRequested()) {
-        state.Update(0);
-        state.Render();
+        GetState().Update(0);
+        GetState().Render();
         SDL_RenderPresent(renderer);
         SDL_Delay(33);
     }
