@@ -22,6 +22,7 @@ public :
     Game(string title, int width, int height);
     Game(Game&&) = default;
     ~Game();
+
     void Run();
     SDL_Renderer* GetRenderer ();
     State& GetState ();

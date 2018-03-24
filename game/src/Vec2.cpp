@@ -43,7 +43,7 @@ float Vec2::Incl(Vec2 v) {
     return ret.InclX();
 }
 
-Vec2 Vec2::Rotate(float ang) {
+Vec2 Vec2::GetRotated(float ang) {
     return Vec2((x * cos(ang)) - (y * sin(ang)), (y * cos(ang)) + (x * sin(ang)));
 }
 

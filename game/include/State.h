@@ -18,9 +18,11 @@ public:
     void Render ();
 
 private:
-    Sprite bg;
+    void Input();
+    void AddObject(int mouseX, int mouseY);
     Music music;
     bool quitRequested;
+    vector<unique_ptr<GameObject>> objectArray;
 
 };
 

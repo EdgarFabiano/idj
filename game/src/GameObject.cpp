@@ -2,22 +2,16 @@
 // Created by edgar on 23/03/18.
 //
 
+#include <algorithm>
 #include "GameObject.h"
 #include "Component.h"
 
 GameObject::GameObject() : isDead(false) {}
 
 GameObject::~GameObject() {
-//    for(auto i = components.size() - 1; i >= 0; --i){
-//        delete components[i];
-//    }
-
-    for (auto it = components.begin(); it != components.end(); ++it){
-        delete (*it);
+    for(auto it = components.rbegin(); it != components.rend(); ++it) {
+        (*it).reset();
     }
-
-    components.clear();
-    components.shrink_to_fit;
 }
 
 void GameObject::Update(float dt) {
@@ -45,27 +39,13 @@ void GameObject::AddComponent(Component *cpt) {
 }
 
 void GameObject::RemoveComponent(Component *cpt) {
-//    if(!components.empty()){
-//        for(auto i = 0; i < components.size(); ++i){
-//            if(components[i] == cpt){
-//                components.erase(components.begin() + i);
-//                break;
-//            }
-//        }
-//    }
-
-    for(auto it = components.begin(); it != components.end(); ++it){
-        if((*it) == cpt){
-            components.erase(it);
-            break;
-        }
-    }
+    components.erase(std::remove(components.begin(), components.end(), *new unique_ptr<Component>(cpt)));
 }
 
 Component *GameObject::GetComponent(string type) {
     for(auto it = components.begin(); it != components.end(); ++it) {
         if ((*it)->Is(type)) {
-            return (*it);
+            return (*it).get();
         }
     }
     return nullptr;

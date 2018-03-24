@@ -12,4 +12,15 @@ include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
 include_directories(BEFORE include)
 include_directories(BEFORE dep)
 
-add_executable(JOGO src/Main.cpp src/Game.cpp src/State.cpp src/Sprite.cpp include/Sprite.h src/Music.cpp src/Rect.cpp include/Rect.h src/Vec2.cpp include/Vec2.h src/Component.cpp include/Component.h src/GameObject.cpp include/GameObject.h)
+add_executable(JOGO src/Main.cpp
+        include/SDL_include.h
+        src/Game.cpp include/Game.h
+        src/State.cpp include/State.h
+        src/Sprite.cpp include/Sprite.h
+        src/Music.cpp include/Music.h
+        src/Rect.cpp include/Rect.h
+        src/Vec2.cpp include/Vec2.h
+        src/Component.cpp include/Component.h
+        src/GameObject.cpp include/GameObject.h
+        src/Sound.cpp include/Sound.h
+        src/Face.cpp include/Face.h)
