@@ -15,6 +15,8 @@
 #define SCREEN_SIZE_W 1024
 #define SCREEN_SIZE_H 600
 
+#define ASSETS_PATH "assets/"
+
 
 class Game {
 

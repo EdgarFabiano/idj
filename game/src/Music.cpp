@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <Game.h>
 
 #define INCLUDE_SDL_MIXER
 #include "SDL_include.h"
@@ -36,7 +37,7 @@ void Music::Stop(int msToStop) {
 }
 
 void Music::Open(string file) {
-    music = Mix_LoadMUS(file.c_str());
+    music = Mix_LoadMUS((ASSETS_PATH + file).c_str());
     if(music == nullptr){
         cout << "Unable to load music: " << SDL_GetError() << endl;
         exit(1);

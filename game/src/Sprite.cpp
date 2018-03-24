@@ -24,7 +24,7 @@ void Sprite::Open(string file) {
     if(IsOpen())
         SDL_DestroyTexture(texture);
 
-    texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
+    texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), (ASSETS_PATH + file).c_str());
     if(texture == nullptr){
         cout << "Unable to load texture: " << SDL_GetError() << endl;
         exit(1);

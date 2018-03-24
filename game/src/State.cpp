@@ -10,7 +10,7 @@
 
 State::State()  {
     GameObject *go = new GameObject();
-    go->AddComponent(new Sprite(*go, "assets/img/ocean.jpg"));
+    go->AddComponent(new Sprite(*go, "img/ocean.jpg"));
     objectArray.emplace_back(go);
 
     LoadAssets();
@@ -27,7 +27,7 @@ bool State::QuitRequested() {
 }
 
 void State::LoadAssets() {
-    music.Open("assets/audio/stageState.ogg");
+    music.Open("audio/stageState.ogg");
 }
 
 void State::Update(float dt) {
@@ -104,14 +104,14 @@ void State::Input() {
 
 void State::AddObject(int mouseX, int mouseY) {
     GameObject *go = new GameObject();
-    Sprite *sprite = new Sprite(*go, "assets/img/penguinface.png");
+    Sprite *sprite = new Sprite(*go, "img/penguinface.png");
 
     go->box.x = mouseX - go->box.w/2;
     go->box.y = mouseY - go->box.h/2;
 
     go->AddComponent(sprite);
 
-    go->AddComponent(new Sound(*go, "assets/audio/boom.wav"));
+    go->AddComponent(new Sound(*go, "audio/boom.wav"));
     go->AddComponent(new Face(*go));
 
     objectArray.emplace_back(go);

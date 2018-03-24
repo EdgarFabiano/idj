@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include "GameObject.h"
-#include "Component.h"
 
 GameObject::GameObject() : isDead(false) {}
 
