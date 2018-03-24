@@ -21,7 +21,7 @@ Vec2 Vec2::Mul(float escalar) {
 }
 
 float Vec2::Mag() {
-    return sqrtf(((x * x) + (y * y)));
+    return sqrtf((x * x) + (y * y));
 }
 
 Vec2 Vec2::Norm() {
@@ -61,9 +61,13 @@ Vec2& Vec2::operator-(const Vec2 &v) {
     return *this;
 }
 
-Vec2 &Vec2::operator=(const Vec2 &v) {
+Vec2& Vec2::operator=(const Vec2 &v) {
     x = v.x;
     y = v.y;
 
     return *this;
+}
+
+bool Vec2::operator==(const Vec2 &v) {
+    return x == v.x && y == v.y;
 }
