@@ -78,7 +78,7 @@ void State::Input() {
                 // chamar funções de GameObjects, use objectArray[i]->função() direto.
 
                 if(go->box.Contains( {(float)mouseX, (float)mouseY} ) ) {
-                    Face* face = (Face*)go->GetComponent( "Face" );
+                    Face* face = (Face*)go->GetComponent(FACE_TYPE);
                     if ( nullptr != face ) {
                         // Aplica dano
                         face->Damage(std::rand() % 10 + 10);

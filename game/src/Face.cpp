@@ -3,18 +3,24 @@
 //
 
 #include <Sound.h>
+#include <Sprite.h>
 #include "Face.h"
 
 Face::Face(GameObject &associated) : Component(associated), hitpoints(30) {}
 
 void Face::Damage(int damage) {
     hitpoints -= damage;
-    if(hitpoints <= 0){
-        auto sound = (Sound *) associated.GetComponent(SOUND_TYPE);
-        if (sound != nullptr) {
-            sound->Play();
+    if (hitpoints <= 0) {
+        Sprite* sprite = (Sprite*) associated.GetComponent(SPRITE_TYPE);
+        if (sprite != nullptr) {
+            Sound* sound = (Sound *) associated.GetComponent(SOUND_TYPE);
+            if (sound != nullptr) {
+                sound->Play();
+                associated.RemoveComponent(sprite);
+            } else {
+                associated.RequestDelete();
+            }
         }
-        associated.RequestDelete();
     }
 }
 
