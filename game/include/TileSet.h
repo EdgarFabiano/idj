@@ -22,7 +22,11 @@ public:
     int getTileHeight() const;
 
 private:
+<<<<<<< HEAD
     Sprite tileSet;
+=======
+    Sprite tileSet = nullptr;
+>>>>>>> 361173c269c8de760e5b630283503dee473759e7
 
     int rows;
     int columns;
