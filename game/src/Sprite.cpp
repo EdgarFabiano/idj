@@ -42,7 +42,11 @@ void Sprite::SetClip(int x, int y, int w, int h) {
 }
 
 void Sprite::Render() {
-    SDL_Rect dst = { (int)associated.box.x, (int)associated.box.y, (int)associated.box.w, (int)associated.box.h};
+    Render((int)associated.box.x, (int)associated.box.y);
+}
+
+void Sprite::Render(float x, float y) {
+    SDL_Rect dst = { (int)x, (int)y, (int)associated.box.w, (int)associated.box.h};
     SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &dst);
 }
 
@@ -63,3 +67,5 @@ void Sprite::Update(float dt) {}
 bool Sprite::Is(string type) {
     return type == SPRITE_TYPE;
 }
+
+
