@@ -23,25 +23,26 @@ void TileMap::Load(string file) {
     }
 
     int scanned;
-    int m = 0, n = 0;
+//    int m = 0, n = 0;
+    fseek(fp, 1, SEEK_CUR);
     while(!feof(fp)){
         fscanf(fp, " %d,", &scanned);
         tileMatrix.push_back(scanned - 1);
 
-        if(scanned == 1 && n < mapWidth && m < mapHeight){
-
-            std::cout << "TM1: " << n << " " << m << std::endl;
-        }
-        n++;
-        if(n == mapWidth){
-            n = 0;
-            m++;
-        }
+//        if(scanned == 1 && n < mapWidth && m < mapHeight){
+//
+//            std::cout << "TM1: " << n << " " << m << std::endl;
+//        }
+//        n++;
+//        if(n == mapWidth){
+//            n = 0;
+//            m++;
+//        }
     }
-    int i = 0;
-    for(i = 0; i < tileMatrix.size(); i++){
-        cout << tileMatrix[i] << "\n";
-    }
+//    int i = 0;
+//    for(i = 0; i < tileMatrix.size(); i++){
+//        cout << tileMatrix[i] << " ";
+//    }
 
     fclose(fp);
 }
