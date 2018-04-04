@@ -23,26 +23,11 @@ void TileMap::Load(string file) {
     }
 
     int scanned;
-//    int m = 0, n = 0;
     fseek(fp, 1, SEEK_CUR);
     while(!feof(fp)){
         fscanf(fp, " %d,", &scanned);
         tileMatrix.push_back(scanned - 1);
-
-//        if(scanned == 1 && n < mapWidth && m < mapHeight){
-//
-//            std::cout << "TM1: " << n << " " << m << std::endl;
-//        }
-//        n++;
-//        if(n == mapWidth){
-//            n = 0;
-//            m++;
-//        }
     }
-//    int i = 0;
-//    for(i = 0; i < tileMatrix.size(); i++){
-//        cout << tileMatrix[i] << " ";
-//    }
 
     fclose(fp);
 }
@@ -52,11 +37,29 @@ void TileMap::SetTileSet(TileSet *tileSet) {
 }
 
 int &TileMap::At(int x, int y, int z) {
-    return tileMatrix[0];
+    int index = x + mapWidth * y + mapWidth * mapHeight * z;
+    return tileMatrix[index];
+}
+
+void TileMap::RenderLayer(int layer, int cameraX, int cameraY) {
+    for (int i = 0; i < mapWidth; i++){
+        for (int j = 0; j < mapHeight; ++j){
+            int x = i * tileSet->GetTileWidth() - cameraX;
+            int y = j * tileSet->GetTileHeight() - cameraY;
+
+            Rect box = associated.box;
+
+            if (x > -tileSet->GetTileWidth() && x < box.w && y > -tileSet->GetTileHeight() && y < box.h) {
+                tileSet->RenderTile((unsigned)At(i, j, layer), x, y);
+            }
+        }
+    }
 }
 
 void TileMap::Render() {
-
+    for (int z = 0; z < mapDepth; ++z) {
+        RenderLayer(z, (int)associated.box.x, (int)associated.box.y);
+    }
 }
 
 void TileMap::Update(float dt) {
@@ -64,22 +67,18 @@ void TileMap::Update(float dt) {
 }
 
 bool TileMap::Is(string type) {
-    return false;
-}
-
-void TileMap::RenderLayer(int layer, int cameraX, int cameraY) {
-
+    return type == TILE_MAP_TYPE;
 }
 
 int TileMap::GetWidth() {
-    return 0;
+    return this->mapWidth;
 }
 
 int TileMap::GetHeight() {
-
+    return this->mapHeight;
 }
 
 int TileMap::GetDepth() {
-    return 0;
+    return this->mapDepth;
 }
 

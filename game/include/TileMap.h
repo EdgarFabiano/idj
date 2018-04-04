@@ -5,6 +5,8 @@
 #ifndef TILEMAP_CLASS
 #define TILEMAP_CLASS
 
+#define TILE_MAP_TYPE "TileMap"
+
 using namespace std;
 
 #include "GameObject.h"

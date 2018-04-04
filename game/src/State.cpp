@@ -10,17 +10,17 @@
 #include "State.h"
 
 State::State()  {
-    GameObject *go = new GameObject();
-    go->AddComponent(new Sprite(*go, "img/ocean.jpg"));
-    objectArray.emplace_back(go);
+    GameObject *spriteGO = new GameObject();
+    spriteGO->AddComponent(new Sprite(*spriteGO, "img/ocean.jpg"));
+    objectArray.emplace_back(spriteGO);
 
-    auto map = new GameObject();
-    map->box.h = 64;
-    map->box.w = 64;
+    GameObject *mapGO = new GameObject();
+    mapGO->box.x = 0;
+    mapGO->box.y = 0;
 
-    auto set = new TileSet(64, 64, "img/tileset.png");
-    map->AddComponent(new TileMap(*map, "map/tileMap.txt", set));
-    objectArray.emplace_back(map);
+    TileSet *set = new TileSet(64, 64, "img/tileset.png");
+    mapGO->AddComponent(new TileMap(*mapGO, "map/tileMap.txt", set));
+    objectArray.emplace_back(mapGO);
 
     LoadAssets();
     quitRequested = false;
