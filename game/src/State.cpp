@@ -2,9 +2,10 @@
 // Created by edgar on 16/03/18.
 //
 
-#include <Face.h>
-#include <Sound.h>
-#include "Sprite.h"
+#include "Face.h"
+#include "Sound.h"
+#include "TileSet.h"
+#include "TileMap.h"
 #include "Music.h"
 #include "State.h"
 
@@ -12,6 +13,14 @@ State::State()  {
     GameObject *go = new GameObject();
     go->AddComponent(new Sprite(*go, "img/ocean.jpg"));
     objectArray.emplace_back(go);
+
+    auto map = new GameObject();
+    map->box.h = 64;
+    map->box.w = 64;
+
+    auto set = new TileSet(64, 64, "img/tileset.png");
+    map->AddComponent(new TileMap(*map, "map/tileMap.txt", set));
+    objectArray.emplace_back(map);
 
     LoadAssets();
     quitRequested = false;

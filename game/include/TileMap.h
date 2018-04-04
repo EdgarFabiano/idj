@@ -10,9 +10,9 @@ using namespace std;
 #include "GameObject.h"
 #include "TileSet.h"
 
-class TileMap {
+class TileMap : public Component {
 public:
-    TileMap(GameObject& associated, string file, TileSet* tileSet);
+    TileMap(GameObject &associated, string file, TileSet *tileSet);
 
     void Load(string file);
 
@@ -20,7 +20,11 @@ public:
 
     int& At(int x, int y, int z = 0);
 
-    void Render();
+    void Render() override;
+
+    void Update(float dt) override;
+
+    bool Is(string type) override;
 
     void RenderLayer(int layer, int cameraX = 0, int cameraY = 0);
 

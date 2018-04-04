@@ -23,4 +23,6 @@ add_executable(JOGO src/Main.cpp
         src/Component.cpp include/Component.h
         src/GameObject.cpp include/GameObject.h
         src/Sound.cpp include/Sound.h
-        src/Face.cpp include/Face.h src/TileSet.cpp include/TileSet.h src/TileMap.cpp include/TileMap.h)
+        src/Face.cpp include/Face.h
+        src/TileSet.cpp include/TileSet.h
+        src/TileMap.cpp include/TileMap.h)
