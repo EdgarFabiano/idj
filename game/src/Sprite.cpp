@@ -50,11 +50,6 @@ void Sprite::Render(float x, float y) {
     SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &dst);
 }
 
-void Sprite::Render(float x, float y) {
-    SDL_Rect dst = { (int)x, (int)y, (int)associated.box.w, (int)associated.box.h};
-    SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &dst);
-}
-
 int Sprite::GetWidth() {
     return width;
 }

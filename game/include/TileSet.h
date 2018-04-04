@@ -17,9 +17,9 @@ public:
 
     void RenderTile(unsigned index, float x, float y);
 
-    int getTileWidth() const;
+    int GetTileWidth() const;
 
-    int getTileHeight() const;
+    int GetTileHeight() const;
 
 private:
     Sprite tileSet;

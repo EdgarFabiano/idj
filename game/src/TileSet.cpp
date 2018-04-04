@@ -4,7 +4,7 @@
 
 #include "TileSet.h"
 
-TileSet::TileSet(int tileWidth, int tileHeight, string file) : tileWidth(tileWidth), tileHeight(tileHeight) {
+TileSet::TileSet(int tileWidth, int tileHeight, string file) : tileSet(*(new GameObject()), file), tileWidth(tileWidth), tileHeight(tileHeight) {
     tileSet.Open(file);
     if(tileSet.IsOpen()){
         rows = tileSet.GetHeight() / tileHeight;
@@ -31,10 +31,10 @@ void TileSet::RenderTile(unsigned index, float x, float y) {
     }
 }
 
-int TileSet::getTileWidth() const {
+int TileSet::GetTileWidth() const {
     return tileWidth;
 }
 
-int TileSet::getTileHeight() const {
+int TileSet::GetTileHeight() const {
     return tileHeight;
 }
