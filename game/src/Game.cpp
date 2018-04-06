@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <Resources.h>
+#include <InputManager.h>
 
 #define INCLUDE_SDL_IMAGE
 #define INCLUDE_SDL_MIXER
@@ -95,7 +96,9 @@ Game::~Game() {
 }
 
 void Game::Run(){
+    InputManager inputManager = InputManager::GetInstance();
     while(!GetState().QuitRequested()) {
+        inputManager.Update();
         GetState().Update(0);
         GetState().Render();
         SDL_RenderPresent(renderer);

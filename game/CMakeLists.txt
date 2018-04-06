@@ -26,4 +26,5 @@ add_executable(JOGO src/Main.cpp
         src/Face.cpp include/Face.h
         src/TileSet.cpp include/TileSet.h
         src/TileMap.cpp include/TileMap.h
-        src/Resources.cpp include/Resources.h)
+        src/Resources.cpp include/Resources.h
+        src/InputManager.cpp include/InputManager.h)
