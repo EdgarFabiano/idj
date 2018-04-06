@@ -3,6 +3,7 @@
 //
 
 #include <Game.h>
+#include <Resources.h>
 #include "Sound.h"
 
 Sound::Sound(GameObject &associated) : Component(associated), chunk(nullptr), channel(0) {}
@@ -15,7 +16,7 @@ Sound::~Sound(){
     if (chunk != nullptr) {
         Stop();
     }
-    Mix_FreeChunk(chunk);
+// Resources cuida da desalocagem
 }
 
 void Sound::Play(int times) {
@@ -34,11 +35,7 @@ void Sound::Stop(int msToStop) {
 }
 
 void Sound::Open(string file) {
-    chunk = Mix_LoadWAV((ASSETS_PATH + file).c_str());
-    if(chunk == nullptr){
-        cout << "Unable to Mix_LoadWAV: " << SDL_GetError() << endl;
-        exit(1);
-    }
+    chunk = Resources::GetSound(file);
 }
 
 bool Sound::IsOpen() {

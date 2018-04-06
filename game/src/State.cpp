@@ -2,21 +2,22 @@
 // Created by edgar on 16/03/18.
 //
 
+#include <Game.h>
 #include "Face.h"
 #include "Sound.h"
 #include "TileSet.h"
 #include "TileMap.h"
-#include "Music.h"
-#include "State.h"
 
 State::State()  {
-    GameObject *spriteGO = new GameObject();
-    spriteGO->AddComponent(new Sprite(*spriteGO, "img/ocean.jpg"));
-    objectArray.emplace_back(spriteGO);
+    GameObject *bgGO = new GameObject();
+    bgGO->AddComponent(new Sprite(*bgGO, "img/ocean.jpg"));
+    objectArray.emplace_back(bgGO);
 
     GameObject *mapGO = new GameObject();
     mapGO->box.x = 0;
     mapGO->box.y = 0;
+    mapGO->box.w = SCREEN_SIZE_W;
+    mapGO->box.h = SCREEN_SIZE_H;
 
     TileSet *set = new TileSet(64, 64, "img/tileset.png");
     mapGO->AddComponent(new TileMap(*mapGO, "map/tileMap.txt", set));

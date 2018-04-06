@@ -4,11 +4,9 @@
 
 #include <iostream>
 #include <Game.h>
+#include <Resources.h>
 
 #define INCLUDE_SDL_MIXER
-#include "SDL_include.h"
-
-#include "Music.h"
 
 Music::Music() {
     music = nullptr;
@@ -20,7 +18,7 @@ Music::Music(string file) {
 
 Music::~Music() {
     Stop(0);
-    Mix_FreeMusic(music);
+//    Resources cuida da desalocagem
 }
 
 void Music::Play(int times) {
@@ -37,11 +35,7 @@ void Music::Stop(int msToStop) {
 }
 
 void Music::Open(string file) {
-    music = Mix_LoadMUS((ASSETS_PATH + file).c_str());
-    if(music == nullptr){
-        cout << "Unable to load music: " << SDL_GetError() << endl;
-        exit(1);
-    }
+    music = Resources::GetMusic(file);
 }
 
 bool Music::IsOpen() {

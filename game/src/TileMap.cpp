@@ -13,7 +13,7 @@ TileMap::TileMap(GameObject &associated, string file, TileSet *tileSet) : Compon
 void TileMap::Load(string file) {
     FILE* fp = fopen((ASSETS_PATH + file).c_str(), "r");
     if(fp == nullptr){
-        std::cout << "Erro ao abrir o arquivo: " << file << std::endl;
+        std::cout << "Erro ao abrir o arquivo de mapa: " << file << std::endl;
         exit(1);
     }
 

@@ -4,6 +4,7 @@
 
 #define INCLUDE_SDL_IMAGE
 
+#include <Resources.h>
 #include "Game.h"
 
 Sprite::Sprite(GameObject& associated) : Component(associated) {
@@ -16,19 +17,11 @@ Sprite::Sprite(GameObject& associated, string file) : Component(associated) {
 }
 
 Sprite::~Sprite() {
-    if (texture != nullptr)
-        SDL_DestroyTexture(texture);
+//    Resources cuida da desalocagem
 }
 
 void Sprite::Open(string file) {
-    if(IsOpen())
-        SDL_DestroyTexture(texture);
-
-    texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), (ASSETS_PATH + file).c_str());
-    if(texture == nullptr){
-        cout << "Unable to load texture: " << SDL_GetError() << endl;
-        exit(1);
-    }
+    texture = Resources::GetImage(file);
 
     SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
     associated.box.h = height;
@@ -46,7 +39,7 @@ void Sprite::Render() {
 }
 
 void Sprite::Render(float x, float y) {
-    SDL_Rect dst = { (int)x, (int)y, (int)associated.box.w, (int)associated.box.h};
+    SDL_Rect dst = { (int)x, (int)y, clipRect.w, clipRect.h };
     SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &dst);
 }
 
