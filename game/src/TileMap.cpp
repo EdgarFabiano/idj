@@ -2,6 +2,7 @@
 // Created by edgar on 28/03/18.
 //
 
+#include <Camera.h>
 #include "TileMap.h"
 #include "Game.h"
 
@@ -58,7 +59,7 @@ void TileMap::RenderLayer(int layer, int cameraX, int cameraY) {
 
 void TileMap::Render() {
     for (int z = 0; z < mapDepth; ++z) {
-        RenderLayer(z, (int)associated.box.x, (int)associated.box.y);
+        RenderLayer(z, (int)(Camera::pos.x - PARALLAX_FACTOR * Camera::pos.x * z), (int)(Camera::pos.y - PARALLAX_FACTOR * Camera::pos.y * z));
     }
 }
 

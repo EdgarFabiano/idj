@@ -7,6 +7,8 @@
 
 #define TILE_MAP_TYPE "TileMap"
 
+#define PARALLAX_FACTOR 0.2
+
 using namespace std;
 
 #include "GameObject.h"

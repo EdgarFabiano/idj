@@ -65,3 +65,7 @@ bool Vec2::operator==(const Vec2 &v) {
 Vec2 Vec2::operator+=(const Vec2 &v) {
     return *this = *this + v;
 }
+
+Vec2 Vec2::operator-=(const Vec2 &v) {
+    return *this = *this - v;
+}

@@ -33,6 +33,7 @@ public:
     Vec2 operator*(const float escalar);
     bool operator==(const Vec2& v);
     Vec2 operator+=(const Vec2& v);
+    Vec2 operator-=(const Vec2& v);
 
 };
 

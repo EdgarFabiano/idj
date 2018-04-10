@@ -5,19 +5,18 @@
 #include <Game.h>
 #include <InputManager.h>
 #include <Camera.h>
+#include <CameraFollower.h>
 #include "Face.h"
 #include "Sound.h"
-#include "TileSet.h"
-#include "TileMap.h"
 
 State::State() {
-    GameObject *bgGO = new GameObject();
+    auto bgGO(new GameObject());
+    bgGO->AddComponent(new CameraFollower(*bgGO));
     bgGO->AddComponent(new Sprite(*bgGO, "img/ocean.jpg"));
+
     objectArray.emplace_back(bgGO);
 
-    GameObject *mapGO = new GameObject();
-    mapGO->box.x = 0;
-    mapGO->box.y = 0;
+    auto mapGO(new GameObject());
     mapGO->box.w = GAME_WIDTH;
     mapGO->box.h = GAME_HEIGHT;
 
@@ -53,7 +52,7 @@ void State::Update(float dt) {
 
     if(inputManager.KeyPress(SPACE_BAR_KEY)){
         Vec2 objPos = Vec2(200, 0).Rotate((float) (-M_PI + M_PI * (rand() % 1001) / 500.0)) + Vec2(mouseX, mouseY);
-        AddObject((int)objPos.x, (int)objPos.y);
+        AddObject((int)(objPos.x + Camera::pos.x), (int)(objPos.y + Camera::pos.y));
     }
 
     for (auto &it : objectArray) {
@@ -70,19 +69,15 @@ void State::Update(float dt) {
 void State::Render() {
     for (auto &it : objectArray) {
         it->Render();
-        for (int z = 0; z < tileMap->GetDepth(); z++) {
-            tileMap->RenderLayer(z, (int)Camera::pos.x, (int)Camera::pos.y);
-        }
     }
-
 }
 
 void State::AddObject(int mouseX, int mouseY) {
-    GameObject *go = new GameObject();
+    auto go(new GameObject());
     Sprite *sprite = new Sprite(*go, "img/penguinface.png");
 
-    go->box.x = Camera::pos.x + mouseX - go->box.w/2;
-    go->box.y = Camera::pos.y + mouseY - go->box.h/2;
+    go->box.x = mouseX - go->box.w / 2;
+    go->box.y = mouseY - go->box.h / 2;
 
     go->AddComponent(sprite);
 
@@ -90,5 +85,4 @@ void State::AddObject(int mouseX, int mouseY) {
     go->AddComponent(new Face(*go));
 
     objectArray.emplace_back(go);
-
 }

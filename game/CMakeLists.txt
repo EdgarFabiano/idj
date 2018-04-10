@@ -28,4 +28,5 @@ add_executable(JOGO src/Main.cpp
         src/TileMap.cpp include/TileMap.h
         src/Resources.cpp include/Resources.h
         src/InputManager.cpp include/InputManager.h
-        src/Camera.cpp include/Camera.h)
+        src/Camera.cpp include/Camera.h
+        src/CameraFollower.cpp include/CameraFollower.h)
