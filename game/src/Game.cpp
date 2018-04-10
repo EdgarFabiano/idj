@@ -101,7 +101,7 @@ void Game::Run(){
     while(!GetState().QuitRequested()) {
         CalculaDeltaTime();
         InputManager::GetInstance().Update();
-        GetState().Update(0);
+        GetState().Update(dt);
         GetState().Render();
         SDL_RenderPresent(renderer);
         SDL_Delay(33);
@@ -121,15 +121,15 @@ State &Game::GetState() {
 
 Game &Game::GetInstance() {
     if(instance == nullptr) {
-        return *new Game(GAME_NAME, SCREEN_SIZE_W, SCREEN_SIZE_H);
+        return *new Game(GAME_NAME, GAME_WIDTH, GAME_HEIGHT);
     }
 
     return *instance;
 }
 
 void Game::CalculaDeltaTime() {
-    auto ticks = SDL_GetTicks();
-    auto deltaTicks = ticks - frameStart;
+    int ticks = SDL_GetTicks();
+    float deltaTicks = ticks - frameStart;
     dt = deltaTicks/1000.0f;
     frameStart = ticks;
 }

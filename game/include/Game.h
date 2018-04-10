@@ -12,8 +12,8 @@
 #include "State.h"
 
 #define GAME_NAME "Edgar Fabiano - 14/0019201"
-#define SCREEN_SIZE_W 1024
-#define SCREEN_SIZE_H 600
+#define GAME_WIDTH 1024
+#define GAME_HEIGHT 600
 
 #define ASSETS_PATH "assets/"
 

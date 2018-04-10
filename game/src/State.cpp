@@ -4,6 +4,7 @@
 
 #include <Game.h>
 #include <InputManager.h>
+#include <Camera.h>
 #include "Face.h"
 #include "Sound.h"
 #include "TileSet.h"
@@ -17,11 +18,12 @@ State::State() {
     GameObject *mapGO = new GameObject();
     mapGO->box.x = 0;
     mapGO->box.y = 0;
-    mapGO->box.w = SCREEN_SIZE_W;
-    mapGO->box.h = SCREEN_SIZE_H;
+    mapGO->box.w = GAME_WIDTH;
+    mapGO->box.h = GAME_HEIGHT;
 
     TileSet *set = new TileSet(64, 64, "img/tileset.png");
-    mapGO->AddComponent(new TileMap(*mapGO, "map/tileMap.txt", set));
+    tileMap = new TileMap(*mapGO, "map/tileMap.txt", set);
+    mapGO->AddComponent(tileMap);
     objectArray.emplace_back(mapGO);
 
     LoadAssets();
@@ -44,16 +46,18 @@ void State::LoadAssets() {
 void State::Update(float dt) {
     InputManager inputManager = InputManager::GetInstance();
 
+    Camera::Update(dt);
+
     quitRequested = inputManager.KeyPress(ESCAPE_KEY) || inputManager.QuitRequested();
     int mouseX = inputManager.GetMouseX(), mouseY = inputManager.GetMouseY();
 
     if(inputManager.KeyPress(SPACE_BAR_KEY)){
-        Vec2 objPos = Vec2(200, 0).GetRotated((float)(-M_PI + M_PI * (rand() % 1001) / 500.0)) + Vec2(mouseX, mouseY );
+        Vec2 objPos = Vec2(200, 0).Rotate((float) (-M_PI + M_PI * (rand() % 1001) / 500.0)) + Vec2(mouseX, mouseY);
         AddObject((int)objPos.x, (int)objPos.y);
     }
 
-    for(int i = 0; i < objectArray.size(); i++) {
-        objectArray[i]->Update(dt);
+    for (auto &it : objectArray) {
+        it->Update(dt);
     }
 
     for(int i = 0; i < objectArray.size(); i++) {
@@ -64,17 +68,21 @@ void State::Update(float dt) {
 }
 
 void State::Render() {
-    for(auto it = objectArray.begin(); it != objectArray.end(); ++it) {
-        (*it)->Render();
+    for (auto &it : objectArray) {
+        it->Render();
+        for (int z = 0; z < tileMap->GetDepth(); z++) {
+            tileMap->RenderLayer(z, (int)Camera::pos.x, (int)Camera::pos.y);
+        }
     }
+
 }
 
 void State::AddObject(int mouseX, int mouseY) {
     GameObject *go = new GameObject();
     Sprite *sprite = new Sprite(*go, "img/penguinface.png");
 
-    go->box.x = mouseX - go->box.w/2;
-    go->box.y = mouseY - go->box.h/2;
+    go->box.x = Camera::pos.x + mouseX - go->box.w/2;
+    go->box.y = Camera::pos.y + mouseY - go->box.h/2;
 
     go->AddComponent(sprite);
 

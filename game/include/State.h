@@ -7,6 +7,7 @@
 
 #include "Sprite.h"
 #include "Music.h"
+#include "TileMap.h"
 
 class State {
 public:
@@ -22,6 +23,7 @@ private:
     Music music;
     bool quitRequested;
     vector<unique_ptr<GameObject>> objectArray;
+    TileMap *tileMap;
 
 };
 
