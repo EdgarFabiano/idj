@@ -60,7 +60,8 @@ void State::Update(float dt) {
     }
 
     for(int i = 0; i < objectArray.size(); i++) {
-        if (objectArray[i]->IsDead()) {
+        Sound *sound = (Sound*)objectArray[i].get()->GetComponent(SOUND_TYPE);
+        if (objectArray[i]->IsDead() && !sound->IsSoundPlaying()) {
             objectArray.erase(objectArray.begin()+i);
         }
     }

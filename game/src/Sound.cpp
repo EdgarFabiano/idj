@@ -49,3 +49,7 @@ void Sound::Render() {}
 bool Sound::Is(string type) {
     return type == SOUND_TYPE;
 }
+
+bool Sound::IsSoundPlaying() {
+    return Mix_Playing(channel) == 1;
+}

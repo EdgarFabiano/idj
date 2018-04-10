@@ -27,6 +27,8 @@ public:
     void Render() override;
     bool Is(string type) override;
 
+    bool IsSoundPlaying();
+
 private:
     Mix_Chunk* chunk;
     int channel;
