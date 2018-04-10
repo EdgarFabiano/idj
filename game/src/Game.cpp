@@ -17,7 +17,7 @@ using namespace std;
 
 Game* Game::instance = nullptr;
 
-Game::Game(string title, int width, int height) {
+Game::Game(string title, int width, int height) : dt(0), frameStart(0) {
     if(instance == nullptr) {
 
         instance = this;
@@ -85,6 +85,8 @@ Game::Game(string title, int width, int height) {
 }
 
 Game::~Game() {
+    delete state;
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     TTF_Quit();
@@ -96,9 +98,9 @@ Game::~Game() {
 }
 
 void Game::Run(){
-    InputManager inputManager = InputManager::GetInstance();
     while(!GetState().QuitRequested()) {
-        inputManager.Update();
+        CalculaDeltaTime();
+        InputManager::GetInstance().Update();
         GetState().Update(0);
         GetState().Render();
         SDL_RenderPresent(renderer);
@@ -118,9 +120,21 @@ State &Game::GetState() {
 }
 
 Game &Game::GetInstance() {
-    if(instance == nullptr)
-        return *new Game(GAME_NAME,  SCREEN_SIZE_W, SCREEN_SIZE_H);
+    if(instance == nullptr) {
+        return *new Game(GAME_NAME, SCREEN_SIZE_W, SCREEN_SIZE_H);
+    }
 
     return *instance;
+}
+
+void Game::CalculaDeltaTime() {
+    auto ticks = SDL_GetTicks();
+    auto deltaTicks = ticks - frameStart;
+    dt = deltaTicks/1000.0f;
+    frameStart = ticks;
+}
+
+float Game::GetDeltaTime() {
+    return dt;
 }
 

@@ -12,9 +12,7 @@ InputManager::InputManager() : updateCounter(0), quitRequested(false), mouseX(0)
     memset(mouseUpdate, 0, sizeof(mouseUpdate));
 }
 
-InputManager::~InputManager() {
-
-}
+InputManager::~InputManager() {}
 
 void InputManager::Update() {
     SDL_Event event;
@@ -50,31 +48,31 @@ bool InputManager::KeyRelease(int key) {
 }
 
 bool InputManager::IsKeyDown(int key) {
-    return false;
+    return keyState[key];
 }
 
 bool InputManager::MousePress(int button) {
-    return false;
+    return mouseState[button] && (mouseUpdate[button] == updateCounter);
 }
 
 bool InputManager::MouseRelease(int button) {
-    return false;
+    return !mouseState[button] && (mouseUpdate[button] == updateCounter);
 }
 
 bool InputManager::IsMouseDown(int button) {
-    return false;
+    return mouseState[button];
 }
 
 int InputManager::GetMouseX() {
-    return 0;
+    return mouseX;
 }
 
 int InputManager::GetMouseY() {
-    return 0;
+    return mouseY;
 }
 
 bool InputManager::QuitRequested() {
-    return false;
+    return quitRequested;
 }
 
 InputManager &InputManager::GetInstance() {
