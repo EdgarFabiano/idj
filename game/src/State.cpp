@@ -52,7 +52,7 @@ void State::Update(float dt) {
 
     if(inputManager.KeyPress(SPACE_BAR_KEY)){
         Vec2 objPos = Vec2(200, 0).Rotate((float) (-M_PI + M_PI * (rand() % 1001) / 500.0)) + Vec2(mouseX, mouseY);
-        AddObject((int)(objPos.x + Camera::pos.x), (int)(objPos.y + Camera::pos.y));
+        AddObject(objPos.x, objPos.y);
     }
 
     for (auto &it : objectArray) {
@@ -60,8 +60,7 @@ void State::Update(float dt) {
     }
 
     for(int i = 0; i < objectArray.size(); i++) {
-        Sound *sound = (Sound*)objectArray[i].get()->GetComponent(SOUND_TYPE);
-        if (objectArray[i]->IsDead() && !sound->IsSoundPlaying()) {
+        if (objectArray[i]->IsDead()) {
             objectArray.erase(objectArray.begin()+i);
         }
     }
@@ -77,8 +76,8 @@ void State::AddObject(int mouseX, int mouseY) {
     auto go(new GameObject());
     Sprite *sprite = new Sprite(*go, "img/penguinface.png");
 
-    go->box.x = mouseX - go->box.w / 2;
-    go->box.y = mouseY - go->box.h / 2;
+    go->box.x = mouseX + Camera::pos.x - go->box.w / 2;
+    go->box.y = mouseY + Camera::pos.y - go->box.h / 2;
 
     go->AddComponent(sprite);
 
