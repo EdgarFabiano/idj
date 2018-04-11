@@ -23,7 +23,7 @@ void Face::Update(float dt) {
     int mouseX = inputManager.GetMouseX(), mouseY = inputManager.GetMouseY();
 
     if(inputManager.MousePress(LEFT_MOUSE_BUTTON) && associated.box.Contains({(float)mouseX + Camera::pos.x, (float)mouseY + Camera::pos.y})){
-        Damage(std::rand() % 10 + 10);
+        Damage(rand() % 10 + 10);
         return;
     }
 }

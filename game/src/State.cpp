@@ -21,7 +21,7 @@ State::State() {
     mapGO->box.h = GAME_HEIGHT;
 
     TileSet *set = new TileSet(64, 64, "img/tileset.png");
-    tileMap = new TileMap(*mapGO, "map/tileMap.txt", set);
+    TileMap *tileMap = new TileMap(*mapGO, "map/tileMap.txt", set);
     mapGO->AddComponent(tileMap);
     objectArray.emplace_back(mapGO);
 
@@ -52,7 +52,7 @@ void State::Update(float dt) {
 
     if(inputManager.KeyPress(SPACE_BAR_KEY)){
         Vec2 objPos = Vec2(200, 0).Rotate((float) (-M_PI + M_PI * (rand() % 1001) / 500.0)) + Vec2(mouseX, mouseY);
-        AddObject(objPos.x, objPos.y);
+        AddObject((int)(objPos.x), (int)(objPos.y));
     }
 
     for (auto &it : objectArray) {
@@ -61,7 +61,9 @@ void State::Update(float dt) {
 
     for(int i = 0; i < objectArray.size(); i++) {
         if (objectArray[i]->IsDead()) {
-            objectArray.erase(objectArray.begin()+i);
+            if(!((Sound*)objectArray[i].get()->GetComponent(SOUND_TYPE))->IsSoundPlaying()){
+                objectArray.erase(objectArray.begin() + i);
+            }
         }
     }
 }
@@ -74,13 +76,11 @@ void State::Render() {
 
 void State::AddObject(int mouseX, int mouseY) {
     auto go(new GameObject());
-    Sprite *sprite = new Sprite(*go, "img/penguinface.png");
 
     go->box.x = mouseX + Camera::pos.x - go->box.w / 2;
     go->box.y = mouseY + Camera::pos.y - go->box.h / 2;
 
-    go->AddComponent(sprite);
-
+    go->AddComponent(new Sprite(*go, "img/penguinface.png"));
     go->AddComponent(new Sound(*go, "audio/boom.wav"));
     go->AddComponent(new Face(*go));
 

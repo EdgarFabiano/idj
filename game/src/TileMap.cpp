@@ -3,23 +3,25 @@
 //
 
 #include <Camera.h>
+
+#include <utility>
 #include "TileMap.h"
 #include "Game.h"
 
 TileMap::TileMap(GameObject &associated, string file, TileSet *tileSet) : Component(associated) {
-    Load(file);
+    Load(move(file));
     SetTileSet(tileSet);
 }
 
 void TileMap::Load(string file) {
     FILE* fp = fopen((ASSETS_PATH + file).c_str(), "r");
     if(fp == nullptr){
-        std::cout << "Erro ao abrir o arquivo de mapa: " << file << std::endl;
+        cout << "Erro ao abrir o arquivo de mapa: " << file << endl;
         exit(1);
     }
 
     if(fscanf(fp, "%d,%d,%d", &mapWidth, &mapHeight, &mapDepth) != 3){
-        std::cout << "Erro nas dimensoes do arquivo: " << file << std::endl;
+        cout << "Erro nas dimensoes do arquivo: " << file << endl;
         exit(1);
     }
 
@@ -38,28 +40,28 @@ void TileMap::SetTileSet(TileSet *tileSet) {
 }
 
 int &TileMap::At(int x, int y, int z) {
-    int index = x + mapWidth * y + mapWidth * mapHeight * z;
+    int index = x + (y * mapWidth) + (z * mapWidth * mapHeight);
     return tileMatrix[index];
 }
 
 void TileMap::RenderLayer(int layer, int cameraX, int cameraY) {
     for (int i = 0; i < mapWidth; i++){
         for (int j = 0; j < mapHeight; ++j){
-            int x = i * tileSet->GetTileWidth() - cameraX;
-            int y = j * tileSet->GetTileHeight() - cameraY;
+            auto x = (int)(i * tileSet->GetTileWidth() - cameraX - PARALLAX_FACTOR * Camera::pos.x * layer);
+            auto y = (int)(j * tileSet->GetTileHeight() - cameraY - PARALLAX_FACTOR * Camera::pos.y * layer);
 
-            Rect box = associated.box;
-
-            if (x > -tileSet->GetTileWidth() && x < box.w && y > -tileSet->GetTileHeight() && y < box.h) {
+            if (IsValidPosition(x, y)) {
                 tileSet->RenderTile((unsigned)At(i, j, layer), x, y);
             }
         }
     }
 }
 
+bool TileMap::IsValidPosition(int x, int y) const { return x > -tileSet->GetTileWidth() && x < associated.box.w && y > -tileSet->GetTileHeight() && y < associated.box.h; }
+
 void TileMap::Render() {
     for (int z = 0; z < mapDepth; ++z) {
-        RenderLayer(z, (int)(Camera::pos.x - PARALLAX_FACTOR * Camera::pos.x * z), (int)(Camera::pos.y - PARALLAX_FACTOR * Camera::pos.y * z));
+        RenderLayer(z, (int)(Camera::pos.x), (int)(Camera::pos.y));
     }
 }
 

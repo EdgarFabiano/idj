@@ -44,7 +44,7 @@ private:
     int mouseUpdate[6];
 
     unordered_map<int, bool> keyState;
-    std::unordered_map<int, int> keyUpdate;
+    unordered_map<int, int> keyUpdate;
 
     bool quitRequested;
 

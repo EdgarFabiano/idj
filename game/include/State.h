@@ -23,7 +23,6 @@ private:
     Music music;
     bool quitRequested;
     vector<unique_ptr<GameObject>> objectArray;
-    TileMap *tileMap;
 
 };
 

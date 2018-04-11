@@ -12,7 +12,7 @@ InputManager::InputManager() : updateCounter(0), quitRequested(false), mouseX(0)
     memset(mouseUpdate, 0, sizeof(mouseUpdate));
 }
 
-InputManager::~InputManager() {}
+InputManager::~InputManager() = default;
 
 void InputManager::Update() {
     SDL_Event event;

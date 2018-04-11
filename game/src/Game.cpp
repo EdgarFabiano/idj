@@ -98,11 +98,11 @@ Game::~Game() {
 }
 
 void Game::Run(){
-    while(!GetState().QuitRequested()) {
+    while(!state->QuitRequested()) {
         CalculaDeltaTime();
         InputManager::GetInstance().Update();
-        GetState().Update(dt);
-        GetState().Render();
+        state->Update(dt);
+        state->Render();
         SDL_RenderPresent(renderer);
         SDL_Delay(33);
     }
@@ -129,8 +129,7 @@ Game &Game::GetInstance() {
 
 void Game::CalculaDeltaTime() {
     int ticks = SDL_GetTicks();
-    float deltaTicks = ticks - frameStart;
-    dt = deltaTicks/1000.0f;
+    dt = (ticks - frameStart)/1000.0f;
     frameStart = ticks;
 }
 

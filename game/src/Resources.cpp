@@ -25,8 +25,8 @@ SDL_Texture *Resources::GetImage(string file) {
 }
 
 void Resources::ClearImages() {
-    for (auto iT = imageTable.begin(); iT != imageTable.end() ; ++iT) {
-        SDL_DestroyTexture((*iT).second);
+    for (auto &iT : imageTable) {
+        SDL_DestroyTexture(iT.second);
     }
     imageTable.clear();
 }
@@ -47,8 +47,8 @@ Mix_Music *Resources::GetMusic(string file) {
 }
 
 void Resources::ClearMusics() {
-    for (auto mT = musicTable.begin(); mT != musicTable.end() ; ++mT) {
-        Mix_FreeMusic((*mT).second);
+    for (auto &mT : musicTable) {
+        Mix_FreeMusic(mT.second);
     }
     musicTable.clear();
 
@@ -70,8 +70,8 @@ Mix_Chunk *Resources::GetSound(string file) {
 }
 
 void Resources::ClearSounds() {
-    for (auto sT = soundTable.begin(); sT != soundTable.end(); ++sT) {
-        Mix_FreeChunk((*sT).second);
+    for (auto &sT : soundTable) {
+        Mix_FreeChunk(sT.second);
     }
     soundTable.clear();
 }
