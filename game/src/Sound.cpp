@@ -4,12 +4,14 @@
 
 #include <Game.h>
 #include <Resources.h>
+
+#include <utility>
 #include "Sound.h"
 
 Sound::Sound(GameObject &associated) : Component(associated), chunk(nullptr), channel(0) {}
 
 Sound::Sound(GameObject &associated, string file) : Component(associated), chunk(nullptr), channel(0)  {
-    Open(file);
+    Open(move(file));
 }
 
 Sound::~Sound(){
@@ -35,7 +37,7 @@ void Sound::Stop(int msToStop) {
 }
 
 void Sound::Open(string file) {
-    chunk = Resources::GetSound(file);
+    chunk = Resources::GetSound(move(file));
 }
 
 bool Sound::IsOpen() {
