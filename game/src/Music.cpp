@@ -8,11 +8,9 @@
 
 #define INCLUDE_SDL_MIXER
 
-Music::Music() {
-    music = nullptr;
-}
+Music::Music() : music(nullptr) {}
 
-Music::Music(string file) {
+Music::Music(string file) : music(nullptr) {
     Open(file);
 }
 

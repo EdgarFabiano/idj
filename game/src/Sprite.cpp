@@ -8,12 +8,9 @@
 #include <Camera.h>
 #include "Game.h"
 
-Sprite::Sprite(GameObject& associated) : Component(associated) {
-    texture = nullptr;
-}
+Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr) { }
 
-Sprite::Sprite(GameObject& associated, string file) : Component(associated) {
-    texture = nullptr;
+Sprite::Sprite(GameObject& associated, string file) : Component(associated), texture(nullptr) {
     Open(file);
 }
 
@@ -25,8 +22,8 @@ void Sprite::Open(string file) {
     texture = Resources::GetImage(file);
 
     SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
-    associated.box.h = height;
     associated.box.w = width;
+    associated.box.h = height;
     SetClip(0, 0, width, height);
 }
 
