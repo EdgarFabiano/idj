@@ -4,7 +4,6 @@
 
 #include <Camera.h>
 
-#include <utility>
 #include "TileMap.h"
 #include "Game.h"
 
@@ -40,24 +39,19 @@ void TileMap::SetTileSet(TileSet *tileSet) {
 }
 
 int &TileMap::At(int x, int y, int z) {
-    int index = x + (y * mapWidth) + (z * mapWidth * mapHeight);
-    return tileMatrix[index];
+    return tileMatrix[x + (y * mapWidth) + (z * mapWidth * mapHeight)];
 }
 
 void TileMap::RenderLayer(int layer, int cameraX, int cameraY) {
-    for (int i = 0; i < mapWidth; i++){
+    for (int i = 0; i < mapWidth; ++i){
         for (int j = 0; j < mapHeight; ++j){
             auto x = (int)(i * tileSet->GetTileWidth() - cameraX - PARALLAX_FACTOR * Camera::pos.x * layer);
             auto y = (int)(j * tileSet->GetTileHeight() - cameraY - PARALLAX_FACTOR * Camera::pos.y * layer);
 
-            if (IsValidPosition(x, y)) {
-                tileSet->RenderTile((unsigned)At(i, j, layer), x, y);
-            }
+            tileSet->RenderTile((unsigned)At(i, j, layer), x, y);
         }
     }
 }
-
-bool TileMap::IsValidPosition(int x, int y) const { return x > -tileSet->GetTileWidth() && x < associated.box.w && y > -tileSet->GetTileHeight() && y < associated.box.h; }
 
 void TileMap::Render() {
     for (int z = 0; z < mapDepth; ++z) {

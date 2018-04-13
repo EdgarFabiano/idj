@@ -45,7 +45,6 @@ private:
     int mapHeight;
     int mapDepth;
 
-    bool IsValidPosition(int x, int y) const;
 };
 
 

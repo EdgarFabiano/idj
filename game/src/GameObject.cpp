@@ -8,20 +8,21 @@
 GameObject::GameObject() : isDead(false) {}
 
 GameObject::~GameObject() {
-    for(auto it = components.rbegin(); it != components.rend(); ++it) {
-        (*it).reset();
+    for (auto &component : components) {
+        delete component.get();
     }
+    components.clear();
 }
 
 void GameObject::Update(float dt) {
-    for (auto it = components.begin(); it != components.end(); ++it){
-        (*it)->Update(dt);
+    for (auto &component : components) {
+        component->Update(dt);
     }
 }
 
 void GameObject::Render() {
-    for (auto it = components.begin(); it != components.end(); ++it){
-        (*it)->Render();
+    for (auto &component : components) {
+        component->Render();
     }
 }
 
@@ -38,13 +39,18 @@ void GameObject::AddComponent(Component *cpt) {
 }
 
 void GameObject::RemoveComponent(Component *cpt) {
-    components.erase(remove(components.begin(), components.end(), *new unique_ptr<Component>(cpt)));
+    for(int i = 0; i < components.size(); ++i){
+        if(components[i].get() == cpt){
+            components.erase(components.begin() + i);
+            break;
+        }
+    }
 }
 
 Component *GameObject::GetComponent(string type) {
-    for(auto it = components.begin(); it != components.end(); ++it) {
-        if ((*it)->Is(type)) {
-            return (*it).get();
+    for (auto &component : components) {
+        if (component->Is(type)) {
+            return component.get();
         }
     }
     return nullptr;

@@ -20,8 +20,8 @@ State::State() {
     mapGO->box.w = GAME_WIDTH;
     mapGO->box.h = GAME_HEIGHT;
 
-    TileSet *set = new TileSet(64, 64, "img/tileset.png");
-    TileMap *tileMap = new TileMap(*mapGO, "map/tileMap.txt", set);
+    TileSet *tileSet = new TileSet(64, 64, "img/tileset.png");
+    TileMap *tileMap = new TileMap(*mapGO, "map/tileMap.txt", tileSet);
     mapGO->AddComponent(tileMap);
     objectArray.emplace_back(mapGO);
 
@@ -61,7 +61,14 @@ void State::Update(float dt) {
 
     for(int i = 0; i < objectArray.size(); i++) {
         if (objectArray[i]->IsDead()) {
-            if(!((Sound*)objectArray[i].get()->GetComponent(SOUND_TYPE))->IsSoundPlaying()){
+            Component *face = objectArray[i]->GetComponent(FACE_TYPE);
+            Component *sprite = objectArray[i]->GetComponent(SPRITE_TYPE);
+            //Remove a face e o sprite
+            objectArray[i]->RemoveComponent(face);
+            objectArray[i]->RemoveComponent(sprite);
+
+            //Espera o som parar de tocar pra remover o GO associado
+            if(!((Sound*) objectArray[i]->GetComponent(SOUND_TYPE))->IsSoundPlaying()){
                 objectArray.erase(objectArray.begin() + i);
             }
         }
