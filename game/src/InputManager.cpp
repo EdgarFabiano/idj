@@ -25,16 +25,26 @@ void InputManager::Update() {
 
     while (SDL_PollEvent(&event)) {
         eventType = event.type;
-        if ((eventType == SDL_KEYDOWN || eventType == SDL_KEYUP) && !event.key.repeat) {
-            keyState[event.key.keysym.sym] = (eventType == SDL_KEYDOWN);
-            keyUpdate[event.key.keysym.sym] = updateCounter;
-        }
-        else if (eventType == SDL_MOUSEBUTTONDOWN || eventType == SDL_MOUSEBUTTONUP) {
-            mouseState[event.button.button] = (eventType == SDL_MOUSEBUTTONDOWN);
-            mouseUpdate[event.button.button] = updateCounter;
-        }
-        else if (eventType == SDL_QUIT) {
-            quitRequested = true;
+        switch (eventType){
+            case SDL_KEYDOWN:
+            case SDL_KEYUP:
+                if(!event.key.repeat){
+                    keyState[event.key.keysym.sym] = eventType == SDL_KEYDOWN;
+                    keyUpdate[event.key.keysym.sym] = updateCounter;
+                }
+                break;
+
+            case SDL_MOUSEBUTTONDOWN:
+            case SDL_MOUSEBUTTONUP:
+                mouseState[event.button.button] = eventType == SDL_MOUSEBUTTONDOWN;
+                mouseUpdate[event.button.button] = updateCounter;
+                break;
+
+            case SDL_QUIT:
+                quitRequested = true;
+
+            default:
+                break;
         }
     }
 }
