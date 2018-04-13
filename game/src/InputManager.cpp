@@ -3,7 +3,6 @@
 //
 
 #include <cstring>
-#include <SDL_events.h>
 #include "InputManager.h"
 
 
