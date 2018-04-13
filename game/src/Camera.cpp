@@ -6,8 +6,8 @@
 #include <InputManager.h>
 #include "Camera.h"
 
-Vec2 Camera::pos;
-Vec2 Camera::speed;
+Vec2 Camera::pos = *new Vec2();
+Vec2 Camera::speed = *new Vec2();
 GameObject *Camera::focus = nullptr;
 
 void Camera::Follow(GameObject *newFocus) {
@@ -25,7 +25,7 @@ void Camera::Update(float dt) {
         InputManager inputManager = InputManager::GetInstance();
 
         speed = {0, 0};
-        Vec2 atual = {CAMERA_SPEED * dt, 0};
+        Vec2 direcional = {CAMERA_SPEED * dt, 0};
 
         bool right = inputManager.IsKeyDown(RIGHT_ARROW_KEY);
         bool down = inputManager.IsKeyDown(DOWN_ARROW_KEY);
@@ -33,24 +33,25 @@ void Camera::Update(float dt) {
         bool up = inputManager.IsKeyDown(UP_ARROW_KEY);
 
         if (right) {
-            speed = atual;
+            speed = direcional;
         } else if (down) {
-            speed = atual.Rotate((float) M_PI / 2);
+            speed = direcional.Rotate((float) M_PI / 2);
         } else if (left) {
-            speed = atual.Rotate((float) M_PI);
+            speed = direcional.Rotate((float) M_PI);
         } else if (up) {
-            speed = atual.Rotate((float)-M_PI / 2);
+            speed = direcional.Rotate((float)-M_PI / 2);
         }
 
         if(right && down){
-            speed = atual.Rotate((float) M_PI / 4);
+            speed = direcional.Rotate((float) M_PI / 4);
         } else if(left && down){
-            speed = atual.Rotate((float) 3 * M_PI / 4);
+            speed = direcional.Rotate((float) 3 * M_PI / 4);
         } else if(left && up){
-            speed = atual.Rotate((float) -3 * M_PI / 4);
+            speed = direcional.Rotate((float) -3 * M_PI / 4);
         } else if(right && up){
-            speed = atual.Rotate((float) -M_PI / 4);
+            speed = direcional.Rotate((float) -M_PI / 4);
         }
+
         pos += speed;
     }
 }

@@ -9,15 +9,15 @@ Vec2::Vec2() : x(0), y(0) {}
 Vec2::Vec2(float x, float y) : x(x), y(y) {}
 
 Vec2 Vec2::Sum(Vec2 v) {
-    return { x + v.x, y + v.y };
+    return {x + v.x, y + v.y};
 }
 
 Vec2 Vec2::Sub(Vec2 v) {
-    return { x - v.x, y - v.y };
+    return {x - v.x, y - v.y};
 }
 
 Vec2 Vec2::Mul(const float escalar) {
-    return { x * escalar, y * escalar };
+    return {x * escalar, y * escalar};
 }
 
 float Vec2::Mag() {
@@ -25,7 +25,7 @@ float Vec2::Mag() {
 }
 
 Vec2 Vec2::Norm() {
-    float mag = Mag();
+    float mag = this->Mag();
     return {x / mag, y / mag};
 }
 

@@ -2,14 +2,13 @@
 // Created by edgar on 23/03/18.
 //
 
-#include <algorithm>
 #include "GameObject.h"
 
 GameObject::GameObject() : isDead(false) {}
 
 GameObject::~GameObject() {
-    for (auto &component : components) {
-        delete component.get();
+    for(auto it = components.rbegin(); it != components.rend(); ++it) {
+        (*it).reset();
     }
     components.clear();
 }

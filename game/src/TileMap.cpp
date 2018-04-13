@@ -15,12 +15,12 @@ TileMap::TileMap(GameObject &associated, string file, TileSet *tileSet) : Compon
 void TileMap::Load(string file) {
     FILE* fp = fopen((ASSETS_PATH + file).c_str(), "r");
     if(fp == nullptr){
-        cout << "Erro ao abrir o arquivo de mapa: " << file << endl;
+        cout << "Unable to load TileMap: " << file << endl;
         exit(1);
     }
 
     if(fscanf(fp, "%d,%d,%d", &mapWidth, &mapHeight, &mapDepth) != 3){
-        cout << "Erro nas dimensoes do arquivo: " << file << endl;
+        cout << "Error in TileMap dimentions: " << file << endl;
         exit(1);
     }
 
@@ -43,8 +43,8 @@ int &TileMap::At(int x, int y, int z) {
 }
 
 void TileMap::RenderLayer(int layer, int cameraX, int cameraY) {
-    for (int i = 0; i < mapWidth; ++i){
-        for (int j = 0; j < mapHeight; ++j){
+    for (int i = 0; i < mapWidth; i++){
+        for (int j = 0; j < mapHeight; j++){
             auto x = (int)(i * tileSet->GetTileWidth() - cameraX - PARALLAX_FACTOR * Camera::pos.x * layer);
             auto y = (int)(j * tileSet->GetTileHeight() - cameraY - PARALLAX_FACTOR * Camera::pos.y * layer);
 

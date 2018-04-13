@@ -64,8 +64,10 @@ void State::Update(float dt) {
             Component *face = objectArray[i]->GetComponent(FACE_TYPE);
             Component *sprite = objectArray[i]->GetComponent(SPRITE_TYPE);
             //Remove a face e o sprite
-            objectArray[i]->RemoveComponent(face);
-            objectArray[i]->RemoveComponent(sprite);
+            if(face != nullptr && sprite != nullptr) {
+                objectArray[i]->RemoveComponent(face);
+                objectArray[i]->RemoveComponent(sprite);
+            }
 
             //Espera o som parar de tocar pra remover o GO associado
             if(!((Sound*) objectArray[i]->GetComponent(SOUND_TYPE))->IsSoundPlaying()){
