@@ -6,7 +6,6 @@
 #include <InputManager.h>
 #include <Camera.h>
 #include <CameraFollower.h>
-#include "Face.h"
 #include "Sound.h"
 
 State::State() {
@@ -60,18 +59,7 @@ void State::Update(float dt) {
 
     for(int i = 0; i < objectArray.size(); i++) {
         if (objectArray[i]->IsDead()) {
-            Component *face = objectArray[i]->GetComponent(FACE_TYPE);
-            Component *sprite = objectArray[i]->GetComponent(SPRITE_TYPE);
-            //Remove a face e o sprite
-            if(face != nullptr && sprite != nullptr) {
-                objectArray[i]->RemoveComponent(face);
-                objectArray[i]->RemoveComponent(sprite);
-            }
-
-            //Espera o som parar de tocar pra remover o GO associado
-            if(!((Sound*) objectArray[i]->GetComponent(SOUND_TYPE))->IsSoundPlaying()){
-                objectArray.erase(objectArray.begin() + i);
-            }
+            objectArray.erase(objectArray.begin() + i);
         }
     }
 }
@@ -87,10 +75,6 @@ void State::AddObject(int mouseX, int mouseY) {
 
     go->box.x = mouseX + Camera::pos.x - go->box.w / 2;
     go->box.y = mouseY + Camera::pos.y - go->box.h / 2;
-
-    go->AddComponent(new Sprite(*go, "img/penguinface.png"));
-    go->AddComponent(new Sound(*go, "audio/boom.wav"));
-    go->AddComponent(new Face(*go));
 
     objectArray.emplace_back(go);
 }
