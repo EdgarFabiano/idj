@@ -10,6 +10,7 @@
 #include "Sound.h"
 
 State::State() {
+    started = false;
     auto bgGO(new GameObject());
     bgGO->AddComponent(new CameraFollower(*bgGO));
     bgGO->AddComponent(new Sprite(*bgGO, "img/ocean.jpg"));
@@ -25,9 +26,7 @@ State::State() {
     mapGO->AddComponent(tileMap);
     objectArray.emplace_back(mapGO);
 
-    LoadAssets();
     quitRequested = false;
-    music.Play();
 }
 
 State::~State() {
@@ -94,4 +93,31 @@ void State::AddObject(int mouseX, int mouseY) {
     go->AddComponent(new Face(*go));
 
     objectArray.emplace_back(go);
+}
+
+void State::Start() {
+    LoadAssets();
+    music.Play();
+    for (auto &i : objectArray) {
+        i->Start();
+    }
+    started = true;
+}
+
+weak_ptr<GameObject> State::AddObject(GameObject *go) {
+    shared_ptr<GameObject> gameObject(go);
+    objectArray.push_back(gameObject);
+    if(started){
+        gameObject->Start();
+    }
+    return weak_ptr<GameObject>(gameObject);
+}
+
+weak_ptr<GameObject> State::GetObjectPtr(GameObject *go) {
+    for (auto &i : objectArray) {
+        if(i.get() == go){
+            return weak_ptr<GameObject>(i);
+        }
+    }
+    return weak_ptr<GameObject>();
 }

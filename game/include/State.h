@@ -17,13 +17,16 @@ public:
     void LoadAssets ();
     void Update (float dt);
     void Render ();
+    void Start();
+    weak_ptr<GameObject> AddObject(GameObject *go);
+    weak_ptr<GameObject> GetObjectPtr(GameObject *go);
 
 private:
     void AddObject(int mouseX, int mouseY);
     Music music;
     bool quitRequested;
-    vector<unique_ptr<GameObject>> objectArray;
-
+    vector<shared_ptr< GameObject>> objectArray;
+    bool started;
 };
 
 

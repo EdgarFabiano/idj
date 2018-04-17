@@ -28,10 +28,12 @@ public:
     void RemoveComponent(Component* cpt);
     Component* GetComponent(string type);
     Rect box;
+    void Start();
 
 private:
     vector<unique_ptr<Component>> components;
     bool isDead;
+    bool started;
 
 };
 

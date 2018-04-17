@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <utility>
 #include <Game.h>
 #include <Resources.h>
 
@@ -11,7 +12,7 @@
 Music::Music() : music(nullptr) {}
 
 Music::Music(string file) : music(nullptr) {
-    Open(file);
+    Open(move(file));
 }
 
 Music::~Music() {
@@ -33,7 +34,7 @@ void Music::Stop(int msToStop) {
 }
 
 void Music::Open(string file) {
-    music = Resources::GetMusic(file);
+    music = Resources::GetMusic(move(file));
 }
 
 bool Music::IsOpen() {
