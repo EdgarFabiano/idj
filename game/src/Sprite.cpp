@@ -6,12 +6,14 @@
 
 #include <Resources.h>
 #include <Camera.h>
+
+#include <utility>
 #include "Game.h"
 
 Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr) { }
 
 Sprite::Sprite(GameObject& associated, string file) : Component(associated), texture(nullptr) {
-    Open(file);
+    Open(move(file));
 }
 
 Sprite::~Sprite() {
@@ -19,7 +21,7 @@ Sprite::~Sprite() {
 }
 
 void Sprite::Open(string file) {
-    texture = Resources::GetImage(file);
+    texture = Resources::GetImage(move(file));
 
     SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
     associated.box.w = width;

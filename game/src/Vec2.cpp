@@ -34,7 +34,7 @@ float Vec2::Dist(Vec2 v) {
 }
 
 float Vec2::InclX() {
-    return atan2(x, y);
+    return atan2(y, x);
 }
 
 float Vec2::Incl(Vec2 v) {

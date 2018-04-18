@@ -28,3 +28,7 @@ float Rect::DistRecs(Rect r) {
 bool Rect::Contains(Vec2 v) {
     return (v.x < (x + w) && v.x >= x) && (v.y < (y + h) && v.y >= y);
 }
+
+Rect Rect::operator+=(Vec2 v) {
+    return *this = this->SumVec2(v);
+}

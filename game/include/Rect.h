@@ -20,6 +20,8 @@ public:
     Vec2 CenterCoord();
     float DistRecs(Rect r);
     bool Contains(Vec2 v);
+
+    Rect operator+=(Vec2 v);
 };
 
 
