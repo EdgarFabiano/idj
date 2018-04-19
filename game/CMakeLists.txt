@@ -31,4 +31,4 @@ add_executable(JOGO src/Main.cpp
         src/InputManager.cpp include/InputManager.h
         src/Camera.cpp include/Camera.h
         src/CameraFollower.cpp include/CameraFollower.h
-        src/Alien.cpp include/Alien.h)
+        src/Alien.cpp include/Alien.h src/Minion.cpp include/Minion.h)
