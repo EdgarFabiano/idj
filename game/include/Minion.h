@@ -5,7 +5,9 @@
 #ifndef SRC_MINION_H
 #define SRC_MINION_H
 
-#define MINION_ANGULAR_SPEED M_PI/8
+#define MINION_TYPE "Minion"
+
+#define MINION_ANGULAR_SPEED M_PI/4
 
 
 #include "GameObject.h"

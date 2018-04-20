@@ -5,10 +5,13 @@
 #include <Sprite.h>
 #include <InputManager.h>
 #include <Camera.h>
+#include <Minion.h>
+#include <Game.h>
 #include "Alien.h"
 
 Alien::Alien(GameObject &associated, int nMinions) : Component(associated), speed({0, 0}), hp(50) {
     associated.AddComponent(new Sprite(associated, "img/alien.png"));
+    minionArray.resize((unsigned long)(nMinions));
 }
 
 Alien::~Alien() {
@@ -19,8 +22,18 @@ Alien::~Alien() {
 }
 
 void Alien::Start() {
-    for(int i = 0; i < minionArray.size(); i++){
+    auto minionSize = (float) minionArray.size();
+    for(int i = 0; i < minionSize; i++){
+        auto *minionGO = new GameObject;
 
+        //espaca os minions igualmente na orbita em funcao da quantidade
+        auto setor = (float)(2 * M_PI * (i / minionSize));
+
+        minionGO->AddComponent(new Minion(*minionGO,
+                                          Game::GetInstance().GetState().GetObjectPtr(&associated),
+                                          setor));
+
+        minionArray.emplace_back(Game::GetInstance().GetState().AddObject(minionGO));
     }
 }
 

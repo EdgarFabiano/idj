@@ -29,7 +29,7 @@ State::State() {
     auto alienGO(new GameObject());
     Rect &alienBox = alienGO->box;
     alienBox += {512 + alienBox.w/2, 300 + alienBox.h/2};
-    alienGO->AddComponent(new Alien(*alienGO, 3));
+    alienGO->AddComponent(new Alien(*alienGO, 5));
     objectArray.emplace_back(alienGO);
 
     quitRequested = false;

@@ -9,7 +9,7 @@ include_directories(/usr/include/SDL2)
 
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
 include_directories(BEFORE include)
 include_directories(BEFORE dep)
@@ -31,4 +31,5 @@ add_executable(JOGO src/Main.cpp
         src/InputManager.cpp include/InputManager.h
         src/Camera.cpp include/Camera.h
         src/CameraFollower.cpp include/CameraFollower.h
-        src/Alien.cpp include/Alien.h src/Minion.cpp include/Minion.h)
+        src/Alien.cpp include/Alien.h
+        src/Minion.cpp include/Minion.h)

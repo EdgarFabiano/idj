@@ -6,7 +6,8 @@
 #define ALIEN_CLASS
 
 #define ALIEN_TYPE "Alien"
-#define ALIEN_SPEED 300
+#define ALIEN_SPEED 500
+#define MINION_QTD 5
 
 
 #include <queue>
