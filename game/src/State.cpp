@@ -7,17 +7,16 @@
 #include <Camera.h>
 #include <CameraFollower.h>
 #include <Alien.h>
-#include "Sound.h"
 
 State::State() {
     started = false;
-    auto bgGO(new GameObject());
+    auto bgGO(new GameObject);
     bgGO->AddComponent(new CameraFollower(*bgGO));
     bgGO->AddComponent(new Sprite(*bgGO, "img/ocean.jpg"));
 
     objectArray.emplace_back(bgGO);
 
-    auto mapGO(new GameObject());
+    auto mapGO(new GameObject);
     mapGO->box.w = GAME_WIDTH;
     mapGO->box.h = GAME_HEIGHT;
 
@@ -26,7 +25,7 @@ State::State() {
     mapGO->AddComponent(tileMap);
     objectArray.emplace_back(mapGO);
 
-    auto alienGO(new GameObject());
+    auto alienGO(new GameObject);
     Rect &alienBox = alienGO->box;
     alienBox += {512 + alienBox.w/2, 300 + alienBox.h/2};
     alienGO->AddComponent(new Alien(*alienGO, 5));

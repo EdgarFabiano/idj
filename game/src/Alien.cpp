@@ -44,7 +44,12 @@ void Alien::Update(float dt) {
     if(inputManager.MousePress(LEFT_MOUSE_BUTTON)){
         taskQueue.push(*new Action(Action::SHOOT, posX , posY));
     } else if(inputManager.MousePress(RIGHT_MOUSE_BUTTON)){
-        taskQueue.push(*new Action(Action::MOVE, posX , posY));
+
+        //impede de acumular eventos na fila, sobrescrevendo sempre que há um evento
+        while(!taskQueue.empty()){
+            taskQueue.pop();
+        }
+        taskQueue.push(*new Action(Action::MOVE, posX, posY));
     }
 
     if(!taskQueue.empty()){
