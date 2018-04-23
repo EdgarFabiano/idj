@@ -53,8 +53,8 @@ void State::Update(float dt) {
 
     quitRequested = inputManager.KeyPress(ESCAPE_KEY) || inputManager.QuitRequested();
 
-    for (auto &it : objectArray) {
-        it->Update(dt);
+    for(int i = 0; i < objectArray.size(); i++){
+        objectArray[i].get()->Update(dt);
     }
 
     for(int i = 0; i < objectArray.size(); i++) {
