@@ -29,6 +29,7 @@ public:
     Component* GetComponent(string type);
     Rect box;
     void Start();
+    double angleDeg;
 
 private:
     vector<unique_ptr<Component>> components;

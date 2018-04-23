@@ -34,11 +34,15 @@ public:
     void Render(float x, float y);
     bool Is(string type) override;
 
+    void SetScale(float scaleX, float scaleY);
+    Vec2 GetScale();
+
 private:
     SDL_Texture* texture;
     int width;
     int height;
     SDL_Rect clipRect;
+    Vec2 scale;
 
 };
 

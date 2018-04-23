@@ -70,6 +70,7 @@ void Alien::Update(float dt) {
 
         } else if(action.type == Action::SHOOT){
             auto target = InputManager::GetInstance().GetMouse();
+            //Pega um minion aleatório
             const shared_ptr<GameObject> &ptr = minionArray[rand() % minionArray.size()].lock();
             auto minion = (Minion*)(ptr->GetComponent(MINION_TYPE));
             minion->Shoot(target);

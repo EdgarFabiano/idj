@@ -10,9 +10,9 @@
 #include <utility>
 #include "Game.h"
 
-Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr) { }
+Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr), scale(1, 1) { }
 
-Sprite::Sprite(GameObject& associated, string file) : Component(associated), texture(nullptr) {
+Sprite::Sprite(GameObject& associated, string file) : Component(associated), texture(nullptr), scale(1, 1) {
     Open(move(file));
 }
 
@@ -39,16 +39,16 @@ void Sprite::Render() {
 }
 
 void Sprite::Render(float x, float y) {
-    SDL_Rect dst = { (int)x, (int)y, clipRect.w, clipRect.h };
-    SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &dst);
+    SDL_Rect dst = { (int)x, (int)y, (int)(clipRect.w * scale.x), (int)(clipRect.h * scale.x) };
+    SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect, &dst, associated.angleDeg, nullptr , SDL_FLIP_NONE);
 }
 
 int Sprite::GetWidth() {
-    return width;
+    return (int)(width * scale.x);
 }
 
 int Sprite::GetHeight() {
-    return height;
+    return (int)(height * scale.y);
 }
 
 bool Sprite::IsOpen(){
@@ -61,4 +61,21 @@ bool Sprite::Is(string type) {
     return type == SPRITE_TYPE;
 }
 
+void Sprite::SetScale(float scaleX, float scaleY) {
+    auto &box = associated.box;
+    if(scaleX != 0){
+        scale.x = scaleX;
+        box.w = width * scaleX;
+        box.x = box.CenterCoord().x - box.w/2;
+    }
 
+    if(scaleY != 0){
+        scale.y = scaleY;
+        box.h = height * scaleY;
+        box.y = box.CenterCoord().y - box.h/2;
+    }
+}
+
+Vec2 Sprite::GetScale() {
+    return scale;
+}
