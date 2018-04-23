@@ -15,7 +15,7 @@ Bullet::Bullet(GameObject &associated, float angle, float speed, int damage, flo
 void Bullet::Update(float dt) {
     associated.box += speed * dt;
     distanceLeft -= (speed * dt).Mag();
-    if(!distanceLeft){
+    if(distanceLeft < 0){
         associated.RequestDelete();
     }
 }
