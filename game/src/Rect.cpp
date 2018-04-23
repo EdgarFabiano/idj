@@ -25,6 +25,10 @@ float Rect::DistRecs(Rect r) {
     return v.Dist(r.CenterCoord());
 }
 
+float Rect::DistVec2(Vec2 v) {
+    return this->CenterCoord().Dist(v);
+}
+
 bool Rect::Contains(Vec2 v) {
     return (v.x < (x + w) && v.x >= x) && (v.y < (y + h) && v.y >= y);
 }

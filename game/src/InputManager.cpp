@@ -3,6 +3,7 @@
 //
 
 #include <cstring>
+#include <Camera.h>
 #include "InputManager.h"
 
 
@@ -70,6 +71,10 @@ bool InputManager::MouseRelease(int button) {
 
 bool InputManager::IsMouseDown(int button) {
     return mouseState[button];
+}
+
+Vec2 InputManager::GetMouse() {
+    return {mouseX + Camera::pos.x, mouseY + Camera::pos.y};
 }
 
 int InputManager::GetMouseX() {

@@ -52,12 +52,6 @@ void State::Update(float dt) {
     Camera::Update(dt);
 
     quitRequested = inputManager.KeyPress(ESCAPE_KEY) || inputManager.QuitRequested();
-    int mouseX = inputManager.GetMouseX(), mouseY = inputManager.GetMouseY();
-
-    if(inputManager.KeyPress(SPACE_BAR_KEY)){
-        Vec2 objPos = Vec2(200, 0).Rotate((float) (-M_PI + M_PI * (rand() % 1001) / 500.0)) + Vec2(mouseX, mouseY);
-        AddObject((int)(objPos.x), (int)(objPos.y));
-    }
 
     for (auto &it : objectArray) {
         it->Update(dt);
@@ -74,15 +68,6 @@ void State::Render() {
     for (auto &it : objectArray) {
         it->Render();
     }
-}
-
-void State::AddObject(int mouseX, int mouseY) {
-    auto go(new GameObject());
-
-    go->box.x = mouseX + Camera::pos.x - go->box.w / 2;
-    go->box.y = mouseY + Camera::pos.y - go->box.h / 2;
-
-    objectArray.emplace_back(go);
 }
 
 void State::Start() {

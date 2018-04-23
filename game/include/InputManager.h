@@ -15,6 +15,7 @@
 #define RIGHT_MOUSE_BUTTON  SDL_BUTTON_RIGHT
 
 #include <unordered_map>
+#include <Vec2.h>
 #define INCLUDE_SDL
 #include "SDL_include.h"
 
@@ -32,6 +33,7 @@ public:
     bool MouseRelease(int button);
     bool IsMouseDown(int button);
 
+    Vec2 GetMouse();
     int GetMouseX();
     int GetMouseY();
 
@@ -44,18 +46,18 @@ public:
 
 private:
     bool mouseState[6];
-    int mouseUpdate[6];
 
+    int mouseUpdate[6];
     unordered_map<int, bool> keyState;
+
     unordered_map<int, int> keyUpdate;
 
     bool quitRequested;
 
     int updateCounter;
-
     int mouseX;
-    int mouseY;
 
+    int mouseY;
 };
 
 

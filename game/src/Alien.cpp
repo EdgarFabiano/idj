@@ -33,7 +33,7 @@ void Alien::Start() {
                                           Game::GetInstance().GetState().GetObjectPtr(&associated),
                                           setor));
 
-        minionArray.emplace_back(Game::GetInstance().GetState().AddObject(minionGO));
+        minionArray[i] = (Game::GetInstance().GetState().AddObject(minionGO));
     }
 }
 
@@ -60,8 +60,6 @@ void Alien::Update(float dt) {
             Vec2 calculado = action.pos - Vec2(associated.box.x + (associated.box.w/2), associated.box.y + (associated.box.h/2));
             Vec2 real = deltaX.Rotate(calculado.InclX());
 
-            //cout << calculado.InclX()*57.2958 << endl;
-
             //Distancia minima para o Alien nao chegar ao destino no proximo frame
             if(calculado.Mag() < real.Mag()){
                 associated.box += calculado;
@@ -71,6 +69,10 @@ void Alien::Update(float dt) {
             }
 
         } else if(action.type == Action::SHOOT){
+            auto target = InputManager::GetInstance().GetMouse();
+            const shared_ptr<GameObject> &ptr = minionArray[rand() % minionArray.size()].lock();
+            auto minion = (Minion*)(ptr->GetComponent(MINION_TYPE));
+            minion->Shoot(target);
             taskQueue.pop();
         }
     }

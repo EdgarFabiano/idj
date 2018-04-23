@@ -19,6 +19,7 @@ public:
     Rect SubVec2(Vec2 v);
     Vec2 CenterCoord();
     float DistRecs(Rect r);
+    float DistVec2(Vec2 v);
     bool Contains(Vec2 v);
 
     Rect operator+=(Vec2 v);

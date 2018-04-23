@@ -22,7 +22,6 @@ public:
     weak_ptr<GameObject> GetObjectPtr(GameObject *go);
 
 private:
-    void AddObject(int mouseX, int mouseY);
     Music music;
     bool quitRequested;
     vector<shared_ptr< GameObject>> objectArray;
