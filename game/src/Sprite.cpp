@@ -10,9 +10,18 @@
 #include <utility>
 #include "Game.h"
 
-Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr), scale(1, 1) { }
+Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr),
+                                         scale(1, 1),
+                                         frameCount(0),
+                                         frameTime(0),
+                                         timeElapsed(0),
+                                         currentFrame(0) { }
 
-Sprite::Sprite(GameObject& associated, string file) : Component(associated), texture(nullptr), scale(1, 1) {
+Sprite::Sprite(GameObject &associated, string file, int frameCount, float frameTime) : Component(associated),
+                                                                                       texture(nullptr),
+                                                                                       scale(1, 1),
+                                                                                       frameCount(frameCount),
+                                                                                       frameTime(frameTime) {
     Open(move(file));
 }
 
@@ -26,7 +35,7 @@ void Sprite::Open(string file) {
     SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
     associated.box.w = width;
     associated.box.h = height;
-    SetClip(0, 0, width, height);
+    SetClip(0, 0, width/frameCount, height);
 }
 
 void Sprite::SetClip(int x, int y, int w, int h) {
@@ -44,7 +53,7 @@ void Sprite::Render(float x, float y) {
 }
 
 int Sprite::GetWidth() {
-    return (int)(width * scale.x);
+    return (int)(width * scale.x)/frameCount;
 }
 
 int Sprite::GetHeight() {
@@ -55,7 +64,16 @@ bool Sprite::IsOpen(){
     return texture != nullptr;
 }
 
-void Sprite::Update(float dt) {}
+void Sprite::Update(float dt) {
+    timeElapsed += dt;
+    if(timeElapsed >= frameTime){
+        if(++currentFrame >= frameCount){
+            currentFrame = 0;
+        }
+        SetFrame(currentFrame);
+        timeElapsed = 0;
+    }
+}
 
 bool Sprite::Is(string type) {
     return type == SPRITE_TYPE;
@@ -79,3 +97,19 @@ void Sprite::SetScale(float scaleX, float scaleY) {
 Vec2 Sprite::GetScale() {
     return scale;
 }
+
+void Sprite::SetFrame(int frame) {
+    this->currentFrame = frame;
+    SetClip(frame * GetWidth()/frameCount, 0, clipRect.w, clipRect.h);
+}
+
+void Sprite::SetFrameCount(int frameCount) {
+    this->frameCount = frameCount;
+    associated.box.w = GetWidth();
+    SetClip(0, clipRect.y, GetWidth()/frameCount, clipRect.h);
+}
+
+void Sprite::SetFrameTime(float) {
+    this->frameTime = frameTime;
+}
+
