@@ -78,6 +78,8 @@ void Alien::Update(float dt) {
         }
     }
 
+    associated.angleDeg += ALIEN_ROTATION_SPEED;
+
     if(hp <= 0){
         associated.RequestDelete();
     }

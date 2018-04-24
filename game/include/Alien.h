@@ -7,8 +7,7 @@
 
 #define ALIEN_TYPE "Alien"
 #define ALIEN_SPEED 500
-#define MINION_QTD 5
-
+#define ALIEN_ROTATION_SPEED -2
 
 #include <queue>
 #include "Component.h"
