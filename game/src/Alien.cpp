@@ -70,10 +70,12 @@ void Alien::Update(float dt) {
 
         } else if(action.type == Action::SHOOT){
             auto target = InputManager::GetInstance().GetMouse();
-            //Pega um minion aleatório
-            const shared_ptr<GameObject> &ptr = minionArray[rand() % minionArray.size()].lock();
+
+            //Pega o minion com a menor distância do alvo
+            const shared_ptr<GameObject> &ptr = minionArray[NearestMinion(target)].lock();
             auto minion = (Minion*)(ptr->GetComponent(MINION_TYPE));
             minion->Shoot(target);
+
             taskQueue.pop();
         }
     }
@@ -95,4 +97,17 @@ bool Alien::Is(string type) {
 Alien::Action::Action(Alien::Action::ActionType type, float x, float y) : type(type){
     pos.x = x;
     pos.y = y;
+}
+
+int Alien::NearestMinion(const Vec2 &target) const {
+    float minimum = ((*minionArray[0].lock()).box.CenterCoord() - target).Mag();
+    int location = 0;
+    for(int i = 0; i < minionArray.size(); i++){
+        float dist = ((*minionArray[i].lock()).box.CenterCoord() - target).Mag();
+        if (dist < minimum ){
+            minimum = dist;
+            location = i;
+        }
+    }
+    return location;
 }

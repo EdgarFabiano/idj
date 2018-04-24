@@ -38,6 +38,7 @@ private:
     queue<Action> taskQueue;
     vector<weak_ptr<GameObject>> minionArray;
 
+    int NearestMinion(const Vec2 &target) const;
 };
 
 
