@@ -6,8 +6,8 @@
 
 #include "Bullet.h"
 
-Bullet::Bullet(GameObject &associated, float angle, float speed, int damage, float maxDistance, string sprite) : Component(associated) {
-    associated.AddComponent(new Sprite(associated, move(sprite)));
+Bullet::Bullet(GameObject &associated, float angle, float speed, int damage, float maxDistance, string sprite, int frameCount, float frameTime) : Component(associated), damage(damage) {
+    associated.AddComponent(new Sprite(associated, move(sprite), frameCount, frameTime));
     this->speed = Vec2(speed, 0).Rotate(angle);
     this->distanceLeft = maxDistance;
 }

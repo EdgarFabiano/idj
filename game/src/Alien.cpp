@@ -11,7 +11,7 @@
 
 Alien::Alien(GameObject &associated, int nMinions) : Component(associated), speed({0, 0}), hp(50) {
     associated.AddComponent(new Sprite(associated, "img/alien.png"));
-    minionArray.resize((unsigned long)(nMinions));
+    minionArray.resize((unsigned)(nMinions));
 }
 
 Alien::~Alien() {
@@ -22,12 +22,12 @@ Alien::~Alien() {
 }
 
 void Alien::Start() {
-    auto minionSize = (float) minionArray.size();
+    auto minionSize = minionArray.size();
     for(int i = 0; i < minionSize; i++){
         auto *minionGO = new GameObject;
 
         //espaca os minions igualmente na orbita em funcao da quantidade
-        auto setor = (float)(2 * M_PI * (i / minionSize));
+        auto setor = (float)(2 * M_PI * (i /(float)minionSize));
 
         minionGO->AddComponent(new Minion(*minionGO,
                                           Game::GetInstance().GetState().GetObjectPtr(&associated),

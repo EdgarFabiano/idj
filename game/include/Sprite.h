@@ -25,6 +25,7 @@ public:
 
     void Open(string file);
     void SetClip(int x, int y, int w, int h);
+    int GetSpriteWidth();
     int GetWidth();
     int GetHeight();
     bool IsOpen();

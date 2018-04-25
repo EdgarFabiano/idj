@@ -8,6 +8,7 @@
 #include <Camera.h>
 
 #include <utility>
+#include <Bullet.h>
 #include "Game.h"
 
 Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr),
@@ -50,6 +51,10 @@ void Sprite::Render() {
 void Sprite::Render(float x, float y) {
     SDL_Rect dst = { (int)x, (int)y, (int)(clipRect.w * scale.x), (int)(clipRect.h * scale.x) };
     SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect, &dst, associated.angleDeg, nullptr , SDL_FLIP_NONE);
+}
+
+int Sprite::GetSpriteWidth() {
+    return (int)(width * scale.x);
 }
 
 int Sprite::GetWidth() {
@@ -100,16 +105,19 @@ Vec2 Sprite::GetScale() {
 
 void Sprite::SetFrame(int frame) {
     this->currentFrame = frame;
-    SetClip(frame * GetWidth()/frameCount, 0, clipRect.w, clipRect.h);
+    SetClip(frame * GetWidth(), 0, clipRect.w, clipRect.h);
 }
 
 void Sprite::SetFrameCount(int frameCount) {
     this->frameCount = frameCount;
+    //currentFrame = 0;
     associated.box.w = GetWidth();
-    SetClip(0, clipRect.y, GetWidth()/frameCount, clipRect.h);
+    SetClip(0, clipRect.y, GetWidth(), clipRect.h);
 }
 
 void Sprite::SetFrameTime(float) {
     this->frameTime = frameTime;
 }
+
+
 
