@@ -30,9 +30,16 @@ public:
     Vec2 RotateDeg(const float angDeg);
 
     Vec2 operator+(const Vec2& v);
+    Vec2 operator+(const Vec2& v) const;
+
     Vec2 operator-(const Vec2& v);
+    Vec2 operator-(const Vec2& v) const;
+
     Vec2 operator*(const float escalar);
+    Vec2 operator*(const float escalar) const;
+
     bool operator==(const Vec2& v);
+
     Vec2 operator+=(const Vec2& v);
     Vec2 operator-=(const Vec2& v);
 

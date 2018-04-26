@@ -100,10 +100,10 @@ Alien::Action::Action(Alien::Action::ActionType type, float x, float y) : type(t
 }
 
 int Alien::NearestMinion(const Vec2 &target) const {
-    float minimum = ((*minionArray[0].lock()).box.CenterCoord() - target).Mag();
+    float minimum = ((*minionArray[0].lock()).box.GetCenter() - target).Mag();
     int location = 0;
     for(int i = 0; i < minionArray.size(); i++){
-        float dist = ((*minionArray[i].lock()).box.CenterCoord() - target).Mag();
+        float dist = ((*minionArray[i].lock()).box.GetCenter() - target).Mag();
         if (dist < minimum ){
             minimum = dist;
             location = i;

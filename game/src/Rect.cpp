@@ -16,17 +16,17 @@ Rect Rect::SubVec2(Vec2 v) {
     return Rect(x - v.x, y - v.y, w, h);
 }
 
-Vec2 Rect::CenterCoord() {
+Vec2 Rect::GetCenter() {
     return Vec2(x + (w/2), y + (h/2));
 }
 
 float Rect::DistRecs(Rect r) {
-    Vec2 v = this->CenterCoord();
-    return v.Dist(r.CenterCoord());
+    Vec2 v = this->GetCenter();
+    return v.Dist(r.GetCenter());
 }
 
 float Rect::DistVec2(Vec2 v) {
-    return this->CenterCoord().Dist(v);
+    return this->GetCenter().Dist(v);
 }
 
 bool Rect::Contains(Vec2 v) {

@@ -17,7 +17,7 @@ public:
 
     Rect SumVec2(Vec2 v);
     Rect SubVec2(Vec2 v);
-    Vec2 CenterCoord();
+    Vec2 GetCenter();
     float DistRecs(Rect r);
     float DistVec2(Vec2 v);
     bool Contains(Vec2 v);

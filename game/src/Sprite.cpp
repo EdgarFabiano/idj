@@ -89,13 +89,13 @@ void Sprite::SetScale(float scaleX, float scaleY) {
     if(scaleX != 0){
         scale.x = scaleX;
         box.w = width * scaleX;
-        box.x = box.CenterCoord().x - box.w/2;
+        box.x = box.GetCenter().x - box.w/2;
     }
 
     if(scaleY != 0){
         scale.y = scaleY;
         box.h = height * scaleY;
-        box.y = box.CenterCoord().y - box.h/2;
+        box.y = box.GetCenter().y - box.h/2;
     }
 }
 

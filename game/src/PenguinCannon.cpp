@@ -21,7 +21,7 @@ void PenguinCannon::Update(float dt) {
     InputManager &inputManager = InputManager::GetInstance();
 
     associated.box = body.box;
-    angle = (inputManager.GetMouse() - associated.box.CenterCoord()).InclX();
+    angle = (inputManager.GetMouse() - associated.box.GetCenter()).InclX();
     associated.angleDeg = angle * 180/M_PI;
     
     if(inputManager.MousePress(LEFT_MOUSE_BUTTON)){
@@ -39,8 +39,8 @@ void PenguinCannon::Shoot() {
     auto bulletGo = new GameObject;
     auto offset = Vec2(BULLET_OFFSET, 0).Rotate(angle);
 
-    bulletGo->box.x = associated.box.CenterCoord().x - bulletGo->box.w/2;
-    bulletGo->box.y = associated.box.CenterCoord().y - bulletGo->box.h/2;
+    bulletGo->box.x = associated.box.GetCenter().x - bulletGo->box.w/2;
+    bulletGo->box.y = associated.box.GetCenter().y - bulletGo->box.h/2;
     bulletGo->box += offset;
 
     bulletGo->angleDeg = angle * 180 / M_PI;

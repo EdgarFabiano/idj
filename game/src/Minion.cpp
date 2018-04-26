@@ -20,10 +20,10 @@ void Minion::Update(float dt) {
     }
     arc += MINION_ANGULAR_SPEED * dt;
     Vec2 raioOrbita = Vec2(150, 0).Rotate(arc);
-    Vec2 distOrigem = alienCenter.box.CenterCoord();
+    Vec2 distOrigem = alienCenter.box.GetCenter();
 
     //adiciona a distancia da origem->alien em cada frame para o centro da orbita de minions
-    associated.box += raioOrbita - associated.box.CenterCoord() + distOrigem;
+    associated.box += raioOrbita - associated.box.GetCenter() + distOrigem;
     associated.angleDeg = raioOrbita.InclX() * 180 / M_PI;
 
 }
@@ -36,9 +36,9 @@ bool Minion::Is(string type) {
 
 void Minion::Shoot(Vec2 target) {
     auto bulletGo = new GameObject;
-    bulletGo->box.x = associated.box.CenterCoord().x - bulletGo->box.w/2;
-    bulletGo->box.y = associated.box.CenterCoord().y - bulletGo->box.h/2;
-    float angle = (target - associated.box.CenterCoord()).InclX();
+    bulletGo->box.x = associated.box.GetCenter().x - bulletGo->box.w/2;
+    bulletGo->box.y = associated.box.GetCenter().y - bulletGo->box.h/2;
+    float angle = (target - associated.box.GetCenter()).InclX();
     bulletGo->angleDeg = angle * 180 / M_PI;
     bulletGo->AddComponent(new Bullet(*bulletGo, angle, 500, 30, 500, "img/minionbullet2.png", 3, 0.01));
 
