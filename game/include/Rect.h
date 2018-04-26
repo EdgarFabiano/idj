@@ -22,9 +22,11 @@ public:
     float DistVec2(Vec2 v);
     bool Contains(Vec2 v);
 
-    Rect operator+=(Vec2 v);
-    Rect operator*(Vec2 scale);
     Rect operator+(Vec2 offset);
+    Rect operator+=(Vec2 v);
+
+    Rect operator*(Vec2 scale);
+    Rect operator*=(Vec2 scale);
 };
 
 

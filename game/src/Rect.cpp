@@ -33,14 +33,19 @@ bool Rect::Contains(Vec2 v) {
     return (v.x < (x + w) && v.x >= x) && (v.y < (y + h) && v.y >= y);
 }
 
+Rect Rect::operator+(Vec2 offset) {
+    return SumVec2(offset);
+}
+
 Rect Rect::operator+=(Vec2 v) {
-    return *this = this->SumVec2(v);
+    return *this = this + v;
 }
 
 Rect Rect::operator*(Vec2 scale) {
     return {x, y, w * scale.x, h * scale.y};
 }
 
-Rect Rect::operator+(Vec2 offset) {
-    return {x * offset.x, y * offset.y, w, h};
+Rect Rect::operator*=(Vec2 v) {
+    return *this = this * v;
 }
+
