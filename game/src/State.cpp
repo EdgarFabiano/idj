@@ -33,7 +33,9 @@ State::State() {
     objectArray.emplace_back(alienGO);
 
     auto penguinBodyGO(new GameObject);
+    penguinBodyGO->box += {704, 640};
     penguinBodyGO->AddComponent(new PenguinBody(*penguinBodyGO));
+    Camera::Follow(penguinBodyGO);
     objectArray.emplace_back(penguinBodyGO);
 
     quitRequested = false;

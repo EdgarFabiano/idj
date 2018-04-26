@@ -8,6 +8,7 @@
 #include "Component.h"
 
 #define PENGUIN_CANNON_TYPE "PenguinCannon"
+#define BULLET_OFFSET 30
 
 
 class PenguinCannon :public Component {

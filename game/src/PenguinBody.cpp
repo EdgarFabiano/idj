@@ -6,7 +6,6 @@
 #include <PenguinCannon.h>
 #include <Game.h>
 #include <InputManager.h>
-#include <Camera.h>
 #include "PenguinBody.h"
 
 PenguinBody *PenguinBody::player = nullptr;
@@ -73,10 +72,8 @@ void PenguinBody::Update(float dt) {
     }
 }
 
-void PenguinBody::Render() {
-
-}
+void PenguinBody::Render() {}
 
 bool PenguinBody::Is(string type) {
-    return false;
+    return type == PENGUIN_BODY_TYPE;
 }

@@ -15,7 +15,7 @@ Minion::Minion(GameObject &associated, weak_ptr<GameObject> alienCenter, float a
 }
 
 void Minion::Update(float dt) {
-    if(associated.IsDead()){
+    if((alienCenter.IsDead())){
         associated.RequestDelete();
     }
     arc += MINION_ANGULAR_SPEED * dt;
@@ -40,7 +40,7 @@ void Minion::Shoot(Vec2 target) {
     bulletGo->box.y = associated.box.CenterCoord().y - bulletGo->box.h/2;
     float angle = (target - associated.box.CenterCoord()).InclX();
     bulletGo->angleDeg = angle * 180 / M_PI;
-    bulletGo->AddComponent(new Bullet(*bulletGo, angle, 500, 30, 2000, "img/minionbullet2.png", 3, 0.01));
+    bulletGo->AddComponent(new Bullet(*bulletGo, angle, 500, 30, 500, "img/minionbullet2.png", 3, 0.01));
 
     Game::GetInstance().GetState().AddObject(bulletGo);
 }
