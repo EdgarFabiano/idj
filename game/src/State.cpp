@@ -8,6 +8,10 @@
 #include <CameraFollower.h>
 #include <Alien.h>
 #include <PenguinBody.h>
+#include <Collider.h>
+#include <Collision.h>
+#include <Bullet.h>
+#include <Minion.h>
 
 State::State() {
     started = false;
@@ -67,6 +71,22 @@ void State::Update(float dt) {
     for(int i = 0; i < objectArray.size(); i++) {
         if (objectArray[i]->IsDead()) {
             objectArray.erase(objectArray.begin() + i);
+        }
+    }
+
+    for (auto &it : objectArray) {
+        if(it.get()->GetComponent(COLLIDER_TYPE)){
+            for(int i = 0; i < objectArray.size(); i++){
+                auto box1 = (it.get())->box;
+                auto box2 = objectArray[i]->box;
+
+                if (Collision::IsColliding(box1, box2, (float)((*it.get()).angleDeg * M_PI/180), (float)((*objectArray[i]).angleDeg * M_PI/180))) {
+                    if(it.get()->GetComponent(BULLET_TYPE) && (*objectArray[i]).GetComponent(ALIEN_TYPE))
+                        cout << "alien" <<endl;
+                    if(it.get()->GetComponent(BULLET_TYPE) && (*objectArray[i]).GetComponent(MINION_TYPE))
+                        cout << "minion" <<endl;
+                }
+            }
         }
     }
 }

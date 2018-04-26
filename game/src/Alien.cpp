@@ -7,10 +7,12 @@
 #include <Camera.h>
 #include <Minion.h>
 #include <Game.h>
+#include <Collider.h>
 #include "Alien.h"
 
 Alien::Alien(GameObject &associated, int nMinions) : Component(associated), speed({0, 0}), hp(50) {
     associated.AddComponent(new Sprite(associated, "img/alien.png"));
+    associated.AddComponent(new Collider(associated));
     minionArray.resize((unsigned)(nMinions));
 }
 
@@ -68,16 +70,17 @@ void Alien::Update(float dt) {
                 associated.box += real;
             }
 
-        } else if(action.type == Action::SHOOT){
-            auto target = InputManager::GetInstance().GetMouse();
-
-            //Pega o minion com a menor distância do alvo
-            const shared_ptr<GameObject> &ptr = minionArray[NearestMinion(target)].lock();
-            auto minion = (Minion*)(ptr->GetComponent(MINION_TYPE));
-            minion->Shoot(target);
-
-            taskQueue.pop();
         }
+//        else if(action.type == Action::SHOOT){
+//            auto target = InputManager::GetInstance().GetMouse();
+//
+//            //Pega o minion com a menor distância do alvo
+//            const shared_ptr<GameObject> &ptr = minionArray[NearestMinion(target)].lock();
+//            auto minion = (Minion*)(ptr->GetComponent(MINION_TYPE));
+//            minion->Shoot(target);
+//
+//            taskQueue.pop();
+//        }
     }
 
     associated.angleDeg += ALIEN_ROTATION_SPEED;

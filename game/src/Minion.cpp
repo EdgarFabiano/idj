@@ -5,6 +5,7 @@
 #include <Sprite.h>
 #include <Bullet.h>
 #include <Game.h>
+#include <Collider.h>
 #include "Minion.h"
 
 Minion::Minion(GameObject &associated, weak_ptr<GameObject> alienCenter, float arcOffsetDeg) : Component(associated), alienCenter(*alienCenter.lock()), arc(arcOffsetDeg) {
@@ -12,6 +13,7 @@ Minion::Minion(GameObject &associated, weak_ptr<GameObject> alienCenter, float a
     float random = float_rand(1, 1.5f);
     sprite->SetScale(random, random);
     associated.AddComponent(sprite);
+    associated.AddComponent(new Collider(associated));
 }
 
 void Minion::Update(float dt) {
