@@ -37,4 +37,4 @@ add_executable(JOGO src/Main.cpp
         src/PenguinBody.cpp include/PenguinBody.h
         src/PenguinCannon.cpp include/PenguinCannon.h
         include/Collision.h
-        src/Collider.cpp src/Collider.h)
+        src/Collider.cpp include/Collider.h)

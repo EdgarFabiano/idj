@@ -9,15 +9,19 @@ Rect::Rect() : x(0), y(0), w(0), h(0)  {}
 Rect::Rect(float x, float y, float w, float h) : x(x), y(y), w(w), h(h) {}
 
 Rect Rect::SumVec2(Vec2 v) {
-    return Rect(x + v.x, y + v.y, w, h);
+    return {x + v.x, y + v.y, w, h};
 }
 
 Rect Rect::SubVec2(Vec2 v) {
-    return Rect(x - v.x, y - v.y, w, h);
+    return {x - v.x, y - v.y, w, h};
+}
+
+Rect Rect::MulVec2(Vec2 v) {
+    return {x, y, w * v.x, h * v.y};
 }
 
 Vec2 Rect::GetCenter() {
-    return Vec2(x + (w/2), y + (h/2));
+    return {x + (w/2), y + (h/2)};
 }
 
 float Rect::DistRecs(Rect r) {
@@ -38,14 +42,14 @@ Rect Rect::operator+(Vec2 offset) {
 }
 
 Rect Rect::operator+=(Vec2 v) {
-    return *this = this + v;
+    return *this = SumVec2(v);
 }
 
 Rect Rect::operator*(Vec2 scale) {
-    return {x, y, w * scale.x, h * scale.y};
+    return MulVec2(scale);
 }
 
 Rect Rect::operator*=(Vec2 v) {
-    return *this = this * v;
+    return *this = MulVec2(v);
 }
 
