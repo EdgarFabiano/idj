@@ -27,6 +27,7 @@ public:
     float Incl(Vec2 v);
 
     Vec2 Rotate(const float ang);
+    Vec2 RotateDeg(const float angDeg);
 
     Vec2 operator+(const Vec2& v);
     Vec2 operator-(const Vec2& v);

@@ -46,6 +46,11 @@ Vec2 Vec2::Rotate(const float ang) {
     return {(x * cos(ang)) - (y * sin(ang)), (y * cos(ang)) + (x * sin(ang))};
 }
 
+Vec2 Vec2::RotateDeg(const float angDeg) {
+    auto ang = (float)angDeg * M_PI/180;
+    return {(x * cos(ang)) - (y * sin(ang)), (y * cos(ang)) + (x * sin(ang))};
+}
+
 Vec2 Vec2::operator+(const Vec2& v) {
     return this->Sum(v);
 }

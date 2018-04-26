@@ -30,35 +30,41 @@ void PenguinBody::Start() {
 
 void PenguinBody::Update(float dt) {
     InputManager inputManager = InputManager::GetInstance();
-    auto posX = (int)(inputManager.GetMouseX() + Camera::pos.x), posY = (int)(inputManager.GetMouseY() + Camera::pos.y);
-
 
     /*Aceleracao*/
     if(inputManager.IsKeyDown(W_KEY) || inputManager.IsKeyDown(S_KEY)) {
-        if (inputManager.IsKeyDown(W_KEY) && speed.x < PENGUIN_MAX_SPEED) {
-            speed += Vec2((PENGUIN_ACCELERATION * dt * dt) / 2, 0);
+        if (inputManager.IsKeyDown(W_KEY) && linearSpeed < PENGUIN_MAX_SPEED) {
+            linearSpeed += PENGUIN_ACCELERATION * dt * dt / 2;
         }
 
-        if (inputManager.IsKeyDown(S_KEY) && speed.x > -PENGUIN_MAX_SPEED) {
-            speed -= Vec2((PENGUIN_ACCELERATION * dt * dt) / 2, 0);
+        if (inputManager.IsKeyDown(S_KEY) && linearSpeed > -PENGUIN_MAX_SPEED) {
+            linearSpeed -= PENGUIN_ACCELERATION * dt * dt / 2;
         }
     }
     /*Atrito*/
     else {
         /*Limite para estabilizar a velocidade em 0*/
-        if(abs(speed.x) < PENGUIN_SPEED_THRESHOLD) {
-            speed.x = 0;
+        if(abs(linearSpeed) < PENGUIN_SPEED_THRESHOLD) {
+            linearSpeed = 0;
         }
 
-        if (speed.x > 0) {
-            speed -= Vec2((dt * dt * PENGUIN_FRICTION) / 2, 0);
-        } else if (speed.x < 0) {
-            speed += Vec2((dt * dt * PENGUIN_FRICTION) / 2, 0);
+        if (linearSpeed > 0) {
+            linearSpeed -= PENGUIN_FRICTION * dt * dt / 2;
+        } else if (linearSpeed < 0) {
+            linearSpeed += PENGUIN_FRICTION * dt * dt / 2;
         }
     }
 
-    
+    if (inputManager.IsKeyDown(A_KEY)){
+        angle -= PENGUIN_ANGULAR_SPEED * dt;
+    }
 
+    if (inputManager.IsKeyDown(D_KEY)){
+        angle += PENGUIN_ANGULAR_SPEED * dt;
+    }
+
+    associated.angleDeg = angle;
+    speed = Vec2(linearSpeed , 0).RotateDeg(angle);
     associated.box += speed;
 
     if(hp <= 0){
