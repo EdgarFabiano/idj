@@ -25,7 +25,7 @@ float Vec2::Mag() {
 }
 
 Vec2 Vec2::Norm() {
-    float mag = this->Mag();
+    float mag = Mag();
     return {x / mag, y / mag};
 }
 
@@ -38,7 +38,7 @@ float Vec2::InclX() {
 }
 
 float Vec2::Incl(Vec2 v) {
-    Vec2 ret = this->Sub(v);
+    Vec2 ret = Sub(v);
     return ret.InclX();
 }
 
@@ -52,7 +52,7 @@ Vec2 Vec2::RotateDeg(const float angDeg) {
 }
 
 Vec2 Vec2::operator+(const Vec2& v) {
-    return this->Sum(v);
+    return Sum(v);
 }
 
 Vec2 Vec2::operator+(const Vec2& rhs) const {
@@ -60,7 +60,7 @@ Vec2 Vec2::operator+(const Vec2& rhs) const {
 }
 
 Vec2 Vec2::operator-(const Vec2 &v) {
-    return this->Sub(v);
+    return Sub(v);
 }
 
 Vec2 Vec2::operator-(const Vec2& rhs) const {
@@ -68,7 +68,7 @@ Vec2 Vec2::operator-(const Vec2& rhs) const {
 }
 
 Vec2 Vec2::operator*(const float escalar) {
-    return this->Mul(escalar);
+    return Mul(escalar);
 }
 
 Vec2 Vec2::operator*(const float rhs) const {

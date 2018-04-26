@@ -23,6 +23,8 @@ public:
     bool Contains(Vec2 v);
 
     Rect operator+=(Vec2 v);
+    Rect operator*(Vec2 scale);
+    Rect operator+(Vec2 offset);
 };
 
 
