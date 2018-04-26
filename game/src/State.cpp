@@ -7,6 +7,7 @@
 #include <Camera.h>
 #include <CameraFollower.h>
 #include <Alien.h>
+#include <PenguinBody.h>
 
 State::State() {
     started = false;
@@ -30,6 +31,10 @@ State::State() {
     alienBox += {512 + alienBox.w/2, 300 + alienBox.h/2};
     alienGO->AddComponent(new Alien(*alienGO, 5));
     objectArray.emplace_back(alienGO);
+
+    auto penguinBodyGO(new GameObject);
+    penguinBodyGO->AddComponent(new PenguinBody(*penguinBodyGO));
+    objectArray.emplace_back(penguinBodyGO);
 
     quitRequested = false;
 }
@@ -73,8 +78,8 @@ void State::Render() {
 void State::Start() {
     LoadAssets();
     music.Play();
-    for (auto &i : objectArray) {
-        i->Start();
+    for(int i = 0; i < objectArray.size(); i++){
+        objectArray[i].get()->Start();
     }
     started = true;
 }

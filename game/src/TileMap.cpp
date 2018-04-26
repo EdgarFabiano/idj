@@ -59,9 +59,7 @@ void TileMap::Render() {
     }
 }
 
-void TileMap::Update(float dt) {
-
-}
+void TileMap::Update(float dt) {}
 
 bool TileMap::Is(string type) {
     return type == TILE_MAP_TYPE;
