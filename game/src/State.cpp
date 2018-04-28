@@ -74,21 +74,24 @@ void State::Update(float dt) {
         }
     }
 
-    for (auto &it : objectArray) {
-        if(it.get()->GetComponent(COLLIDER_TYPE)){
-            for(int i = 0; i < objectArray.size(); i++){
-                auto box1 = (it.get())->box;
-                auto box2 = objectArray[i]->box;
+    for (int i = 0; i < objectArray.size(); i++) {
+        for(int j = i+1; j < objectArray.size(); j++){
+            Collider *colliderA = (Collider*)objectArray[i]->GetComponent(COLLIDER_TYPE);
+            Collider *colliderB = (Collider*)objectArray[j]->GetComponent(COLLIDER_TYPE);
+            if(colliderA && colliderB){
+                auto boxA = colliderA->box;
+                auto boxB = colliderB->box;
 
-                if (Collision::IsColliding(box1, box2, (float)((*it.get()).angleDeg * M_PI/180), (float)((*objectArray[i]).angleDeg * M_PI/180))) {
-                    if(it.get()->GetComponent(BULLET_TYPE) && (*objectArray[i]).GetComponent(ALIEN_TYPE))
-                        cout << "alien" <<endl;
-                    if(it.get()->GetComponent(BULLET_TYPE) && (*objectArray[i]).GetComponent(MINION_TYPE))
-                        cout << "minion" <<endl;
+                auto angleOfA = (float)(objectArray[i]->angleDeg);
+                auto angleOfB = (float)(objectArray[j]->angleDeg);
+
+                if (Collision::IsCollidingDeg(boxA, boxB, angleOfA, angleOfB)) {
+
                 }
             }
         }
     }
+    
 }
 
 void State::Render() {
