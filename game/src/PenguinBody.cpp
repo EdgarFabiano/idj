@@ -82,9 +82,9 @@ bool PenguinBody::Is(string type) {
 }
 
 void PenguinBody::NotifyCollision(GameObject &other) {
-    auto bullet = (Bullet*) other.GetComponent(BULLET_TYPE);
-
-    if (bullet && bullet->IsEnemyBullet()) {
-        hp -= bullet->GetDamage();
-    }
+//    auto bullet = (Bullet*) other.GetComponent(BULLET_TYPE);
+//
+//    if (bullet) {
+//        hp -= bullet->GetDamage();
+//    }
 }

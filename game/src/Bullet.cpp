@@ -16,8 +16,7 @@ Bullet::Bullet(GameObject &associated,
                float maxDistance,
                string sprite,
                int frameCount,
-               float frameTime,
-               bool enemyBullet) : Component(associated), damage(damage), enemyBullet(enemyBullet) {
+               float frameTime) : Component(associated), damage(damage) {
     associated.AddComponent(new Sprite(associated, move(sprite), frameCount, frameTime));
     associated.AddComponent(new Collider(associated));
     this->speed = Vec2(speed, 0).Rotate(angle);
@@ -42,12 +41,9 @@ int Bullet::GetDamage() {
     return damage;
 }
 
-bool Bullet::IsEnemyBullet() const {
-    return enemyBullet;
-}
-
 void Bullet::NotifyCollision(GameObject &other) {
-    if((other.GetComponent(PENGUIN_BODY_TYPE) &&  IsEnemyBullet()) || (other.GetComponent(ALIEN_TYPE) &&  !IsEnemyBullet())){
+    if(other.GetComponent(ALIEN_TYPE)){
+        Rect &rect = other.box;
         associated.RequestDelete();
     }
 }

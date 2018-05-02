@@ -46,7 +46,7 @@ void PenguinCannon::Shoot() {
     bulletGo->box += offset;
 
     bulletGo->angleDeg = angle * 180 / M_PI;
-    bulletGo->AddComponent(new Bullet(*bulletGo, angle, 500, 30, 500, "img/penguinbullet.png", 4, 0.1, false));
+    bulletGo->AddComponent(new Bullet(*bulletGo, angle, 500, 30, 1000, "img/penguinbullet.png", 4, 0.1));
 
     Game::GetInstance().GetState().AddObject(bulletGo);
 }
