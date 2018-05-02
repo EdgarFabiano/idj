@@ -13,6 +13,13 @@ GameObject::~GameObject() {
     components.clear();
 }
 
+void GameObject::Start() {
+    for (auto &component : components) {
+        component->Start();
+    }
+    started = true;
+}
+
 void GameObject::Update(float dt) {
     for (auto &component : components) {
         component->Update(dt);
@@ -50,17 +57,16 @@ void GameObject::RemoveComponent(Component *cpt) {
 }
 
 Component *GameObject::GetComponent(string type) {
-    for (auto &component : components) {
-        if (component->Is(type)) {
-            return component.get();
+    for(int i = 0; i < components.size(); i++){
+        if(components[i]->Is(type)){
+            return components[i].get();
         }
     }
     return nullptr;
 }
 
-void GameObject::Start() {
-    for (auto &component : components) {
-        component->Start();
+void GameObject::NotifyCollision(GameObject &other) {
+    for(int i = 0; i < components.size(); i++){
+        components[i]->NotifyCollision(other);
     }
-    started = true;
 }

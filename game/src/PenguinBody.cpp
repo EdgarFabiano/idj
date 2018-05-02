@@ -7,6 +7,7 @@
 #include <Game.h>
 #include <InputManager.h>
 #include <Collider.h>
+#include <Bullet.h>
 #include "PenguinBody.h"
 
 PenguinBody *PenguinBody::player = nullptr;
@@ -78,4 +79,12 @@ void PenguinBody::Render() {}
 
 bool PenguinBody::Is(string type) {
     return type == PENGUIN_BODY_TYPE;
+}
+
+void PenguinBody::NotifyCollision(GameObject &other) {
+    auto bullet = (Bullet*) other.GetComponent(BULLET_TYPE);
+
+    if (bullet && bullet->IsEnemyBullet()) {
+        hp -= bullet->GetDamage();
+    }
 }

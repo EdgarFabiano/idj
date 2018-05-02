@@ -11,18 +11,21 @@
 
 class Bullet : public Component {
 public:
-    Bullet(GameObject &associated, float angle, float speed, int damage, float maxDistance, string sprite, int frameCount, float frameTime);
+    Bullet(GameObject &associated, float angle, float speed, int damage, float maxDistance, string sprite, int frameCount, float frameTime, bool enemyBullet);
 
     void Update(float dt) override;
     void Render() override;
     bool Is(string type) override;
 
-    int getDamage();
+    int GetDamage();
+    bool IsEnemyBullet() const;
+    void NotifyCollision(GameObject &other) override;
 
 private:
     Vec2 speed;
     float distanceLeft;
     int damage;
+    bool enemyBullet;
 
 };
 

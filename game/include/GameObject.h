@@ -20,6 +20,7 @@ public:
     GameObject();
     ~GameObject();
 
+    void Start();
     void Update(float dt);
     void Render();
     bool IsDead();
@@ -27,9 +28,11 @@ public:
     void AddComponent(Component* cpt);
     void RemoveComponent(Component* cpt);
     Component* GetComponent(string type);
+    void NotifyCollision(GameObject& other);
+
     Rect box;
-    void Start();
     double angleDeg;
+
 
 private:
     vector<unique_ptr<Component>> components;

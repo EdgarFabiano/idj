@@ -21,6 +21,7 @@ public:
     bool Is(string type) override;
 
     void  Shoot(Vec2 target);
+    void NotifyCollision(GameObject &other) override;
 
 private:
     GameObject& alienCenter;
