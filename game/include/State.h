@@ -26,6 +26,7 @@ private:
     bool quitRequested;
     vector<shared_ptr< GameObject>> objectArray;
     bool started;
+
 };
 
 

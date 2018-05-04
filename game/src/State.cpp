@@ -74,31 +74,7 @@ void State::Update(float dt) {
         }
     }
 
-    for (int i = 0; i < objectArray.size(); i++) {
-        for(int j = i+1; j < objectArray.size(); j++){
-            auto &objA = objectArray[i];
-            auto &objB = objectArray[j];
-
-            Collider *colliderA = (Collider*) objA->GetComponent(COLLIDER_TYPE);
-            Collider *colliderB = (Collider*) objB->GetComponent(COLLIDER_TYPE);
-            if(colliderA && colliderB){
-                auto boxA = colliderA->box;
-                auto boxB = colliderB->box;
-
-                auto angleOfA = (float)(objA->angleDeg);
-                auto angleOfB = (float)(objB->angleDeg);
-
-                if (Collision::IsCollidingDeg(boxA, boxB, angleOfA, angleOfB)) {
-                    printf("a: x=%.1f, y=%.1f, w=%.1f, h=%.1f - colA: x=%.1f, y=%.1f, w=%.1f, h=%.1f\n",
-                           objA->box.x, objA->box.y, objA->box.w, objA->box.h,
-                           boxA.x, boxA.y, boxA.w, boxA.h);
-
-                    objA->NotifyCollision(*objB);
-                    objB->NotifyCollision(*objA);
-                }
-            }
-        }
-    }
+    Game::GetInstance().TestCollision(objectArray);
 
 }
 

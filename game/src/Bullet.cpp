@@ -5,8 +5,7 @@
 #include <Sprite.h>
 #include <Collider.h>
 #include <Alien.h>
-#include <PenguinBody.h>
-
+#include <Minion.h>
 #include "Bullet.h"
 
 Bullet::Bullet(GameObject &associated,
@@ -18,8 +17,8 @@ Bullet::Bullet(GameObject &associated,
                int frameCount,
                float frameTime) : Component(associated), damage(damage) {
     associated.AddComponent(new Sprite(associated, move(sprite), frameCount, frameTime));
-    associated.AddComponent(new Collider(associated));
     this->speed = Vec2(speed, 0).Rotate(angle);
+    associated.AddComponent(new Collider(associated));
     this->distanceLeft = maxDistance;
 }
 
@@ -42,8 +41,7 @@ int Bullet::GetDamage() {
 }
 
 void Bullet::NotifyCollision(GameObject &other) {
-    if(other.GetComponent(ALIEN_TYPE)){
-        Rect &rect = other.box;
+    if(other.GetComponent(ALIEN_TYPE) || other.GetComponent(MINION_TYPE)){
         associated.RequestDelete();
     }
 }

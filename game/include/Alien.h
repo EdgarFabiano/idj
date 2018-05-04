@@ -22,6 +22,8 @@ public:
     void Render() override;
     bool Is(string type) override;
 
+    void NotifyCollision(GameObject &other) override;
+
 private:
     class Action{
     public:

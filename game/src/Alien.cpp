@@ -114,3 +114,7 @@ int Alien::NearestMinion(const Vec2 &target) const {
     }
     return location;
 }
+
+void Alien::NotifyCollision(GameObject &other) {
+
+}

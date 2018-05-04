@@ -53,9 +53,9 @@ float Minion::float_rand( float min, float max ){
 }
 
 void Minion::NotifyCollision(GameObject &other) {
-//    auto bullet = (Bullet*) other.GetComponent(BULLET_TYPE);
-//
-//    if (bullet) {
-//    }
+    auto bullet = (Bullet*) other.GetComponent(BULLET_TYPE);
+
+    if (bullet) {
+    }
 }
 

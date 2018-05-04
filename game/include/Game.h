@@ -32,6 +32,8 @@ public :
 
     float GetDeltaTime();
 
+    void TestCollision(vector<shared_ptr< GameObject>> &objectArray);
+
 private:
     static Game *instance;
     SDL_Window* window;

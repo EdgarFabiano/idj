@@ -6,6 +6,7 @@
 #define COLLIDER_CLASS
 
 #define COLLIDER_TYPE "Collider"
+#define DEBUG
 
 #include <Component.h>
 

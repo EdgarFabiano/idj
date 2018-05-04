@@ -8,6 +8,8 @@
 #include <InputManager.h>
 #include <Collider.h>
 #include <Bullet.h>
+#include <EnemyBullet.h>
+#include <Camera.h>
 #include "PenguinBody.h"
 
 PenguinBody *PenguinBody::player = nullptr;
@@ -72,6 +74,7 @@ void PenguinBody::Update(float dt) {
     if(hp <= 0){
         associated.RequestDelete();
         (*pcannon.lock()).RequestDelete();
+        Camera::Unfollow();
     }
 }
 
@@ -82,9 +85,9 @@ bool PenguinBody::Is(string type) {
 }
 
 void PenguinBody::NotifyCollision(GameObject &other) {
-//    auto bullet = (Bullet*) other.GetComponent(BULLET_TYPE);
-//
-//    if (bullet) {
-//        hp -= bullet->GetDamage();
-//    }
+    auto enemyBullet = (EnemyBullet*) other.GetComponent(ENEMY_BULLET_TYPE);
+
+    if (enemyBullet) {
+        hp -= enemyBullet->GetDamage();
+    }
 }
