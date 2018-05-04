@@ -88,7 +88,11 @@ void State::Update(float dt) {
                 auto angleOfA = (float)(objA->angleDeg);
                 auto angleOfB = (float)(objB->angleDeg);
 
-                if (Collision::IsCollidingDeg(objA->box, objB->box, angleOfA, angleOfB)) {
+                if (Collision::IsCollidingDeg(boxA, boxB, angleOfA, angleOfB)) {
+                    printf("a: x=%.1f, y=%.1f, w=%.1f, h=%.1f - colA: x=%.1f, y=%.1f, w=%.1f, h=%.1f\n",
+                           objA->box.x, objA->box.y, objA->box.w, objA->box.h,
+                           boxA.x, boxA.y, boxA.w, boxA.h);
+
                     objA->NotifyCollision(*objB);
                     objB->NotifyCollision(*objA);
                 }

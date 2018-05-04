@@ -2,6 +2,8 @@
 // Created by edgar on 26/04/18.
 //
 
+#include <SDL_rect.h>
+#include <Game.h>
 #include "Collider.h"
 
 Collider::Collider(GameObject &associated, Vec2 scale, Vec2 offset) : Component(associated), scale(scale), offset(offset) {}
@@ -9,10 +11,10 @@ Collider::Collider(GameObject &associated, Vec2 scale, Vec2 offset) : Component(
 void Collider::Update(float dt) {
     Rect aux = Rect();
 
-    aux *= scale;
+    aux.w = associated.box.w * scale.x;
+    aux.h = associated.box.h * scale.y;
 
     const Vec2 &center = associated.box.GetCenter();
-
     aux.x = center.x - aux.w/2;
     aux.y = center.y - aux.h/2;
 
