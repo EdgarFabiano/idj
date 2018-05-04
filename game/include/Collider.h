@@ -6,7 +6,6 @@
 #define COLLIDER_CLASS
 
 #define COLLIDER_TYPE "Collider"
-#define DEBUG
 
 #include <Component.h>
 
@@ -26,6 +25,7 @@ public:
 private:
     Vec2 scale;
     Vec2 offset;
+    bool debug;
 
 };
 

@@ -8,7 +8,6 @@
 #include <InputManager.h>
 #include <Collider.h>
 #include <Bullet.h>
-#include <EnemyBullet.h>
 #include <Camera.h>
 #include "PenguinBody.h"
 
@@ -85,9 +84,9 @@ bool PenguinBody::Is(string type) {
 }
 
 void PenguinBody::NotifyCollision(GameObject &other) {
-    auto enemyBullet = (EnemyBullet*) other.GetComponent(ENEMY_BULLET_TYPE);
+    auto enemyBullet = (Bullet*) other.GetComponent(BULLET_TYPE);
 
-    if (enemyBullet) {
+    if (enemyBullet && enemyBullet->targetsPlayer) {
         hp -= enemyBullet->GetDamage();
     }
 }

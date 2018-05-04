@@ -5,7 +5,7 @@
 #include <Sprite.h>
 #include <Game.h>
 #include <Collider.h>
-#include <EnemyBullet.h>
+#include <Bullet.h>
 #include "Minion.h"
 
 Minion::Minion(GameObject &associated, weak_ptr<GameObject> alienCenter, float arcOffsetDeg) : Component(associated), alienCenter(*alienCenter.lock()), arc(arcOffsetDeg) {
@@ -42,7 +42,7 @@ void Minion::Shoot(Vec2 target) {
     bulletGo->box.y = associated.box.GetCenter().y - bulletGo->box.h/2;
     float angle = (target - associated.box.GetCenter()).InclX();
     bulletGo->angleDeg = angle * 180 / M_PI;
-    bulletGo->AddComponent(new EnemyBullet(*bulletGo, angle, 500, 30, 1000, "img/minionbullet2.png", 3, 0.01));
+    bulletGo->AddComponent(new Bullet(*bulletGo, angle, 500, 30, 1000, "img/minionbullet2.png", 3, 0.01, true));
 
     Game::GetInstance().GetState().AddObject(bulletGo);
 }
@@ -50,12 +50,5 @@ void Minion::Shoot(Vec2 target) {
 float Minion::float_rand( float min, float max ){
     float scale = rand() / (float) RAND_MAX; /* [0, 1.0] */
     return min + scale * ( max - min );      /* [min, max] */
-}
-
-void Minion::NotifyCollision(GameObject &other) {
-    auto bullet = (Bullet*) other.GetComponent(BULLET_TYPE);
-
-    if (bullet) {
-    }
 }
 

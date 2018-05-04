@@ -11,7 +11,7 @@
 
 class Bullet : public Component {
 public:
-    Bullet(GameObject &associated, float angle, float speed, int damage, float maxDistance, string sprite, int frameCount, float frameTime);
+    Bullet(GameObject &associated, float angle, float speed, int damage, float maxDistance, string sprite, int frameCount, float frameTime, bool targetsPlayer);
 
     void Update(float dt) override;
     void Render() override;
@@ -20,7 +20,9 @@ public:
     int GetDamage();
     void NotifyCollision(GameObject &other) override;
 
-protected:
+    bool targetsPlayer;
+
+private:
     Vec2 speed;
     float distanceLeft;
     int damage;

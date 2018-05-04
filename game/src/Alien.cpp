@@ -8,6 +8,7 @@
 #include <Minion.h>
 #include <Game.h>
 #include <Collider.h>
+#include <Bullet.h>
 #include "Alien.h"
 
 Alien::Alien(GameObject &associated, int nMinions) : Component(associated), speed({0, 0}), hp(50) {
@@ -116,5 +117,10 @@ int Alien::NearestMinion(const Vec2 &target) const {
 }
 
 void Alien::NotifyCollision(GameObject &other) {
+    auto bullet = (Bullet*) other.GetComponent(BULLET_TYPE);
 
+    if (bullet && !bullet->targetsPlayer) {
+        hp -= bullet->GetDamage();
+        cout << "alien" << endl;
+    }
 }
