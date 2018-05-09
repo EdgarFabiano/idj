@@ -25,7 +25,6 @@ public:
 private:
     Vec2 scale;
     Vec2 offset;
-    bool debug;
 
 };
 

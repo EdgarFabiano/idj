@@ -88,5 +88,6 @@ void PenguinBody::NotifyCollision(GameObject &other) {
 
     if (enemyBullet && enemyBullet->targetsPlayer) {
         hp -= enemyBullet->GetDamage();
+        cout << "hit body" << endl;
     }
 }

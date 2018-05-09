@@ -30,17 +30,17 @@ State::State() {
     mapGO->AddComponent(tileMap);
     objectArray.emplace_back(mapGO);
 
-    auto alienGO(new GameObject);
-    Rect &alienBox = alienGO->box;
-    alienBox += {512 + alienBox.w/2, 300 + alienBox.h/2};
-    alienGO->AddComponent(new Alien(*alienGO, 5));
-    objectArray.emplace_back(alienGO);
-
     auto penguinBodyGO(new GameObject);
     penguinBodyGO->box += {704, 640};
     penguinBodyGO->AddComponent(new PenguinBody(*penguinBodyGO));
     Camera::Follow(penguinBodyGO);
     objectArray.emplace_back(penguinBodyGO);
+
+    auto alienGO(new GameObject);
+    Rect &alienBox = alienGO->box;
+    alienBox += {512 + alienBox.w/2, 300 + alienBox.h/2};
+    alienGO->AddComponent(new Alien(*alienGO, 5));
+    objectArray.emplace_back(alienGO);
 
     quitRequested = false;
 }
@@ -64,6 +64,10 @@ void State::Update(float dt) {
 
     quitRequested = inputManager.KeyPress(ESCAPE_KEY) || inputManager.QuitRequested();
 
+    if(InputManager::GetInstance().KeyPress(SDLK_F6)) {
+        debug = !debug;
+    }
+
     for(int i = 0; i < objectArray.size(); i++){
         objectArray[i].get()->Update(dt);
     }
@@ -74,7 +78,7 @@ void State::Update(float dt) {
         }
     }
 
-    Game::GetInstance().TestCollision(objectArray);
+    TestCollision(objectArray);
 
 }
 
@@ -110,3 +114,36 @@ weak_ptr<GameObject> State::GetObjectPtr(GameObject *go) {
     }
     return weak_ptr<GameObject>();
 }
+
+void State::TestCollision(vector<shared_ptr< GameObject>> &objectArray) {
+    for (int i = 0; i < objectArray.size(); i++) {
+        for(int j = i+1; j < objectArray.size(); j++){
+            auto &objA = objectArray[i];
+            auto &objB = objectArray[j];
+
+            Collider *colliderA = (Collider*) objA->GetComponent(COLLIDER_TYPE);
+            Collider *colliderB = (Collider*) objB->GetComponent(COLLIDER_TYPE);
+            if(colliderA && colliderB){
+                auto boxA = colliderA->box;
+                auto boxB = colliderB->box;
+
+                auto angleOfA = (float)(objA->angleDeg);
+                auto angleOfB = (float)(objB->angleDeg);
+
+                if (Collision::IsCollidingDeg(boxA, boxB, angleOfA, angleOfB)) {
+                    objA->NotifyCollision(*objB);
+                    objB->NotifyCollision(*objA);
+                }
+            }
+        }
+    }
+}
+
+bool State::isDebug() const {
+    return debug;
+}
+
+void State::setDebug(bool debug) {
+    State::debug = debug;
+}
+

@@ -7,14 +7,9 @@
 #include <InputManager.h>
 #include "Collider.h"
 
-Collider::Collider(GameObject &associated, Vec2 scale, Vec2 offset) : Component(associated), scale(scale), offset(offset), debug(false) {}
+Collider::Collider(GameObject &associated, Vec2 scale, Vec2 offset) : Component(associated), scale(scale), offset(offset) {}
 
 void Collider::Update(float dt) {
-
-    if(InputManager::GetInstance().KeyPress(SDLK_F6)) {
-        debug = !debug;
-    }
-
     Rect aux = Rect();
 
     aux.w = associated.box.w * scale.x;
@@ -28,7 +23,7 @@ void Collider::Update(float dt) {
 }
 
 void Collider::Render() {
-    if(!debug) {
+    if(Game::GetInstance().GetState().isDebug()) {
         Vec2 center(box.GetCenter());
         SDL_Point points[5];
 

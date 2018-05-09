@@ -139,28 +139,3 @@ void Game::CalculaDeltaTime() {
 float Game::GetDeltaTime() {
     return dt;
 }
-
-void Game::TestCollision(vector<shared_ptr< GameObject>> &objectArray) {
-    for (int i = 0; i < objectArray.size(); i++) {
-        for(int j = i+1; j < objectArray.size(); j++){
-            auto &objA = objectArray[i];
-            auto &objB = objectArray[j];
-
-            Collider *colliderA = (Collider*) objA->GetComponent(COLLIDER_TYPE);
-            Collider *colliderB = (Collider*) objB->GetComponent(COLLIDER_TYPE);
-            if(colliderA && colliderB){
-                auto boxA = colliderA->box;
-                auto boxB = colliderB->box;
-
-                auto angleOfA = (float)(objA->angleDeg);
-                auto angleOfB = (float)(objB->angleDeg);
-
-                if (Collision::IsCollidingDeg(boxA, boxB, angleOfA, angleOfB)) {
-                    objA->NotifyCollision(*objB);
-                    objB->NotifyCollision(*objA);
-                }
-            }
-        }
-    }
-}
-

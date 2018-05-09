@@ -20,12 +20,16 @@ public:
     void Start();
     weak_ptr<GameObject> AddObject(GameObject *go);
     weak_ptr<GameObject> GetObjectPtr(GameObject *go);
+    void TestCollision(vector<shared_ptr< GameObject>> &objectArray);
+    bool isDebug() const;
+    void setDebug(bool debug);
 
 private:
     Music music;
     bool quitRequested;
     vector<shared_ptr< GameObject>> objectArray;
     bool started;
+    bool debug = false;
 
 };
 

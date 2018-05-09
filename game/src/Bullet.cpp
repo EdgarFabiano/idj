@@ -6,6 +6,7 @@
 #include <Collider.h>
 #include <Alien.h>
 #include <Minion.h>
+#include <PenguinBody.h>
 #include "Bullet.h"
 
 Bullet::Bullet(GameObject &associated,
@@ -16,7 +17,7 @@ Bullet::Bullet(GameObject &associated,
                string sprite,
                int frameCount,
                float frameTime,
-               bool targetsPlayer) : Component(associated), damage(damage) {
+               bool targetsPlayer) : Component(associated), damage(damage), targetsPlayer(targetsPlayer) {
     associated.AddComponent(new Sprite(associated, move(sprite), frameCount, frameTime));
     associated.AddComponent(new Collider(associated, {0.3, 1}, {0, -30}));
     this->speed = Vec2(speed, 0).Rotate(angle);
@@ -42,7 +43,16 @@ int Bullet::GetDamage() {
 }
 
 void Bullet::NotifyCollision(GameObject &other) {
-    if(other.GetComponent(ALIEN_TYPE) || other.GetComponent(MINION_TYPE) || other.GetComponent(MINION_TYPE)){
+    if((other.GetComponent(ALIEN_TYPE) || other.GetComponent(MINION_TYPE)) && !targetsPlayer){
+        if(other.GetComponent(ALIEN_TYPE))
+            cout << "hit alien" << endl;
+        if(other.GetComponent(MINION_TYPE))
+            cout << "hit minion" << endl;
+        associated.RequestDelete();
+    }
+
+    if(other.GetComponent(PENGUIN_BODY_TYPE) && targetsPlayer){
+        cout << "hit penguin" << endl;
         associated.RequestDelete();
     }
 }

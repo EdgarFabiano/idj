@@ -47,7 +47,7 @@ Vec2 Vec2::Rotate(const float ang) {
 }
 
 Vec2 Vec2::RotateDeg(const float angDeg) {
-    auto ang = (float)angDeg * M_PI/180;
+    auto ang = (float)angDeg * (M_PI/180.0f);
     return {(x * cos(ang)) - (y * sin(ang)), (y * cos(ang)) + (x * sin(ang))};
 }
 
