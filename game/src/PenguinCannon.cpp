@@ -8,6 +8,7 @@
 #include <Bullet.h>
 #include <Collider.h>
 #include <Timer.h>
+#include <Sound.h>
 #include "PenguinCannon.h"
 
 PenguinCannon::PenguinCannon(GameObject &associated, weak_ptr<GameObject> penguinBody) : Component(associated), pbody(move(penguinBody)), angle(0), timer(*new Timer) {
@@ -51,6 +52,10 @@ void PenguinCannon::Shoot() {
     bulletGo->box.y = associated.box.GetCenter().y - bulletGo->box.h/2 + offset.y;
 
     bulletGo->AddComponent(new Bullet(*bulletGo, angle, 300, 10, 1000, "img/penguinbullet.png", 4, 0.1, false));
+
+    auto explosionSound(new Sound(*bulletGo, "audio/boom.wav"));
+    bulletGo->AddComponent(explosionSound);
+    explosionSound->Play();
 
     Game::GetInstance().GetState().AddObject(bulletGo);
 }

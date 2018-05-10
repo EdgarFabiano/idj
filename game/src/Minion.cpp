@@ -6,6 +6,7 @@
 #include <Game.h>
 #include <Collider.h>
 #include <Bullet.h>
+#include <Sound.h>
 #include "Minion.h"
 
 Minion::Minion(GameObject &associated, weak_ptr<GameObject> alienCenter, float arcOffsetDeg) : Component(associated), alienCenter(*alienCenter.lock()), arc(arcOffsetDeg) {
@@ -49,7 +50,11 @@ void Minion::Shoot(Vec2 target) {
     bulletGo->box.y = associated.box.GetCenter().y - bulletGo->box.h/2;
 
     float angle = (target - associated.box.GetCenter()).InclXDeg();
-    bulletGo->AddComponent(new Bullet(*bulletGo, angle, 300, 10, 1000, "img/minionbullet2.png", 3, 0.01, true));
+    bulletGo->AddComponent(new Bullet(*bulletGo, angle, 300, 20, 1000, "img/minionbullet2.png", 3, 0.01, true));
+
+    auto explosionSound(new Sound(*bulletGo, "audio/boom.wav"));
+    bulletGo->AddComponent(explosionSound);
+    explosionSound->Play();
 
     Game::GetInstance().GetState().AddObject(bulletGo);
 }
