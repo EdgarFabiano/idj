@@ -8,7 +8,7 @@
 #include "Component.h"
 #include "Timer.h"
 
-#define COOLDOWN 0.5
+#define PENGUIN_SHOOT_COOLDOWN 0.5
 
 #define PENGUIN_CANNON_TYPE "PenguinCannon"
 

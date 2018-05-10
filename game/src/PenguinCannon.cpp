@@ -28,7 +28,7 @@ void PenguinCannon::Update(float dt) {
     angle = (float)associated.angleDeg;
 
     if(inputManager.MousePress(LEFT_MOUSE_BUTTON)){
-        if(timer.Get() >= COOLDOWN){
+        if(timer.Get() >= PENGUIN_SHOOT_COOLDOWN){
             Shoot();
             timer.Restart();
         }
