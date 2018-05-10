@@ -9,6 +9,7 @@
 #include <Game.h>
 #include <Collider.h>
 #include <Bullet.h>
+#include <Sound.h>
 #include "Alien.h"
 
 Alien::Alien(GameObject &associated, int nMinions) : Component(associated), speed({0, 0}), hp(50) {
@@ -88,6 +89,19 @@ void Alien::Update(float dt) {
 
     if(hp <= 0){
         associated.RequestDelete();
+
+        associated.RequestDelete();
+
+        auto explosionGO(new GameObject());
+        explosionGO->AddComponent(new Sprite(*explosionGO, "img/aliendeath.png", 4, 0.1, 0.4));
+        explosionGO->box.x = associated.box.GetCenter().x - explosionGO->box.w/2;
+        explosionGO->box.y = associated.box.GetCenter().y - explosionGO->box.h/2;
+
+        auto explosionSound(new Sound(*explosionGO, "audio/boom.wav"));
+        explosionGO->AddComponent(explosionSound);
+        explosionSound->Play();
+
+        Game::GetInstance().GetState().AddObject(explosionGO);
     }
 
 }

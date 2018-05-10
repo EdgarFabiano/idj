@@ -9,6 +9,7 @@
 #include <Collider.h>
 #include <Bullet.h>
 #include <Camera.h>
+#include <Sound.h>
 #include "PenguinBody.h"
 
 PenguinBody *PenguinBody::player = nullptr;
@@ -74,6 +75,18 @@ void PenguinBody::Update(float dt) {
         associated.RequestDelete();
         (*pcannon.lock()).RequestDelete();
         Camera::Unfollow();
+
+        auto explosionGO(new GameObject());
+        explosionGO->AddComponent(new Sprite(*explosionGO, "img/penguindeath.png", 5, 0.1, 0.5));
+        explosionGO->box.x = associated.box.GetCenter().x - explosionGO->box.w/2;
+        explosionGO->box.y = associated.box.GetCenter().y - explosionGO->box.h/2;;
+
+        auto explosionSound(new Sound(*explosionGO, "audio/boom.wav"));
+        explosionGO->AddComponent(explosionSound);
+        explosionSound->Play();
+
+        Game::GetInstance().GetState().AddObject(explosionGO);
+
     }
 }
 

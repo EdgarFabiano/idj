@@ -18,6 +18,13 @@ Minion::Minion(GameObject &associated, weak_ptr<GameObject> alienCenter, float a
 
 void Minion::Update(float dt) {
     if((alienCenter.IsDead())){
+
+        auto explosionGO(new GameObject());
+        explosionGO->AddComponent(new Sprite(*explosionGO, "img/miniondeath.png", 4, 0.1, 0.4));
+        explosionGO->box.x = associated.box.GetCenter().x - explosionGO->box.w/2;
+        explosionGO->box.y = associated.box.GetCenter().y - explosionGO->box.h/2;
+        Game::GetInstance().GetState().AddObject(explosionGO);
+
         associated.RequestDelete();
     }
     arc += MINION_ANGULAR_SPEED * dt;

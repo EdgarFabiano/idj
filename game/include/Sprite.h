@@ -11,6 +11,7 @@
 #include "SDL_include.h"
 
 #include "Component.h"
+#include "Timer.h"
 
 #define SPRITE_TYPE "Sprite"
 
@@ -20,7 +21,7 @@ class Sprite : public Component {
 
 public:
     explicit Sprite(GameObject& associated);
-    explicit Sprite(GameObject& associated, string file, int frameCount = 1, float frameTime = 1);
+    explicit Sprite(GameObject& associated, string file, int frameCount = 1, float frameTime = 1, float secondsToSelfDestruct = 0);
     ~Sprite() override;
 
     void Open(string file);
@@ -53,6 +54,9 @@ private:
     int currentFrame;
     float timeElapsed;
     float frameTime;
+
+    Timer selfDestructCount;
+    float secondsToSelfDestruct;
 
 };
 
