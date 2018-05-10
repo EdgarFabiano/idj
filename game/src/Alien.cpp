@@ -121,6 +121,5 @@ void Alien::NotifyCollision(GameObject &other) {
 
     if (bullet && !bullet->targetsPlayer) {
         hp -= bullet->GetDamage();
-        cout << "hit alien" << endl;
     }
 }

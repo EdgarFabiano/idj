@@ -34,8 +34,8 @@ void Sprite::Open(string file) {
     texture = Resources::GetImage(move(file));
 
     SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
-    associated.box.w = width;
-    associated.box.h = height;
+    associated.box.w = GetWidth();
+    associated.box.h = GetHeight();
     SetClip(0, 0, width/frameCount, height);
 }
 

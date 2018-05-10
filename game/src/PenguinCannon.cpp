@@ -39,13 +39,13 @@ bool PenguinCannon::Is(string type) {
 
 void PenguinCannon::Shoot() {
     auto bulletGo = new GameObject;
-    auto offset = Vec2(BULLET_OFFSET, 0).Rotate(angle);
+    auto offset = Vec2(associated.box.w/2, 0).Rotate(angle);
 
     bulletGo->box.x = associated.box.GetCenter().x - bulletGo->box.w/2 + offset.x;
     bulletGo->box.y = associated.box.GetCenter().y - bulletGo->box.h/2 + offset.y;
 
     bulletGo->angleDeg = angle * 180 / M_PI;
-    bulletGo->AddComponent(new Bullet(*bulletGo, angle, 10, 30, 1000, "img/penguinbullet.png", 4, 0.1, false));
+    bulletGo->AddComponent(new Bullet(*bulletGo, angle, 00, 10, 1000, "img/penguinbullet.png", 4, 0.1, false));
 
     Game::GetInstance().GetState().AddObject(bulletGo);
 }

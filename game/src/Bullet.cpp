@@ -19,7 +19,7 @@ Bullet::Bullet(GameObject &associated,
                float frameTime,
                bool targetsPlayer) : Component(associated), damage(damage), targetsPlayer(targetsPlayer) {
     associated.AddComponent(new Sprite(associated, move(sprite), frameCount, frameTime));
-    associated.AddComponent(new Collider(associated, {0.3, 1}, {0, -30}));
+    associated.AddComponent(new Collider(associated));
     this->speed = Vec2(speed, 0).Rotate(angle);
     this->distanceLeft = maxDistance;
 }
@@ -44,15 +44,10 @@ int Bullet::GetDamage() {
 
 void Bullet::NotifyCollision(GameObject &other) {
     if((other.GetComponent(ALIEN_TYPE) || other.GetComponent(MINION_TYPE)) && !targetsPlayer){
-        if(other.GetComponent(ALIEN_TYPE))
-            cout << "hit alien" << endl;
-        if(other.GetComponent(MINION_TYPE))
-            cout << "hit minion" << endl;
         associated.RequestDelete();
     }
 
     if(other.GetComponent(PENGUIN_BODY_TYPE) && targetsPlayer){
-        cout << "hit penguin" << endl;
         associated.RequestDelete();
     }
 }
