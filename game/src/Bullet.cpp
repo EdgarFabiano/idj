@@ -44,11 +44,7 @@ int Bullet::GetDamage() {
 }
 
 void Bullet::NotifyCollision(GameObject &other) {
-    if((other.GetComponent(ALIEN_TYPE) || other.GetComponent(MINION_TYPE)) && !targetsPlayer){
-        associated.RequestDelete();
-    }
-
-    if(other.GetComponent(PENGUIN_BODY_TYPE) && targetsPlayer){
+    if((other.GetComponent(ALIEN_TYPE) && !targetsPlayer) || (other.GetComponent(PENGUIN_BODY_TYPE) && targetsPlayer)){
         associated.RequestDelete();
     }
 }
