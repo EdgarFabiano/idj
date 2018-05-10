@@ -37,6 +37,10 @@ float Vec2::InclX() {
     return atan2(y, x);
 }
 
+float Vec2::InclXDeg() {
+    return (float)(InclX() * (180.0f/M_PI));//rad to deg
+}
+
 float Vec2::Incl(Vec2 v) {
     Vec2 ret = Sub(v);
     return ret.InclX();
@@ -47,7 +51,7 @@ Vec2 Vec2::Rotate(const float ang) {
 }
 
 Vec2 Vec2::RotateDeg(const float angDeg) {
-    auto ang = (float)angDeg * (M_PI/180.0f);
+    auto ang = (float)angDeg * (M_PI/180.0f);//deg to rad
     return {(x * cos(ang)) - (y * sin(ang)), (y * cos(ang)) + (x * sin(ang))};
 }
 

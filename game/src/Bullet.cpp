@@ -20,7 +20,8 @@ Bullet::Bullet(GameObject &associated,
                bool targetsPlayer) : Component(associated), damage(damage), targetsPlayer(targetsPlayer) {
     associated.AddComponent(new Sprite(associated, move(sprite), frameCount, frameTime));
     associated.AddComponent(new Collider(associated));
-    this->speed = Vec2(speed, 0).Rotate(angle);
+    associated.angleDeg = angle;
+    this->speed = Vec2(speed, 0).RotateDeg(angle);
     this->distanceLeft = maxDistance;
 }
 

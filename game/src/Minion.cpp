@@ -40,9 +40,9 @@ void Minion::Shoot(Vec2 target) {
     auto bulletGo = new GameObject;
     bulletGo->box.x = associated.box.GetCenter().x - bulletGo->box.w/2;
     bulletGo->box.y = associated.box.GetCenter().y - bulletGo->box.h/2;
-    float angle = (target - associated.box.GetCenter()).InclX();
-    bulletGo->angleDeg = angle * 180 / M_PI;
-    bulletGo->AddComponent(new Bullet(*bulletGo, angle, 00, 10, 1000, "img/minionbullet2.png", 3, 0.01, true));
+
+    float angle = (target - associated.box.GetCenter()).InclXDeg();
+    bulletGo->AddComponent(new Bullet(*bulletGo, angle, 300, 10, 1000, "img/minionbullet2.png", 3, 0.01, true));
 
     Game::GetInstance().GetState().AddObject(bulletGo);
 }

@@ -24,6 +24,7 @@ public:
     float Dist(Vec2 v);
 
     float InclX();
+    float InclXDeg();
     float Incl(Vec2 v);
 
     Vec2 Rotate(const float ang);
