@@ -7,9 +7,10 @@
 #include <Game.h>
 #include <Bullet.h>
 #include <Collider.h>
+#include <Timer.h>
 #include "PenguinCannon.h"
 
-PenguinCannon::PenguinCannon(GameObject &associated, weak_ptr<GameObject> penguinBody) : Component(associated), pbody(move(penguinBody)), angle(0) {
+PenguinCannon::PenguinCannon(GameObject &associated, weak_ptr<GameObject> penguinBody) : Component(associated), pbody(move(penguinBody)), angle(0), timer(*new Timer) {
     associated.AddComponent(new Sprite(associated, "img/cubngun.png"));
     associated.AddComponent(new Collider(associated));
 }
@@ -25,10 +26,15 @@ void PenguinCannon::Update(float dt) {
     associated.box = body.box;
     associated.angleDeg = (inputManager.GetMouse() - associated.box.GetCenter()).InclXDeg();
     angle = (float)associated.angleDeg;
-    
+
     if(inputManager.MousePress(LEFT_MOUSE_BUTTON)){
-        Shoot();
+        if(timer.Get() >= COOLDOWN){
+            Shoot();
+            timer.Restart();
+        }
     }
+    timer.Update(dt);
+
 }
 
 void PenguinCannon::Render() {}
@@ -39,12 +45,10 @@ bool PenguinCannon::Is(string type) {
 
 void PenguinCannon::Shoot() {
     auto bulletGo = new GameObject;
-    auto offset = Vec2(associated.box.w/2, 0).Rotate(angle);
+    auto offset = Vec2(associated.box.w/2, 0).RotateDeg(angle);
 
-    bulletGo->box.x = associated.box.GetCenter().x - bulletGo->box.w/2 ;
-    bulletGo->box.y = associated.box.GetCenter().y - bulletGo->box.h/2 ;
-
-    cout << angle << endl;
+    bulletGo->box.x = associated.box.GetCenter().x - bulletGo->box.w/2 + offset.x;
+    bulletGo->box.y = associated.box.GetCenter().y - bulletGo->box.h/2 + offset.y;
 
     bulletGo->AddComponent(new Bullet(*bulletGo, angle, 300, 10, 1000, "img/penguinbullet.png", 4, 0.1, false));
 

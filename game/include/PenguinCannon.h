@@ -6,6 +6,9 @@
 #define PENGUIN_CANNON_CLASS
 
 #include "Component.h"
+#include "Timer.h"
+
+#define COOLDOWN 0.5
 
 #define PENGUIN_CANNON_TYPE "PenguinCannon"
 
@@ -22,6 +25,7 @@ public:
 private:
     weak_ptr<GameObject> pbody;
     float angle;
+    Timer timer;
 
 };
 
