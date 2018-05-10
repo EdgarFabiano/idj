@@ -103,3 +103,7 @@ void PenguinBody::NotifyCollision(GameObject &other) {
         hp -= enemyBullet->GetDamage();
     }
 }
+
+Vec2 PenguinBody::GetCenterPosition() {
+    return associated.box.GetCenter();
+}

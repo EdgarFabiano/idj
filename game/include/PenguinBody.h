@@ -28,6 +28,7 @@ public:
     void NotifyCollision(GameObject &other) override;
 
     static PenguinBody* player;
+    Vec2 GetCenterPosition();
 
 private:
     weak_ptr<GameObject> pcannon;

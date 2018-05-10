@@ -6,11 +6,13 @@
 #define ALIEN_CLASS
 
 #define ALIEN_TYPE "Alien"
-#define ALIEN_SPEED 500
+#define ALIEN_SPEED 200
 #define ALIEN_ROTATION_SPEED -2
+#define ALIEN_REST_COOLDOWN 3
 
 #include <queue>
 #include "Component.h"
+#include "Timer.h"
 
 class Alien : public Component {
 public:
@@ -24,23 +26,19 @@ public:
 
     void NotifyCollision(GameObject &other) override;
 
+    static int alienCount;
+
 private:
-    class Action{
-    public:
-        enum ActionType{MOVE, SHOOT};
-
-        Action(ActionType type, float x, float y);
-        ActionType type;
-        Vec2 pos;
-    };
-
     Vec2 speed;
     int hp;
-
-    queue<Action> taskQueue;
     vector<weak_ptr<GameObject>> minionArray;
 
     int NearestMinion(const Vec2 &target) const;
+
+    enum AlienState{MOVING, RESTING};
+    AlienState state = RESTING;
+    Timer restTimer;
+    Vec2 destination;
 };
 
 

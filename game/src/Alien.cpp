@@ -10,12 +10,16 @@
 #include <Collider.h>
 #include <Bullet.h>
 #include <Sound.h>
+#include <PenguinBody.h>
 #include "Alien.h"
+
+int Alien::alienCount = 0;
 
 Alien::Alien(GameObject &associated, int nMinions) : Component(associated), speed({0, 0}), hp(50) {
     associated.AddComponent(new Sprite(associated, "img/alien.png"));
     associated.AddComponent(new Collider(associated));
     minionArray.resize((unsigned)(nMinions));
+    alienCount++;
 }
 
 Alien::~Alien() {
@@ -23,6 +27,7 @@ Alien::~Alien() {
         i.lock()->RequestDelete();
     }
     minionArray.clear();
+    alienCount--;
 }
 
 void Alien::Start() {
@@ -38,60 +43,12 @@ void Alien::Start() {
                                           setor));
 
         minionArray[i] = (Game::GetInstance().GetState().AddObject(minionGO));
+        restTimer = *new Timer;
     }
 }
 
 void Alien::Update(float dt) {
-    InputManager inputManager = InputManager::GetInstance();
-    auto posX = (int)(inputManager.GetMouseX() + Camera::pos.x), posY = (int)(inputManager.GetMouseY() + Camera::pos.y);
-
-    if(inputManager.MousePress(LEFT_MOUSE_BUTTON)){
-        taskQueue.push(*new Action(Action::SHOOT, posX , posY));
-    } else if(inputManager.MousePress(RIGHT_MOUSE_BUTTON)){
-
-        //impede de acumular eventos na fila, sobrescrevendo sempre que há um evento
-        while(!taskQueue.empty()){
-            taskQueue.pop();
-        }
-        taskQueue.push(*new Action(Action::MOVE, posX, posY));
-    }
-
-    if(!taskQueue.empty()){
-        auto action = taskQueue.front();
-
-        if(action.type == Action::MOVE){
-            Vec2 deltaX = {ALIEN_SPEED * dt, 0};
-            Vec2 calculado = action.pos - Vec2(associated.box.x + (associated.box.w/2), associated.box.y + (associated.box.h/2));
-            Vec2 real = deltaX.Rotate(calculado.InclX());
-
-            //Distancia minima para o Alien nao chegar ao destino no proximo frame
-            if(calculado.Mag() < real.Mag()){
-                associated.box += calculado;
-                taskQueue.pop();
-            } else {
-                associated.box += real;
-            }
-
-        }
-        else if(action.type == Action::SHOOT){
-            auto target = InputManager::GetInstance().GetMouse();
-
-            //Pega o minion com a menor distância do alvo
-            const shared_ptr<GameObject> &ptr = minionArray[NearestMinion(target)].lock();
-            auto minion = (Minion*)(ptr->GetComponent(MINION_TYPE));
-            minion->Shoot(target);
-
-            taskQueue.pop();
-        }
-    }
-
-    associated.angleDeg += ALIEN_ROTATION_SPEED;
-
     if(hp <= 0){
-        associated.RequestDelete();
-
-        associated.RequestDelete();
-
         auto explosionGO(new GameObject());
         explosionGO->AddComponent(new Sprite(*explosionGO, "img/aliendeath.png", 4, 0.1, 0.4));
         explosionGO->box.x = associated.box.GetCenter().x - explosionGO->box.w/2;
@@ -102,6 +59,49 @@ void Alien::Update(float dt) {
         explosionSound->Play();
 
         Game::GetInstance().GetState().AddObject(explosionGO);
+
+        associated.RequestDelete();
+    } else{
+        InputManager inputManager = InputManager::GetInstance();
+        auto posX = (int)(inputManager.GetMouseX() + Camera::pos.x), posY = (int)(inputManager.GetMouseY() + Camera::pos.y);
+
+        associated.angleDeg += ALIEN_ROTATION_SPEED;
+
+        PenguinBody *player = PenguinBody::player;
+        if(player) {
+            if (state == RESTING) {
+                restTimer.Update(dt);
+                if (restTimer.Get() > ALIEN_REST_COOLDOWN) {
+                    destination = player->GetCenterPosition();
+                    speed = Vec2(ALIEN_SPEED, 0).Rotate((destination - associated.box.GetCenter()).InclX());
+                    state = MOVING;
+                }
+            } else if (state == MOVING) {
+                Vec2 deltaX = {ALIEN_SPEED * dt, 0};
+                Vec2 calculado = destination - Vec2(associated.box.x + (associated.box.w/2), associated.box.y + (associated.box.h/2));
+                Vec2 real = deltaX.Rotate(calculado.InclX());
+
+                //Distancia minima para o Alien nao chegar ao destino no proximo frame
+                if(calculado.Mag() < real.Mag()){
+                    //chegou em destination
+                    associated.box += calculado;
+
+                    auto target = player->GetCenterPosition();
+
+                    //Pega o minion com a menor distância do alvo
+                    const shared_ptr<GameObject> &ptr = minionArray[NearestMinion(target)].lock();
+                    auto minion = (Minion*)(ptr->GetComponent(MINION_TYPE));
+                    minion->Shoot(target);
+
+                    state = RESTING;
+                    restTimer.Restart();
+                } else {
+                    //deslocando ate destination
+                    associated.box += real;
+                }
+
+            }
+        }
     }
 
 }
@@ -110,11 +110,6 @@ void Alien::Render() {}
 
 bool Alien::Is(string type) {
     return type == ALIEN_TYPE;
-}
-
-Alien::Action::Action(Alien::Action::ActionType type, float x, float y) : type(type){
-    pos.x = x;
-    pos.y = y;
 }
 
 int Alien::NearestMinion(const Vec2 &target) const {
