@@ -58,3 +58,11 @@ void State::RenderArray() {
         objectArray[i].get()->Render();
     }
 }
+
+bool State::isDebug() const {
+    return debug;
+}
+
+void State::setDebug(bool debug) {
+    this->debug = debug;
+}

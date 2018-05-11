@@ -1,7 +1,10 @@
+#include <StageState.h>
 #include "Game.h"
 
 int main (int argc, char** argv) {
-    Game::GetInstance().Run();
+    auto &game = Game::GetInstance();
+    game.Push(new StageState());
+    game.Run();
 
     return 0;
 }

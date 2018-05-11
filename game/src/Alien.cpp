@@ -39,10 +39,10 @@ void Alien::Start() {
         auto setor = (float)(2 * M_PI * (i /(float)minionSize));
 
         minionGO->AddComponent(new Minion(*minionGO,
-                                          Game::GetInstance().GetState().GetObjectPtr(&associated),
+                                          Game::GetInstance().GetCurrentState().GetObjectPtr(&associated),
                                           setor));
 
-        minionArray[i] = (Game::GetInstance().GetState().AddObject(minionGO));
+        minionArray[i] = (Game::GetInstance().GetCurrentState().AddObject(minionGO));
         restTimer = *new Timer;
     }
 }
@@ -58,7 +58,7 @@ void Alien::Update(float dt) {
         explosionGO->AddComponent(explosionSound);
         explosionSound->Play();
 
-        Game::GetInstance().GetState().AddObject(explosionGO);
+        Game::GetInstance().GetCurrentState().AddObject(explosionGO);
 
         associated.RequestDelete();
     } else{

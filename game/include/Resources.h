@@ -26,6 +26,8 @@ public:
     static Mix_Chunk* GetSound(string file);
     static void ClearSounds();
 
+    static void ClearResources();
+
 private:
     static unordered_map<string, SDL_Texture*> imageTable;
     static unordered_map<string, Mix_Music*> musicTable;

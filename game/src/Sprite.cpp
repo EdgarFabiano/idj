@@ -9,6 +9,7 @@
 
 #include <utility>
 #include <Bullet.h>
+#include <Sprite.h>
 #include "Game.h"
 
 Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr),

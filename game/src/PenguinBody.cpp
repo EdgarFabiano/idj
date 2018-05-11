@@ -27,9 +27,9 @@ PenguinBody::~PenguinBody() {
 void PenguinBody::Start() {
     auto *pcannonGO = new GameObject;
     pcannonGO->AddComponent(new PenguinCannon(*pcannonGO,
-                                              Game::GetInstance().GetState().GetObjectPtr(&associated)));
+                                              Game::GetInstance().GetCurrentState().GetObjectPtr(&associated)));
 
-    pcannon = Game::GetInstance().GetState().AddObject(pcannonGO);
+    pcannon = Game::GetInstance().GetCurrentState().AddObject(pcannonGO);
 }
 
 void PenguinBody::Update(float dt) {
@@ -85,7 +85,7 @@ void PenguinBody::Update(float dt) {
         explosionGO->AddComponent(explosionSound);
         explosionSound->Play();
 
-        Game::GetInstance().GetState().AddObject(explosionGO);
+        Game::GetInstance().GetCurrentState().AddObject(explosionGO);
 
     }
 }

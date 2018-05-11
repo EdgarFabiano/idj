@@ -75,8 +75,8 @@ Game::Game(string title, int width, int height) : dt(0), frameStart(0) {
             exit(1);
         }
 
-        //Initialize state
-        state = new StageState();
+        //Initialize storedState
+        storedState = nullptr;
 
     }
     else{
@@ -87,7 +87,14 @@ Game::Game(string title, int width, int height) : dt(0), frameStart(0) {
 }
 
 Game::~Game() {
-    delete state;
+    //deleting nullptr has no effect
+    delete storedState;
+
+    while (!stateStack.empty()) {
+        stateStack.pop();
+    }
+
+    Resources::ClearResources;
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -99,29 +106,6 @@ Game::~Game() {
 
 }
 
-void Game::Run(){
-    state->Start();
-    while(!state->QuitRequested()) {
-        CalculaDeltaTime();
-        InputManager::GetInstance().Update();
-        state->Update(dt);
-        state->Render();
-        SDL_RenderPresent(renderer);
-        SDL_Delay(33);
-    }
-    Resources::ClearImages;
-    Resources::ClearMusics();
-    Resources::ClearSounds();
-}
-
-SDL_Renderer *Game::GetRenderer() {
-    return renderer;
-}
-
-StageState &Game::GetState() {
-    return *state;
-}
-
 Game &Game::GetInstance() {
     if(instance == nullptr) {
         return *new Game(GAME_NAME, GAME_WIDTH, GAME_HEIGHT);
@@ -130,12 +114,66 @@ Game &Game::GetInstance() {
     return *instance;
 }
 
-void Game::CalculaDeltaTime() {
-    int ticks = SDL_GetTicks();
-    dt = (ticks - frameStart)/1000.0f;
-    frameStart = ticks;
+SDL_Renderer *Game::GetRenderer() {
+    return renderer;
+}
+
+State &Game::GetCurrentState() {
+    return *(unique_ptr<State> &)stateStack.top();
+}
+
+void Game::Push(State *state) {
+    storedState = state;
+}
+
+void Game::Run(){
+    if (storedState == nullptr) {
+        cout << "Unable to load initial state" << endl;
+        exit(1);
+    }
+
+    stateStack.emplace(storedState);
+    storedState = nullptr;
+
+    GetCurrentState().Start();
+
+    while(!stateStack.empty() && !GetCurrentState().QuitRequested()) {
+        State *state = &GetCurrentState();
+
+        if(state->PopRequested()){
+            stateStack.pop();
+            Resources::ClearResources;
+            if(!stateStack.empty()){
+                state->Resume();
+            }
+        }
+
+        if(storedState){
+            if(!stateStack.empty()) {
+                state->Pause();
+            }
+            stateStack.emplace(storedState);
+            state->Start();
+            storedState = nullptr;
+        }
+
+        CalculateDeltaTime();
+        frameStart = SDL_GetTicks();
+        InputManager::GetInstance().Update();
+        state->Update(dt);
+        state->Render();
+        SDL_RenderPresent(renderer);
+        SDL_Delay(33);
+    }
+    Resources::ClearResources;
 }
 
 float Game::GetDeltaTime() {
     return dt;
+}
+
+void Game::CalculateDeltaTime() {
+    int ticks = SDL_GetTicks();
+    dt = (ticks - frameStart)/1000.0f;
+    frameStart = ticks;
 }

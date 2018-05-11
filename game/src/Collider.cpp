@@ -23,7 +23,7 @@ void Collider::Update(float dt) {
 }
 
 void Collider::Render() {
-    if(Game::GetInstance().GetState().isDebug()) {
+    if(Game::GetInstance().GetCurrentState().isDebug()) {
         Vec2 center(box.GetCenter());
         SDL_Point points[5];
 

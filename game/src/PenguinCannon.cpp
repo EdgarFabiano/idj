@@ -57,5 +57,5 @@ void PenguinCannon::Shoot() {
     bulletGo->AddComponent(explosionSound);
     explosionSound->Play();
 
-    Game::GetInstance().GetState().AddObject(bulletGo);
+    Game::GetInstance().GetCurrentState().AddObject(bulletGo);
 }

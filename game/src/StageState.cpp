@@ -12,6 +12,7 @@
 #include <Collision.h>
 #include <Bullet.h>
 #include <Minion.h>
+#include <StageState.h>
 
 StageState::StageState() {
     started = false;
@@ -49,12 +50,8 @@ StageState::~StageState() {
     objectArray.clear();
 }
 
-bool StageState::QuitRequested() {
-    return quitRequested;
-}
-
 void StageState::LoadAssets() {
-    music.Open("audio/stageState.ogg");
+    backgroundMusic.Open("audio/stageState.ogg");
 }
 
 void StageState::Update(float dt) {
@@ -65,7 +62,7 @@ void StageState::Update(float dt) {
     quitRequested = inputManager.KeyPress(ESCAPE_KEY) || inputManager.QuitRequested();
 
     if(InputManager::GetInstance().KeyPress(SDLK_F6)) {
-        debug = !debug;
+        setDebug(!isDebug());
     }
 
     for(int i = 0; i < objectArray.size(); i++){
@@ -90,30 +87,16 @@ void StageState::Render() {
 
 void StageState::Start() {
     LoadAssets();
-    music.Play();
+    backgroundMusic.Play();
     for(int i = 0; i < objectArray.size(); i++){
         objectArray[i].get()->Start();
     }
     started = true;
 }
 
-weak_ptr<GameObject> StageState::AddObject(GameObject *go) {
-    shared_ptr<GameObject> gameObject(go);
-    objectArray.push_back(gameObject);
-    if(started){
-        gameObject->Start();
-    }
-    return weak_ptr<GameObject>(gameObject);
-}
+void StageState::Pause() {}
 
-weak_ptr<GameObject> StageState::GetObjectPtr(GameObject *go) {
-    for (auto &i : objectArray) {
-        if(i.get() == go){
-            return weak_ptr<GameObject>(i);
-        }
-    }
-    return weak_ptr<GameObject>();
-}
+void StageState::Resume() {}
 
 void StageState::TestCollision(vector<shared_ptr< GameObject>> &objectArray) {
     for (int i = 0; i < objectArray.size(); i++) {
@@ -137,13 +120,5 @@ void StageState::TestCollision(vector<shared_ptr< GameObject>> &objectArray) {
             }
         }
     }
-}
-
-bool StageState::isDebug() const {
-    return debug;
-}
-
-void StageState::setDebug(bool debug) {
-    StageState::debug = debug;
 }
 

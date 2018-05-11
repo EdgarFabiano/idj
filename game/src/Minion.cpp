@@ -24,7 +24,7 @@ void Minion::Update(float dt) {
         explosionGO->AddComponent(new Sprite(*explosionGO, "img/miniondeath.png", 4, 0.1, 0.4));
         explosionGO->box.x = associated.box.GetCenter().x - explosionGO->box.w/2;
         explosionGO->box.y = associated.box.GetCenter().y - explosionGO->box.h/2;
-        Game::GetInstance().GetState().AddObject(explosionGO);
+        Game::GetInstance().GetCurrentState().AddObject(explosionGO);
 
         associated.RequestDelete();
     }
@@ -56,7 +56,7 @@ void Minion::Shoot(Vec2 target) {
     bulletGo->AddComponent(explosionSound);
     explosionSound->Play();
 
-    Game::GetInstance().GetState().AddObject(bulletGo);
+    Game::GetInstance().GetCurrentState().AddObject(bulletGo);
 }
 
 float Minion::float_rand( float min, float max ){

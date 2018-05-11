@@ -27,6 +27,9 @@ public:
     bool PopRequested();
     bool QuitRequested();
 
+    bool isDebug() const;
+    void setDebug(bool debug);
+
 protected:
     void StartArray();
     virtual void UpdateArray(float dt);
@@ -35,7 +38,10 @@ protected:
     bool popRequested;
     bool quitRequested;
     bool started;
+
     vector<shared_ptr<GameObject>> objectArray;
+
+    bool debug = false;
 
 };
 
