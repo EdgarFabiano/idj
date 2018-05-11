@@ -76,7 +76,7 @@ Game::Game(string title, int width, int height) : dt(0), frameStart(0) {
         }
 
         //Initialize state
-        state = new State();
+        state = new StageState();
 
     }
     else{
@@ -118,7 +118,7 @@ SDL_Renderer *Game::GetRenderer() {
     return renderer;
 }
 
-State &Game::GetState() {
+StageState &Game::GetState() {
     return *state;
 }
 

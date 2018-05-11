@@ -13,7 +13,7 @@
 #include <Bullet.h>
 #include <Minion.h>
 
-State::State() {
+StageState::StageState() {
     started = false;
     auto bgGO(new GameObject);
     bgGO->AddComponent(new CameraFollower(*bgGO));
@@ -45,19 +45,19 @@ State::State() {
     quitRequested = false;
 }
 
-State::~State() {
+StageState::~StageState() {
     objectArray.clear();
 }
 
-bool State::QuitRequested() {
+bool StageState::QuitRequested() {
     return quitRequested;
 }
 
-void State::LoadAssets() {
+void StageState::LoadAssets() {
     music.Open("audio/stageState.ogg");
 }
 
-void State::Update(float dt) {
+void StageState::Update(float dt) {
     InputManager inputManager = InputManager::GetInstance();
 
     Camera::Update(dt);
@@ -82,13 +82,13 @@ void State::Update(float dt) {
 
 }
 
-void State::Render() {
+void StageState::Render() {
     for (auto &it : objectArray) {
         it->Render();
     }
 }
 
-void State::Start() {
+void StageState::Start() {
     LoadAssets();
     music.Play();
     for(int i = 0; i < objectArray.size(); i++){
@@ -97,7 +97,7 @@ void State::Start() {
     started = true;
 }
 
-weak_ptr<GameObject> State::AddObject(GameObject *go) {
+weak_ptr<GameObject> StageState::AddObject(GameObject *go) {
     shared_ptr<GameObject> gameObject(go);
     objectArray.push_back(gameObject);
     if(started){
@@ -106,7 +106,7 @@ weak_ptr<GameObject> State::AddObject(GameObject *go) {
     return weak_ptr<GameObject>(gameObject);
 }
 
-weak_ptr<GameObject> State::GetObjectPtr(GameObject *go) {
+weak_ptr<GameObject> StageState::GetObjectPtr(GameObject *go) {
     for (auto &i : objectArray) {
         if(i.get() == go){
             return weak_ptr<GameObject>(i);
@@ -115,7 +115,7 @@ weak_ptr<GameObject> State::GetObjectPtr(GameObject *go) {
     return weak_ptr<GameObject>();
 }
 
-void State::TestCollision(vector<shared_ptr< GameObject>> &objectArray) {
+void StageState::TestCollision(vector<shared_ptr< GameObject>> &objectArray) {
     for (int i = 0; i < objectArray.size(); i++) {
         for(int j = i+1; j < objectArray.size(); j++){
             auto &objA = objectArray[i];
@@ -139,11 +139,11 @@ void State::TestCollision(vector<shared_ptr< GameObject>> &objectArray) {
     }
 }
 
-bool State::isDebug() const {
+bool StageState::isDebug() const {
     return debug;
 }
 
-void State::setDebug(bool debug) {
-    State::debug = debug;
+void StageState::setDebug(bool debug) {
+    StageState::debug = debug;
 }
 

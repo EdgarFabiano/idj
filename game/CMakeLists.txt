@@ -17,7 +17,7 @@ include_directories(BEFORE dep)
 add_executable(JOGO src/Main.cpp
         include/SDL_include.h
         src/Game.cpp include/Game.h
-        src/State.cpp include/State.h
+        src/StageState.cpp include/StageState.h
         src/Sprite.cpp include/Sprite.h
         src/Music.cpp include/Music.h
         src/Rect.cpp include/Rect.h

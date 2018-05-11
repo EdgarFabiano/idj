@@ -9,7 +9,7 @@
 
 #define INCLUDE_SDL
 #include "SDL_include.h"
-#include "State.h"
+#include "StageState.h"
 
 #define GAME_NAME "Edgar Fabiano - 14/0019201"
 #define GAME_WIDTH 1024
@@ -27,7 +27,7 @@ public :
 
     void Run();
     SDL_Renderer* GetRenderer ();
-    State& GetState ();
+    StageState& GetState ();
     static Game& GetInstance();
 
     float GetDeltaTime();
@@ -36,7 +36,7 @@ private:
     static Game *instance;
     SDL_Window* window;
     SDL_Renderer* renderer;
-    State* state;
+    StageState* state;
 
     int frameStart;
     float dt;
