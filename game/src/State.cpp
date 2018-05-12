@@ -40,7 +40,6 @@ bool State::QuitRequested() {
 }
 
 void State::StartArray() {
-//    LoadAssets();
     for(int i = 0; i < objectArray.size(); i++){
         objectArray[i].get()->Start();
     }

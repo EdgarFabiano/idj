@@ -144,6 +144,7 @@ void Game::Run(){
             stateStack.pop();
             Resources::ClearResources;
             if(!stateStack.empty()){
+                state = &GetCurrentState();
                 state->Resume();
             }
         }
@@ -153,8 +154,9 @@ void Game::Run(){
                 state->Pause();
             }
             stateStack.emplace(storedState);
-            state->Start();
             storedState = nullptr;
+            state = &GetCurrentState();
+            state->Start();
         }
 
         CalculateDeltaTime();

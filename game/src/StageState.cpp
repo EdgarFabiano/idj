@@ -10,10 +10,7 @@
 #include <PenguinBody.h>
 #include <Collider.h>
 #include <Collision.h>
-#include <Bullet.h>
-#include <Minion.h>
 #include <StageState.h>
-#include <TitleState.h>
 
 StageState::StageState() {
     started = false;
@@ -83,12 +80,9 @@ void StageState::Render() {
 }
 
 void StageState::Start() {
+    StartArray();
     LoadAssets();
     backgroundMusic.Play();
-    for(int i = 0; i < objectArray.size(); i++){
-        objectArray[i].get()->Start();
-    }
-    started = true;
 }
 
 void StageState::Pause() {}
