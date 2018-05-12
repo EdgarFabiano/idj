@@ -11,7 +11,7 @@
 class TitleState : public State {
 public:
     TitleState();
-    virtual ~TitleState();
+    ~TitleState();
 
     void LoadAssets() override;
     void Update(float dt) override;

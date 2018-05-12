@@ -7,10 +7,13 @@
 #include "StageState.h"
 #include "InputManager.h"
 #include "Game.h"
+#include "Camera.h"
 
 TitleState::TitleState() {
     auto titleGO(new GameObject);
     titleGO->AddComponent(new Sprite(*titleGO, "img/title.jpg"));
+    AddObject(titleGO);
+
 }
 
 TitleState::~TitleState() {
@@ -33,11 +36,11 @@ void TitleState::Update(float dt) {
 }
 
 void TitleState::Render() {
-
+    RenderArray();
 }
 
 void TitleState::Start() {
-
+    StartArray();
 }
 
 void TitleState::Pause() {
@@ -45,5 +48,5 @@ void TitleState::Pause() {
 }
 
 void TitleState::Resume() {
-
+    Camera::pos = Vec2(0, 0);
 }

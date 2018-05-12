@@ -34,6 +34,7 @@ protected:
     void StartArray();
     virtual void UpdateArray(float dt);
     virtual void RenderArray();
+    virtual void IsDeadArray();
 
     bool popRequested;
     bool quitRequested;

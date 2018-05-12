@@ -59,6 +59,14 @@ void State::RenderArray() {
     }
 }
 
+void State::IsDeadArray() {
+    for(int i = 0; i < objectArray.size(); i++) {
+        if (objectArray[i]->IsDead()) {
+            objectArray.erase(objectArray.begin() + i);
+        }
+    }
+}
+
 bool State::isDebug() const {
     return debug;
 }

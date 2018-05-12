@@ -13,6 +13,7 @@
 #include <Bullet.h>
 #include <Minion.h>
 #include <StageState.h>
+#include <TitleState.h>
 
 StageState::StageState() {
     started = false;
@@ -59,21 +60,17 @@ void StageState::Update(float dt) {
 
     Camera::Update(dt);
 
-    quitRequested = inputManager.KeyPress(ESCAPE_KEY) || inputManager.QuitRequested();
+    quitRequested = inputManager.QuitRequested();
 
-    if(InputManager::GetInstance().KeyPress(SDLK_F6)) {
+    popRequested = inputManager.KeyPress(ESCAPE_KEY);
+
+    if(inputManager.KeyPress(SDLK_F6)) {
         setDebug(!isDebug());
     }
 
-    for(int i = 0; i < objectArray.size(); i++){
-        objectArray[i].get()->Update(dt);
-    }
+    UpdateArray(dt);
 
-    for(int i = 0; i < objectArray.size(); i++) {
-        if (objectArray[i]->IsDead()) {
-            objectArray.erase(objectArray.begin() + i);
-        }
-    }
+    IsDeadArray();
 
     TestCollision(objectArray);
 
