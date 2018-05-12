@@ -30,6 +30,8 @@ public:
     bool isDebug() const;
     void setDebug(bool debug);
 
+    void TestCollision();
+
 protected:
     void StartArray();
     virtual void UpdateArray(float dt);

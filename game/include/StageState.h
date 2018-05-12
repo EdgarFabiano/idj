@@ -26,8 +26,6 @@ public:
     void Pause() override;
     void Resume() override;
 
-    void TestCollision(vector<shared_ptr< GameObject>> &objectArray);
-
 private:
     TileSet* tileSet;
     Music backgroundMusic;

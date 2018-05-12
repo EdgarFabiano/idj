@@ -8,8 +8,6 @@
 #include <CameraFollower.h>
 #include <Alien.h>
 #include <PenguinBody.h>
-#include <Collider.h>
-#include <Collision.h>
 #include <StageState.h>
 
 StageState::StageState() {
@@ -69,7 +67,7 @@ void StageState::Update(float dt) {
 
     IsDeadArray();
 
-    TestCollision(objectArray);
+    TestCollision();
 
 }
 
@@ -88,28 +86,4 @@ void StageState::Start() {
 void StageState::Pause() {}
 
 void StageState::Resume() {}
-
-void StageState::TestCollision(vector<shared_ptr< GameObject>> &objectArray) {
-    for (int i = 0; i < objectArray.size(); i++) {
-        for(int j = i+1; j < objectArray.size(); j++){
-            auto &objA = objectArray[i];
-            auto &objB = objectArray[j];
-
-            Collider *colliderA = (Collider*) objA->GetComponent(COLLIDER_TYPE);
-            Collider *colliderB = (Collider*) objB->GetComponent(COLLIDER_TYPE);
-            if(colliderA && colliderB){
-                auto boxA = colliderA->box;
-                auto boxB = colliderB->box;
-
-                auto angleOfA = (float)(objA->angleDeg);
-                auto angleOfB = (float)(objB->angleDeg);
-
-                if (Collision::IsCollidingDeg(boxA, boxB, angleOfA, angleOfB)) {
-                    objA->NotifyCollision(*objB);
-                    objB->NotifyCollision(*objA);
-                }
-            }
-        }
-    }
-}
 
