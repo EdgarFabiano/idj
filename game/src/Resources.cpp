@@ -5,26 +5,35 @@
 #include <Game.h>
 #include "Resources.h"
 
-unordered_map<string, SDL_Texture*> Resources::imageTable;
+unordered_map<string, shared_ptr<SDL_Texture>> Resources::imageTable;
 unordered_map<string, Mix_Music*> Resources::musicTable;
 unordered_map<string, Mix_Chunk*> Resources::soundTable;
 
-SDL_Texture *Resources::GetImage(string file) {
+shared_ptr<SDL_Texture> Resources::GetImage(string file) {
     if (imageTable.find(file) == imageTable.end()) {
         auto texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), (ASSETS_PATH + file).c_str());
         if(texture == nullptr){
             cout << "Unable to load texture: " << SDL_GetError() << endl;
             exit(1);
         }
-        imageTable.insert(make_pair(file, texture));
-        return texture;
+
+        void (*deleter)(SDL_Texture *)=[] (SDL_Texture *texture) -> void {
+                SDL_DestroyTexture(texture);
+        };
+
+        auto ptr = shared_ptr<SDL_Texture>(texture, deleter);
+        imageTable.emplace(file, ptr);
+        return ptr;
     }
     return (*imageTable.find(file)).second;
 }
 
 void Resources::ClearImages() {
     for (auto &iT : imageTable) {
-        SDL_DestroyTexture(iT.second);
+        const auto ptr = iT.second;
+        if (ptr.unique()) {
+            imageTable.erase(iT.first);
+        }
     }
     imageTable.clear();
 }
@@ -70,8 +79,8 @@ void Resources::ClearSounds() {
 }
 
 void Resources::ClearResources() {
-    ClearImages;
-    ClearMusics;
-    ClearSounds;
+    ClearImages();
+    ClearMusics();
+    ClearSounds();
 }
 

@@ -44,7 +44,7 @@ public:
     void SetFrameTime(float);
 
 private:
-    SDL_Texture* texture;
+    shared_ptr<SDL_Texture> texture;
     int width;
     int height;
     SDL_Rect clipRect;

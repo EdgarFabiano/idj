@@ -94,7 +94,7 @@ Game::~Game() {
         stateStack.pop();
     }
 
-    Resources::ClearResources;
+    Resources::ClearResources();
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -142,7 +142,7 @@ void Game::Run(){
 
         if(state->PopRequested()){
             stateStack.pop();
-            Resources::ClearResources;
+            Resources::ClearResources();
             if(!stateStack.empty()){
                 state = &GetCurrentState();
                 state->Resume();
@@ -167,7 +167,7 @@ void Game::Run(){
         SDL_RenderPresent(renderer);
         SDL_Delay(33);
     }
-    Resources::ClearResources;
+    Resources::ClearResources();
 }
 
 float Game::GetDeltaTime() {
