@@ -8,6 +8,7 @@
 unordered_map<string, shared_ptr<SDL_Texture>> Resources::imageTable;
 unordered_map<string, Mix_Music*> Resources::musicTable;
 unordered_map<string, Mix_Chunk*> Resources::soundTable;
+unordered_map<string, TTF_Font*> Resources::fontTable;
 
 shared_ptr<SDL_Texture> Resources::GetImage(string file) {
     if (imageTable.find(file) == imageTable.end()) {
@@ -78,9 +79,31 @@ void Resources::ClearSounds() {
     soundTable.clear();
 }
 
+TTF_Font *Resources::GetFont(string file, int size) {
+    auto key = file + to_string(size);
+    if (fontTable.find(key) == fontTable.end()) {
+        auto font = TTF_OpenFont((ASSETS_PATH + file).c_str(), size);
+        if(font == nullptr){
+            cout << "Unable to load font: " << SDL_GetError() << endl;
+            exit(1);
+        }
+        fontTable.insert(make_pair(key, font));
+        return font;
+    }
+    return (*fontTable.find(key)).second;
+}
+
+void Resources::ClearFonts() {
+    for (auto &fT : fontTable) {
+        TTF_CloseFont(fT.second);
+    }
+    fontTable.clear();
+}
+
 void Resources::ClearResources() {
     ClearImages();
     ClearMusics();
     ClearSounds();
+    ClearFonts();
 }
 

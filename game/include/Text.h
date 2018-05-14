@@ -23,13 +23,14 @@ public:
     bool Is(string type) override;
 
     void setText(string text);
+    void setColor(SDL_Color color);
     void setStyle(TextStyle style);
     void setFontFile(string fontFile);
     void setFontSize(int fontSize);
-    void setColor(SDL_Color color);
 
 private:
     void RemakeTexture();
+
     TTF_Font* font;
     SDL_Texture* texture;
 

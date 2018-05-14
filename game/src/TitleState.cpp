@@ -2,6 +2,7 @@
 // Created by edgar on 11/05/18.
 //
 
+#include <Text.h>
 #include "TitleState.h"
 #include "Sprite.h"
 #include "StageState.h"
@@ -13,6 +14,14 @@ TitleState::TitleState() {
     auto titleGO(new GameObject);
     titleGO->AddComponent(new Sprite(*titleGO, "img/title.jpg"));
     AddObject(titleGO);
+
+    auto fontGO(new GameObject);
+    auto text = new Text(*fontGO, "font/Call me maybe.ttf", 50, Text::TextStyle::BLENDED, "Press space bar to start!", {0, 0, 0, 255});
+    fontGO->AddComponent(text);
+    Rect &fontBox = fontGO->box;
+    fontBox.x = GAME_WIDTH/2 ;
+    fontBox.y = GAME_HEIGHT + fontBox.h/2;
+    AddObject(fontGO);
 
 }
 
