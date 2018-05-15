@@ -30,7 +30,7 @@ public:
     bool IsSoundPlaying();
 
 private:
-    Mix_Chunk* chunk;
+    shared_ptr<Mix_Chunk> chunk;
     int channel;
 
 

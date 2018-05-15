@@ -34,7 +34,7 @@ public:
 private:
     void RemakeTexture();
 
-    TTF_Font* font;
+    shared_ptr<TTF_Font> font;
     SDL_Texture* texture;
 
     string text;

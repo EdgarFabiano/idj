@@ -22,22 +22,22 @@ public:
     static shared_ptr<SDL_Texture> GetImage(string file);
     static void ClearImages();
 
-    static Mix_Music* GetMusic(string file);
+    static shared_ptr<Mix_Music> GetMusic(string file);
     static void ClearMusics();
 
-    static Mix_Chunk* GetSound(string file);
+    static shared_ptr<Mix_Chunk> GetSound(string file);
     static void ClearSounds();
 
-    static TTF_Font* GetFont(string file, int size);
+    static shared_ptr<TTF_Font> GetFont(string file, int size);
     static void ClearFonts();
 
     static void ClearResources();
 
 private:
     static unordered_map<string, shared_ptr<SDL_Texture>> imageTable;
-    static unordered_map<string, Mix_Music*> musicTable;
-    static unordered_map<string, Mix_Chunk*> soundTable;
-    static unordered_map<string, TTF_Font*> fontTable;
+    static unordered_map<string, shared_ptr<Mix_Music>> musicTable;
+    static unordered_map<string, shared_ptr<Mix_Chunk>> soundTable;
+    static unordered_map<string, shared_ptr<TTF_Font>> fontTable;
 
 };
 

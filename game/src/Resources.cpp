@@ -6,9 +6,9 @@
 #include "Resources.h"
 
 unordered_map<string, shared_ptr<SDL_Texture>> Resources::imageTable;
-unordered_map<string, Mix_Music*> Resources::musicTable;
-unordered_map<string, Mix_Chunk*> Resources::soundTable;
-unordered_map<string, TTF_Font*> Resources::fontTable;
+unordered_map<string, shared_ptr<Mix_Music>> Resources::musicTable;
+unordered_map<string, shared_ptr<Mix_Chunk>> Resources::soundTable;
+unordered_map<string, shared_ptr<TTF_Font>> Resources::fontTable;
 
 shared_ptr<SDL_Texture> Resources::GetImage(string file) {
     if (imageTable.find(file) == imageTable.end()) {
@@ -18,7 +18,7 @@ shared_ptr<SDL_Texture> Resources::GetImage(string file) {
             exit(1);
         }
 
-        void (*deleter)(SDL_Texture *)=[] (SDL_Texture *texture) -> void {
+        void (*deleter)(SDL_Texture *) = [] (SDL_Texture *texture) -> void {
                 SDL_DestroyTexture(texture);
         };
 
@@ -39,47 +39,65 @@ void Resources::ClearImages() {
     imageTable.clear();
 }
 
-Mix_Music *Resources::GetMusic(string file) {
+shared_ptr<Mix_Music> Resources::GetMusic(string file) {
     if (musicTable.find(file) == musicTable.end()) {
         auto music = Mix_LoadMUS((ASSETS_PATH + file).c_str());
         if(music == nullptr){
             cout << "Unable to load music: " << SDL_GetError() << endl;
             exit(1);
         }
-        musicTable.insert(make_pair(file, music));
-        return music;
+
+        void (*deleter)(Mix_Music *) = [] (Mix_Music *music) -> void {
+            Mix_FreeMusic(music);
+        };
+
+        auto ptr = shared_ptr<Mix_Music>(music, deleter);
+        musicTable.emplace(file, ptr);
+        return ptr;
     }
     return (*musicTable.find(file)).second;
 }
 
 void Resources::ClearMusics() {
     for (auto &mT : musicTable) {
-        Mix_FreeMusic(mT.second);
+        const auto ptr = mT.second;
+        if (ptr.unique()) {
+            musicTable.erase(mT.first);
+        }
     }
     musicTable.clear();
 }
 
-Mix_Chunk *Resources::GetSound(string file) {
+shared_ptr<Mix_Chunk> Resources::GetSound(string file) {
     if (soundTable.find(file) == soundTable.end()) {
         auto chunk = Mix_LoadWAV((ASSETS_PATH + file).c_str());
         if(chunk == nullptr){
             cout << "Unable to load sound: " << SDL_GetError() << endl;
             exit(1);
         }
-        soundTable.insert(make_pair(file, chunk));
-        return chunk;
+
+        void (*deleter)(Mix_Chunk *) = [] (Mix_Chunk *chunk) -> void {
+            Mix_FreeChunk(chunk);
+        };
+
+        auto ptr = shared_ptr<Mix_Chunk>(chunk, deleter);
+        soundTable.emplace(file, ptr);
+        return ptr;
     }
     return (*soundTable.find(file)).second;
 }
 
 void Resources::ClearSounds() {
     for (auto &sT : soundTable) {
-        Mix_FreeChunk(sT.second);
+        const auto ptr = sT.second;
+        if (ptr.unique()) {
+            soundTable.erase(sT.first);
+        }
     }
     soundTable.clear();
 }
 
-TTF_Font *Resources::GetFont(string file, int size) {
+shared_ptr<TTF_Font> Resources::GetFont(string file, int size) {
     auto key = file + to_string(size);
     if (fontTable.find(key) == fontTable.end()) {
         auto font = TTF_OpenFont((ASSETS_PATH + file).c_str(), size);
@@ -87,15 +105,24 @@ TTF_Font *Resources::GetFont(string file, int size) {
             cout << "Unable to load font: " << SDL_GetError() << endl;
             exit(1);
         }
-        fontTable.insert(make_pair(key, font));
-        return font;
+
+        void (*deleter)(TTF_Font *) = [] (TTF_Font *font) -> void {
+            TTF_CloseFont(font);
+        };
+
+        auto ptr = shared_ptr<TTF_Font>(font, deleter);
+        fontTable.emplace(key, ptr);
+        return ptr;
     }
     return (*fontTable.find(key)).second;
 }
 
 void Resources::ClearFonts() {
     for (auto &fT : fontTable) {
-        TTF_CloseFont(fT.second);
+        const auto ptr = fT.second;
+        if (ptr.unique()) {
+            fontTable.erase(fT.first);
+        }
     }
     fontTable.clear();
 }

@@ -69,9 +69,9 @@ void Text::RemakeTexture() {
     font = Resources::GetFont(fontFile, fontSize);
 
     SDL_Surface *surface = nullptr;
-    if(style == TextStyle::SOLID) surface = TTF_RenderText_Solid(font, text.c_str(), color);
-    else if(style == TextStyle::SHADED) surface = TTF_RenderText_Shaded(font, text.c_str(), color, { 0, 0, 0, 255 });
-    else if(style == TextStyle::BLENDED) surface = TTF_RenderText_Blended(font, text.c_str(), color);
+    if(style == TextStyle::SOLID) surface = TTF_RenderText_Solid(font.get(), text.c_str(), color);
+    else if(style == TextStyle::SHADED) surface = TTF_RenderText_Shaded(font.get(), text.c_str(), color, { 0, 0, 0, 255 });
+    else if(style == TextStyle::BLENDED) surface = TTF_RenderText_Blended(font.get(), text.c_str(), color);
 
     texture = SDL_CreateTextureFromSurface(Game::GetInstance().GetRenderer(), surface);
     SDL_SetTextureAlphaMod(texture, color.a);

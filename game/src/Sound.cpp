@@ -22,7 +22,7 @@ Sound::~Sound(){
 }
 
 void Sound::Play(int times) {
-    channel = Mix_PlayChannel(-1, chunk, times - 1);
+    channel = Mix_PlayChannel(-1, chunk.get(), times - 1);
     if(channel == -1){
         cout << "Unable to Mix_PlayChannel: " << SDL_GetError() << endl;
         exit(1);

@@ -23,7 +23,7 @@ Music::~Music() {
 
 void Music::Play(int times) {
     if (music != nullptr)
-        Mix_PlayMusic(music, times);
+        Mix_PlayMusic(music.get(), times);
     else {
         cout << "No music loaded: " << SDL_GetError() << endl;
         exit(1);
