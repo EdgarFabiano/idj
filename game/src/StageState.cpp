@@ -9,6 +9,8 @@
 #include <Alien.h>
 #include <PenguinBody.h>
 #include <StageState.h>
+#include <EndState.h>
+#include <GameData.h>
 
 StageState::StageState() {
     started = false;
@@ -64,6 +66,12 @@ void StageState::Update(float dt) {
     }
 
     UpdateArray(dt);
+
+    if (Alien::alienCount == 0 || PenguinBody::player == nullptr) {
+        GameData::playerVictory = PenguinBody::player != nullptr;
+        popRequested = true;
+        Game::GetInstance().Push(new EndState());
+    }
 
     IsDeadArray();
 

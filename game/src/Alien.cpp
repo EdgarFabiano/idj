@@ -63,7 +63,6 @@ void Alien::Update(float dt) {
         associated.RequestDelete();
     } else{
         InputManager inputManager = InputManager::GetInstance();
-        auto posX = (int)(inputManager.GetMouseX() + Camera::pos.x), posY = (int)(inputManager.GetMouseY() + Camera::pos.y);
 
         associated.angleDeg += ALIEN_ROTATION_SPEED;
 

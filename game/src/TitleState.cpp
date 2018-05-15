@@ -2,7 +2,7 @@
 // Created by edgar on 11/05/18.
 //
 
-#include <Text.h>
+#include "Text.h"
 #include <PeriodicEvent.h>
 #include "TitleState.h"
 #include "Sprite.h"
