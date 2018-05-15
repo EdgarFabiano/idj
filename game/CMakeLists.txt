@@ -42,4 +42,6 @@ add_executable(JOGO src/Main.cpp
         src/State.cpp include/State.h
         src/TitleState.cpp include/TitleState.h
         src/Text.cpp include/Text.h
-        src/PeriodicEvent.cpp include/PeriodicEvent.h)
+        src/PeriodicEvent.cpp include/PeriodicEvent.h
+        src/EndState.cpp include/EndState.h
+        src/GameData.cpp include/GameData.h)

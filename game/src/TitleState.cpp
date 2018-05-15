@@ -17,7 +17,7 @@ TitleState::TitleState() {
     AddObject(titleGO);
 
     auto fontGO(new GameObject);
-    Text *text = new Text(*fontGO, "font/Call me maybe.ttf", 60, Text::TextStyle::BLENDED, "Press space to start!", {0, 0, 0, 255});
+    Text *text = new Text(*fontGO, "font/Call me maybe.ttf", 60, Text::TextStyle::BLENDED, "Press space to continue...", {0, 0, 0, 255});
     fontGO->AddComponent(text);
     Rect &fontBox = fontGO->box;
     fontBox.x = GAME_WIDTH/2 - fontBox.w/2;
