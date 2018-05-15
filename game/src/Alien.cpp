@@ -15,9 +15,9 @@
 
 int Alien::alienCount = 0;
 
-Alien::Alien(GameObject &associated, int nMinions) : Component(associated), speed({0, 0}), hp(50) {
+Alien::Alien(GameObject &associated, int nMinions, float timeOffset) : Component(associated), speed({0, 0}), hp(50), timeOffset(timeOffset) {
     associated.AddComponent(new Sprite(associated, "img/alien.png"));
-    associated.AddComponent(new Collider(associated));
+    associated.AddComponent(new Collider(associated, {0.6, 0.6}, {-9, 0}));
     minionArray.resize((unsigned)(nMinions));
     alienCount++;
 }
@@ -70,7 +70,7 @@ void Alien::Update(float dt) {
         if(player) {
             if (state == RESTING) {
                 restTimer.Update(dt);
-                if (restTimer.Get() > ALIEN_REST_COOLDOWN) {
+                if (restTimer.Get() > ALIEN_REST_COOLDOWN + timeOffset) {
                     destination = player->GetCenterPosition();
                     speed = Vec2(ALIEN_SPEED, 0).Rotate((destination - associated.box.GetCenter()).InclX());
                     state = MOVING;
