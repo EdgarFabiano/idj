@@ -6,8 +6,9 @@
 #define SRC_TEXT_H
 
 
-#include <SDL_pixels.h>
-#include <SDL_ttf.h>
+#define INCLUDE_SDL
+#define INCLUDE_SDL_TTF
+#include "SDL_include.h"
 #include "Component.h"
 
 #define TEXT_TYPE "Text"
