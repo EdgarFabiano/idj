@@ -24,9 +24,11 @@ public:
 
     void setText(string text);
     void setColor(SDL_Color color);
+    const SDL_Color &GetColor() const;
     void setStyle(TextStyle style);
     void setFontFile(string fontFile);
     void setFontSize(int fontSize);
+
 
 private:
     void RemakeTexture();

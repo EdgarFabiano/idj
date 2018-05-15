@@ -29,7 +29,7 @@ void Text::Update(float dt) {}
 void Text::Render() {
     auto box = associated.box;
     SDL_Rect srcRect = {0, 0, (int)box.w, (int)box.h};
-    SDL_Rect dstRect = {(int)(box.GetCenter() - Vec2(GAME_WIDTH/2, GAME_HEIGHT/2) - Camera::pos).x, (int)(box.GetCenter() - Vec2(GAME_WIDTH/2, GAME_HEIGHT/2) - Camera::pos).y, srcRect.w, srcRect.h};
+    SDL_Rect dstRect = {(int)(box + Camera::pos).x, (int)(box + Camera::pos).y, srcRect.w, srcRect.h};
     SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &srcRect, &dstRect, associated.angleDeg, nullptr, SDL_FLIP_NONE);
 }
 
@@ -83,4 +83,8 @@ void Text::RemakeTexture() {
 
     SDL_FreeSurface(surface);
 
+}
+
+const SDL_Color &Text::GetColor() const {
+    return color;
 }

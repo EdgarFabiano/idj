@@ -3,6 +3,7 @@
 //
 
 #include <Text.h>
+#include <PeriodicEvent.h>
 #include "TitleState.h"
 #include "Sprite.h"
 #include "StageState.h"
@@ -16,11 +17,17 @@ TitleState::TitleState() {
     AddObject(titleGO);
 
     auto fontGO(new GameObject);
-    auto text = new Text(*fontGO, "font/Call me maybe.ttf", 50, Text::TextStyle::BLENDED, "Press space bar to start!", {0, 0, 0, 255});
+    Text *text = new Text(*fontGO, "font/Call me maybe.ttf", 60, Text::TextStyle::BLENDED, "Press space to start!", {0, 0, 0, 255});
     fontGO->AddComponent(text);
     Rect &fontBox = fontGO->box;
-    fontBox.x = GAME_WIDTH/2 ;
-    fontBox.y = GAME_HEIGHT + fontBox.h/2;
+    fontBox.x = GAME_WIDTH/2 - fontBox.w/2;
+    fontBox.y = GAME_HEIGHT - fontBox.h;
+
+    fontGO->AddComponent(new PeriodicEvent(*fontGO, 0.4, [text](PeriodicEvent& e){
+        auto alpha = (text->GetColor().a != 0) ? 0 : 255;
+        text->setColor({0, 0, 0, (Uint8)alpha});
+    }));
+
     AddObject(fontGO);
 
 }

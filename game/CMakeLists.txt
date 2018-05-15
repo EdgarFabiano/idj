@@ -41,4 +41,5 @@ add_executable(JOGO src/Main.cpp
         src/Timer.cpp include/Timer.h
         src/State.cpp include/State.h
         src/TitleState.cpp include/TitleState.h
-        src/Text.cpp include/Text.h)
+        src/Text.cpp include/Text.h
+        src/PeriodicEvent.cpp include/PeriodicEvent.h)
