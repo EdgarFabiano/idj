@@ -13,13 +13,13 @@
 
 class PeriodicEvent : public Component {
 public:
-    typedef function<void(PeriodicEvent&)> ActionCallback;
+    typedef function<void()> ActionCallback;
 
     PeriodicEvent(GameObject &associated, float period, ActionCallback cb);
 
-    void fire(PeriodicEvent& e )
+    void run()
     {
-        _callback(e);
+        _callback();
     }
 
     void Update(float dt) override;

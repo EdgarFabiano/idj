@@ -11,7 +11,7 @@ PeriodicEvent::PeriodicEvent(GameObject &associated, float period, ActionCallbac
 void PeriodicEvent::Update(float dt) {
     timer.Update(dt);
     if(timer.Get() >= period){
-        fire(*this);
+        run();
         timer.Restart();
     }
 }

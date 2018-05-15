@@ -23,7 +23,7 @@ TitleState::TitleState() {
     fontBox.x = GAME_WIDTH/2 - fontBox.w/2;
     fontBox.y = GAME_HEIGHT - fontBox.h;
 
-    fontGO->AddComponent(new PeriodicEvent(*fontGO, 0.4, [text](PeriodicEvent& e){
+    fontGO->AddComponent(new PeriodicEvent(*fontGO, 0.4, [text] {
         auto alpha = (text->GetColor().a != 0) ? 0 : 255;
         text->setColor({0, 0, 0, (Uint8)alpha});
     }));
